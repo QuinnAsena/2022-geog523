@@ -223,7 +223,7 @@ the `data.frame()` function can combine the vectors into a data frame.
 
 ```{r dfs}
 data_mixed <- data.frame(factor_vec, doub_vec, int_vec)
-
+data_mixed
 ```
 
 To read the data into R we use the `read.csv()` function.
