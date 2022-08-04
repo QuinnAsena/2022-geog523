@@ -6,32 +6,66 @@ format:
   html:
     code-fold: false
     toc: true
+theme:
+  light: flatly
+  dark: darkly
 ---
 
 # Introduction
 
 This lab is designed to introduce you to R and RStudio, which we will use for all future computer labs. R is a high-level scientific scripting (programming) language for analyzing and visualizing data. RStudio provides a useful front-end visual interface for writing R code and viewing results. “High-level” here means that the grammar of the R programming language is designed to be reasonably intuitive to humans, as opposed to other programming languages that are optimized to be machine-readable. R is part of a whole family of high-level programming languages – Python and Matlab are also very popular, plus ArcGIS, JavaScript, etc., etc. When learning any of these languages, the rule of thumb is that the first one takes the most time to learn, but after that, the next one is relatively easy to learn, because they all follow similar conventions. Knowing one or more of these languages is a foundational skill in the fast-growing field of the data sciences.
 
-Most data anlysis and modelling is done in languages such as R, Python or Julia. The steep learning curve is worth it. We cannot teach everything in one lab so in the @sec-resources section are links to resources (some of which this lab is based on) that include everything needed for this module. 
+## Before the lab
 
-# Projects and Working Directories
+Download R and RStudio and [familiarise yourself with the layout](https://environmentalcomputing.net/getting-started-with-r/installing-r-rstudio/).
 
-It is important to structure projects carefully so that data and scripts are stored in the same location. Usually a project's structure will have a high level directory that contains several sub-directories for data and outputs. For example you might want to create a high level directory called '02-intro-to-r', and two sub-directories named 'data' and 'outputs' respectively that we will use later. For reference [see here](https://environmentalcomputing.net/getting-started-with-r/project-management/).
+1. Download R: [Windows](https://cran.r-project.org/bin/windows/base/); [Mac](https://cran.r-project.org/bin/macosx/).
 
-### Exercise
+2. [Download RStudio Desktop](https://www.rstudio.com/products/rstudio/download/).
 
-- Create a directory named 02-intro-to-R
+RStudio is an integrated development environment (IDE) for R and runs R under the hood (you will need both installed). There are other options available but we will stick with RStudio.
 
-- Create two sub-directories
-  - 'data' and 'outputs'
+## Getting help in Geog523
+
+R is hard, we know, and we can't teach it all in one lab. Take advantage of the out-of-class resources including the slack channel and office-hours. _We are here to support you through the learning curve_. While coursework should be completed independently we also encourage students to help each other out.
+
+This workbook is intended to provide you with some basics skills, but primarily to direct you to relevant resources. Links will be provided along the way and in @sec-resources are links to resources (some of which this lab is based on) that include everything needed for this module. 
+
+When posting in the Geog523 slack channel:
+
+- Make sure you have looked through the resources and tried to solve the problem yourself.
+
+- Ask a clear question copying the line of code causing an error as well as the error message.
+
+Best practice for asking questions is to create a ['reprex'](https://stackoverflow.com/help/minimal-reproducible-example). Often you will solve your own question by working it through.
+
 
 # R basics
 
-Fundamentally, R does maths:
+Buckle up, here we go! We will have regular check-ins during the lab to make sure everyone is keeping up. If you are struggling, put a red sticky on the top of your screen, if all is good, put the green sticky on your screen.
+
+## Projects and Working Directories
+
+It is important to structure projects carefully so that data and scripts are stored in the same location. Usually a project's structure will have a high level directory that contains several sub-directories for data and outputs. For example you might want to create a course directory called '2022-Geog523', a directory within that for this lab called '02-intro-to-r', and two sub-directories within that named 'data' and 'outputs' respectively that we will use later. For reference [see here](https://environmentalcomputing.net/getting-started-with-r/project-management/).
+
+**IMAGE OF DIRECTORY STRUCTURE HERE**
+
+- 2022-Geog523
+  - 02-intro-to-r
+    - data
+    - outputs
+
+Future labs will be set up following a similar structure.
+
+### Exercise
+
+1. Create the described directory structure above
+
+2. Open up RStudio click 'File' -> 'New Project' -> 'Existing Directory'. Navigate to the directory you created called 02-intro-to-r and hit Create Project.
 
 ## Maths and operations
 
-R supports mathematical operators:
+Fundamentally, R does maths. R supports mathematical operators:
 
 ```{r operators}
 
@@ -39,27 +73,32 @@ R supports mathematical operators:
 
 (2 + 3) * 7
 
-pi / 4
+pi / 4 # note that 'pi' is built into R
 ```
 
 ### Exercise
 
-1. Open up RStudio click 'file' -> 'New File' -> 'R Script'
+1. Click 'file' -> 'New File' -> 'R Script'.
 
-2. Using mathematical operators, try subtract your age from the current year
+2. Using mathematical operators, try subtract your age from the current year.
 
 3. Type the calculation into your R script, and use control + enter to run the line of code
 
-4. Save your R script to the high level directory you created earlier called 02-intro-to-r
+4. Save your R script to the high level directory you created earlier called 02-intro-to-r.
+
 
 ## Objects and assignment
 
-Typicall we work with 'objects' in R. An object can be a value, word, data, matrix, or any acceptable class in R. Objects are stored in the 'environment' (by default, the top right panel) in RStudio. To create an object we use the 'assignment'operaror (`<-`).
+Typicall we work with 'objects' in R. An object can be a value, word, data, matrix, or any acceptable class in R. Objects are stored in the 'environment' (by default, the top right panel) in RStudio. To create an object we use the 'assignment'operaror (`<-`). For details [see here](https://datacarpentry.org/R-genomics/01-intro-to-R.html#creating_objects).
 
 ```{r objects}
 
+# Assign a value of 3 to an object called 'radious'
 radius <- 3
+# See it appear in your 'working environment'?
 
+# Assign a value to an object called 'area'
+# the assigned value is the result of the calculation on the right hand side of the assignment operator (<-)
 area <- pi * radius^2
 
 ```
@@ -70,6 +109,7 @@ Note that assignment does not print the result. To do so we can 'call' the objec
 
 ```{r objectcall}
 
+# By running the name of an object it will 'print' the output to the console
 radius
 
 area
@@ -78,31 +118,122 @@ area
 
 ### Exercise
 
-- assign your age to an object called `my_age`
+1. assign your age to an object called `my_age`
 
-- assign the current year to an object called `year`
+2. assign the current year to an object called `year`
 
-- subtract the two objects from each other and see if you get the right result
+3. subtract the two objects from each other and see if you get the right result.
+
+*Note object names cannot have spaces, use snake_case or CamelCase*
 
 ## Comments
 
+When writing code it is best practice to include comments. When  you look back at your code in a week or two it can be difficult to understand why you did what you did. In R, anything following a '#' is a comment and will not be executed as code. See in the code chunks above there are comments to help describe what is going on?
+
+## Functions and help
+
+There are many 'functions' built into R to make life easier. Functions are easy to recognise because it is a function name followed by parentheses. Everything put inside the parentheses are called 'arguments'. A function takes an input argument (or several) and produces an output. For example:
+
+```{r functions}
+# Take the square root of the number 16
+sqrt(16) # '16' is the 'argument' provided to the function sqrt
+sqrt(radius) # Take the square root of the object defined earlier
+round(area) # Round up the result of area 
+
+# Note that we are performing calculations with the object but not overwriting the object.
+# The objects radius and area still retain their original values.
+# we could overwrite the object like this:
+radius <- sqrt(radius) # run the object radius again to see the new value
+# or create a new one like this:
+area_round <- round(area)
+```
+
+[See here](https://datacarpentry.org/R-genomics/01-intro-to-R.html#functions) for more detail.
+
+Functions can be simple (like the examples above), or designed to complete sophisticated analyses. To find out more about a function you can bring up the help using the `?` followed by the function name:
+
+```{r help, message=FALSE, warning=FALSE, results=FALSE}
+?round
+```
+
+See the help for the function `round` tells you the details? If you scroll down to Arguments section you will see it has a second argument called digits. You will also see examples of how to use the function.
+
+### Exercise
+
+- See if you can use the `round()` function and the `digits` argument to round the `radius` object to different numbers of decimal places.
+
+## Packages
+
+R has a set of functions built in like the examples above but often we need more that come from downloading packages. A package is a collection of functions. Packages are often specialized to complete particular tasks and analyses. A lot of learning R is figureing out the functions you need.
+
+To install a package we use the function `install.packages()` and put the name of the package in quotation marks:
+
+```{r install, message=FALSE, warning=FALSE, results=FALSE}
+# We will use the analogue package later in the course.
+install.packages("analogue", repos='http://cran.us.r-project.org')
+```
+
+To access the set of functions in a package we have to tell R to load them using the `library()` function:
+
+```{r libraray, message=FALSE, warning=FALSE, results=FALSE}
+library(analogue)
+```
+
+Now R knows we want to access functions from the analogue package. More on this later in the course.
+
+## Data types and structures
+
+One of the most important concepts to familiarise youself with is data types and structures. The objects we worked with `radius` and `area` were both type numeric. Other types include: characters (also called strings),
+
+```{r types}
+char <- "this is a string"
+int <- 42L # Integers
+doub <- 1.61803 # Decimals called type double
+logic <- TRUE # Logical TRUE or FALSE values (case sensitie)
+```
+
+To find the type of an object use the function `typeof()`. Data structures are organised sets of values. The most fundamental are:
+
+- Vectors: one dimentional structures of a single type
+
+- Matrices: two dimensional structures of a single type
+
+- Data frames: two dimentional structures of mixed types
+
+Other structures exists such as lists and arrays which we will leave alone for now.
+
+The function `c()` concatenates (sticks together) multiple values that must be of the same type into a vector.
+
+```{r vectors}
+# Create a vector of type double
+doub_vec <- c(1.87, 5, 42, 10.0)
+factor_vec <- factor(c("small", "medium", "large", "large")) # a special type of vector of categories
+int_vec <- c(1L, 2L, 3L, 4L) # 'L' indicates an integer
+```
+
+The `matrix()` function creates a two dimentional matrix that must also be of the same type.
+
+```{r matrices}
+a <- c(1,2,3,4,5,6,7,8,9,10)
+A <- matrix(a, nrow = 5, ncol = 2)   # fill in by column 
+A
+```
+
+the `data.frame()` function can combine the vectors into a data frame. 
+
+```{r dfs}
+data_mixed <- data.frame(factor_vec, doub_vec, int_vec)
+
+```
+
+To read the data into R we use the `read.csv()` function.
 
 
-# Functions and help
+Some of the fundamental structures are well described [here](https://environmentalcomputing.net/getting-started-with-r/data-types-structure/).
 
-Most functions in R 
+# Homework
 
-
-
-# Data structures
-
-
-
-# Manipulating dataframes
-
-
-
-
+If you are unfamiliar with R, go through this workbook again and link through to the resources provided along the way. Each link points to a useful recourse for each topic (assignment, objects, data structures...) that go into more detail.
 
 # Resources {#sec-resources}
 
@@ -110,33 +241,7 @@ Most functions in R
 
 - [The R Guide, W. J. Owen](https://cran.r-project.org/doc/contrib/Owen-TheRGuide.pdf)
 
-- [data and software carpentry](https://carpentries.org/workshops-curricula/)
+- [Data and Software carpentry](https://carpentries.org/workshops-curricula/)
 
 - [stackoverflow](https://stackoverflow.com/)
   - I recommend only browsing stackoverflow at this stage. The community does not like duplicated questions.
-
-# Getting help
-
-If you can't find the answer in the resources provided feel free to ask questions on the Geog523 slack channel. We encourage students to help each other out but will step in if needed.
-
-Best practice for asking questions is to create a ['reprex'](https://stackoverflow.com/help/minimal-reproducible-example). Often you will solve your own question by working it through.
-
-
-# Demonstration 
-
-Here is some text.
-
-And here is a plot:
-
-```{r, warning=FALSE}
-library(ggplot2)
-ggplot() +
-  geom_point(
-    data = mtcars,
-    aes(wt, mpg),
-    color = "goldenrod"
-  ) +
-  labs(
-    title = "Some Dots"
-  ) 
-```
