@@ -90,7 +90,7 @@ pi / 4 # note that 'pi' is built into R.
 
 2. Using mathematical operators, try subtract your age from the current year.
 
-3. Type the calculation into your R script, and use control + enter to run the line of code
+3. Type the calculation into your R script, and use control + enter to run the line of code.
 
 4. Save your R script to the high level directory you created earlier called 02-intro-to-r.
 :::
@@ -119,7 +119,7 @@ area <- pi * radius^2
 
 ```
 
-These lines of code first assign a value of 3 to an object called radius and then assign the result of a calculation (using the object radius) to a second object called 'area'. `pi` is predefined in R; thus, does not need to be assigned to an object.
+These lines of code first, assign a value of 3 to an object called 'radius' and then assign the result of a calculation (using the object radius) to a second object called 'area'. `pi` is predefined in R; thus, does not need to be assigned to an object.
 
 Note that assignment does not print the result. To do so we can 'call' the object by running it (control enter).
 
@@ -141,35 +141,36 @@ area
 
 3. subtract the two objects from each other and see if you get the right result.
 
-*Note object names cannot have spaces, use snake_case or CamelCase*
+*Note object names cannot have spaces or begin with numbers. Use snake_case or CamelCase*
 :::
 
 ## Comments
 
-When writing code it is best practice to include comments. When  you look back at your code in a week or two it can be difficult to understand why you did what you did. In R, anything following a '#' is a comment and will not be executed as code. See in the code chunks above there are comments to help describe what is going on?
+When writing code it is best practice to include comments. When  you look back at your code in a week or two it can be difficult to understand why you did what you did. In R, anything following a '`#`' is a comment and will not be executed as code. See in the code chunks above there are comments to help describe what is going on?
 
 ## Functions and help
 
-There are many 'functions' built into R to make life easier. Functions are easy to recognise because it is a function name followed by parentheses. Everything put inside the parentheses are called 'arguments'. A function takes an input argument (or several) and produces an output. For example:
+There are many functions built into R to make life easier. Functions are easy to recognise because most are a function name followed by parentheses, e.g., `sqrt()`. Requirements of the function inside the parentheses are called 'arguments'. A function takes an input (or several) and produces an output. For example:
 
 ```{r functions}
 # Take the square root of the number 16.
-sqrt(16) # '16' is the 'argument' provided to the function sqrt.
+sqrt(16) # '16' is the input provided to the function sqrt.
 sqrt(radius) # Take the square root of the object defined earlier.
 round(area) # Round up the result of area.
-
-# Note that we are performing calculations on the object but not overwriting it.
-# The objects radius and area still retain their original values.
-# we could overwrite the object like this:
-radius <- sqrt(radius) # run the object radius again to see the new value.
-# or create a new one like this:
-area_round <- round(area)
 ```
 
 :::{.callout-note}
 ## Reference resource
 [Using functions](https://datacarpentry.org/R-genomics/01-intro-to-R.html#functions) for more detail.
 :::
+
+Note that we are performing calculations on the object but not overwriting it. The objects radius and area still retain their original values. We could overwrite the object like this:
+
+```{r functions2}
+radius <- sqrt(radius) # run the object radius again to see the new value.
+# or create a new one like this:
+area_round <- round(area)
+```
 
 Functions can be simple (like the examples above), or designed to complete sophisticated analyses. To find out more about a function you can bring up the help using the `?` followed by the function name:
 
@@ -208,6 +209,11 @@ Now R knows we want to access functions from the analogue package. More on this 
 
 Data types and structures are important concepts in R. The objects we worked with, `radius` and `area`, were both type double (decimal). Other types include: characters (also called strings), integers, and logial.
 
+:::{.callout-note}
+## Reference resource
+[Types and structures](https://environmentalcomputing.net/getting-started-with-r/data-types-structure/).
+:::
+
 ```{r types}
 char <- "this is a string" # String is indicated by ""
 int <- 42L # Integers are indicated by the 'L'
@@ -238,21 +244,17 @@ int_vec <- c(1L, 2L, 3L, 4L) # 'L' indicates an integer.
 The `matrix()` function creates a two dimentional matrix that must also be of the same type.
 
 ```{r matrices}
-a <- c(1,2,3,4,5,6,7,8,9,10) # vector of numbers.
+a <- c(1:10) # vector of numbers from 1 to 10.
 A <- matrix(a, nrow = 5, ncol = 2) # Converts 'a' into a 5x2 matrix names 'A'.
 A
 ```
 
-the `data.frame()` function can combine the vectors into a data frame. 
+The `data.frame()` function can combine the vectors into a data frame. 
 
 ```{r dfs}
 data_mixed <- data.frame(factor_vec, doub_vec, int_vec)
 data_mixed
 ```
-:::{.callout-note}
-## Reference resource
-[Types and structures](https://environmentalcomputing.net/getting-started-with-r/data-types-structure/).
-:::
 
 ## Saving and loading data
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.0.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -254,7 +254,7 @@ Exercise
 <ol type="1">
 <li><p>Click ‘file’ -&gt; ‘New File’ -&gt; ‘R Script’.</p></li>
 <li><p>Using mathematical operators, try subtract your age from the current year.</p></li>
-<li><p>Type the calculation into your R script, and use control + enter to run the line of code</p></li>
+<li><p>Type the calculation into your R script, and use control + enter to run the line of code.</p></li>
 <li><p>Save your R script to the high level directory you created earlier called 02-intro-to-r.</p></li>
 </ol>
 </div>
@@ -285,7 +285,7 @@ Reference resource
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>area <span class="ot">&lt;-</span> pi <span class="sc">*</span> radius<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># the assigned value is the result of the calculation on the right hand side of the assignment operator (&lt;-).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>These lines of code first assign a value of 3 to an object called radius and then assign the result of a calculation (using the object radius) to a second object called ‘area’. <code>pi</code> is predefined in R; thus, does not need to be assigned to an object.</p>
+<p>These lines of code first, assign a value of 3 to an object called ‘radius’ and then assign the result of a calculation (using the object radius) to a second object called ‘area’. <code>pi</code> is predefined in R; thus, does not need to be assigned to an object.</p>
 <p>Note that assignment does not print the result. To do so we can ‘call’ the object by running it (control enter).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># By running the name of an object it will 'print' the output to the console.</span></span>
@@ -313,20 +313,20 @@ Exercise
 <li><p>assign the current year to an object called <code>year</code></p></li>
 <li><p>subtract the two objects from each other and see if you get the right result.</p></li>
 </ol>
-<p><em>Note object names cannot have spaces, use snake_case or CamelCase</em></p>
+<p><em>Note object names cannot have spaces or begin with numbers. Use snake_case or CamelCase</em></p>
 </div>
 </div>
 </section>
 <section id="comments" class="level2">
 <h2 class="anchored" data-anchor-id="comments">Comments</h2>
-<p>When writing code it is best practice to include comments. When you look back at your code in a week or two it can be difficult to understand why you did what you did. In R, anything following a ‘#’ is a comment and will not be executed as code. See in the code chunks above there are comments to help describe what is going on?</p>
+<p>When writing code it is best practice to include comments. When you look back at your code in a week or two it can be difficult to understand why you did what you did. In R, anything following a ‘<code>#</code>’ is a comment and will not be executed as code. See in the code chunks above there are comments to help describe what is going on?</p>
 </section>
 <section id="functions-and-help" class="level2">
 <h2 class="anchored" data-anchor-id="functions-and-help">Functions and help</h2>
-<p>There are many ‘functions’ built into R to make life easier. Functions are easy to recognise because it is a function name followed by parentheses. Everything put inside the parentheses are called ‘arguments’. A function takes an input argument (or several) and produces an output. For example:</p>
+<p>There are many functions built into R to make life easier. Functions are easy to recognise because most are a function name followed by parentheses, e.g., <code>sqrt()</code>. Requirements of the function inside the parentheses are called ‘arguments’. A function takes an input (or several) and produces an output. For example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take the square root of the number 16.</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">16</span>) <span class="co"># '16' is the 'argument' provided to the function sqrt.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">16</span>) <span class="co"># '16' is the input provided to the function sqrt.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
@@ -338,12 +338,6 @@ Exercise
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 28</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that we are performing calculations on the object but not overwriting it.</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The objects radius and area still retain their original values.</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we could overwrite the object like this:</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>radius <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(radius) <span class="co"># run the object radius again to see the new value.</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># or create a new one like this:</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>area_round <span class="ot">&lt;-</span> <span class="fu">round</span>(area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -358,6 +352,12 @@ Reference resource
 <p><a href="https://datacarpentry.org/R-genomics/01-intro-to-R.html#functions">Using functions</a> for more detail.</p>
 </div>
 </div>
+<p>Note that we are performing calculations on the object but not overwriting it. The objects radius and area still retain their original values. We could overwrite the object like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>radius <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(radius) <span class="co"># run the object radius again to see the new value.</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or create a new one like this:</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>area_round <span class="ot">&lt;-</span> <span class="fu">round</span>(area)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Functions can be simple (like the examples above), or designed to complete sophisticated analyses. To find out more about a function you can bring up the help using the <code>?</code> followed by the function name:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>?round</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -369,7 +369,7 @@ Reference resource
 <i class="callout-icon"></i>
 </div>
 <div class="callout-caption-container flex-fill">
-Expand To Learn About Collapse
+Exercise
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -396,6 +396,19 @@ Expand To Learn About Collapse
 <section id="data-types-and-structures" class="level2">
 <h2 class="anchored" data-anchor-id="data-types-and-structures">Data types and structures</h2>
 <p>Data types and structures are important concepts in R. The objects we worked with, <code>radius</code> and <code>area</code>, were both type double (decimal). Other types include: characters (also called strings), integers, and logial.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Reference resource
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://environmentalcomputing.net/getting-started-with-r/data-types-structure/">Types and structures</a>.</p>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>char <span class="ot">&lt;-</span> <span class="st">"this is a string"</span> <span class="co"># String is indicated by ""</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>int <span class="ot">&lt;-</span> 42L <span class="co"># Integers are indicated by the 'L'</span></span>
@@ -419,7 +432,7 @@ Expand To Learn About Collapse
 </div>
 <p>The <code>matrix()</code> function creates a two dimentional matrix that must also be of the same type.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>) <span class="co"># vector of numbers.</span></span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># vector of numbers from 1 to 10.</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(a, <span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="co"># Converts 'a' into a 5x2 matrix names 'A'.</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>A</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -431,7 +444,7 @@ Expand To Learn About Collapse
 [5,]    5   10</code></pre>
 </div>
 </div>
-<p>the <code>data.frame()</code> function can combine the vectors into a data frame.</p>
+<p>The <code>data.frame()</code> function can combine the vectors into a data frame.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>data_mixed <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(factor_vec, doub_vec, int_vec)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>data_mixed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -441,19 +454,6 @@ Expand To Learn About Collapse
 2     medium     5.00       2
 3      large    42.00       3
 4      large    10.00       4</code></pre>
-</div>
-</div>
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Reference resource
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><a href="https://environmentalcomputing.net/getting-started-with-r/data-types-structure/">Types and structures</a>.</p>
 </div>
 </div>
 </section>
@@ -474,7 +474,7 @@ Reference resource
 </section>
 <section id="homework" class="level1">
 <h1>Homework</h1>
-<p>If you are unfamiliar with R, go through this workbook again and link through to the resources provided along the way. Each link points to a useful recourse for each topic (assignment, objects, and data structures) that go into more detail.</p>
+<p>If you are unfamiliar with R, go through this workbook again and link through to the reference resources provided along the way. Each link points to a useful recourse for each topic (assignment, objects, and data structures) that go into more detail.</p>
 </section>
 <section id="sec-resources" class="level1">
 <h1>Resources</h1>
@@ -495,11 +495,11 @@ Reference resource
 <section id="notes" class="level1">
 <h1>Notes</h1>
 <ul class="task-list">
-<li><input type="checkbox" disabled="">
-More time on working directories</li>
+<li><p><input type="checkbox" disabled="">
+More time on working directories</p></li>
+<li><p><input type="checkbox" disabled="">
+Less on single values, go to vectors</p></li>
 </ul>
-<p>[ ] Less on single values, go to vectors</p>
-<p>[x] Less on single values, go to vectors</p>
 </section>
 
 </main>
