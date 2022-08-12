@@ -6,6 +6,7 @@ format:
   html:
     code-fold: false
     toc: true
+    link-external-newwindow: true
 theme:
   light: flatly
   dark: darkly
