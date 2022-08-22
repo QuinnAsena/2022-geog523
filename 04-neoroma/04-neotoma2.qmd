@@ -1,0 +1,149 @@
+---
+title: "Lab 4: Direct Porting of Neotoma Data into R: APIs and _neotoma_"
+Author: "Simon Goring, Quinn Asena, with modifications by Jack Williams"
+date: "August 18, 2022"
+format:
+  html:
+    code-fold: false
+    toc: true
+    link-external-newwindow: true
+theme:
+  light: flatly
+  dark: darkly
+---
+
+# Before the lab
+
+## Install packages:
+
+- _neotoma2_, _analogue_, and _rworldmap_.
+
+:::{.callout-tip}
+## Note:
+
+To download the latest version of `neotoma2` you will need to download it from the source on GitHub.
+
+```{r, eval=FALSE}
+
+install.packages("devtools")
+devtools::install_github('NeotomaDB/neotoma2')
+library(neotoma2)
+
+```
+:::
+
+## Read:
+
+Goring, S., Dawson, A., Simpson, G., Ram, K., Graham, R. W., Grimm, E. C., and Williams, J. W. (2015) neotoma: A Programmatic Interface to the Neotoma Paleoecological Database. Open Quaternary 1:1-17.
+
+# Part 1: APIs
+
+## Goals
+
+- Understand the flow of data through the Neotoma Paleoecology Database package, APIs, and neotoma package.
+
+- Learn how to use the neotoma R package and key functions (e.g. get_site, get_dataset, get_download)
+
+- Learn and develop code for single-site and multi-site data visualizations.
+
+- Learn to prepare Neotoma data for passing to standard software such as analogue
+
+
+## Resources
+
+- [GitHub](https://github.com/NeotomaDB) repository for the `neotoma2` R package:
+
+- [neotoma2 manual](https://neotoma-manual.readthedocs.io/en/latest/)
+
+
+## Introduction
+
+This series of exercises is designed to give you hands-on practice in using APIs and the `neotoma2` R package (Goring et al, 2015), both for practical reasons and for insights into how open-data systems work. `neotoma2`’s primary purpose is to pass data from the Neotoma Paleoecology Database (Neotoma DB) into the R environment. Neotoma relies on Application Programming Interfaces ([APIs](https://en.wikipedia.org/wiki/API)) to communicate with the Neotoma Paleoecology Database, so we’ll begin with an introduction to APIs.
+
+Note that the R components of this exercise are adapted from materials originally developed by Simon Goring, Jack Williams, and others for Neotoma training workshops at PalEON and elsewhere (e.g. [HTML](https://open.neotomadb.org/EPD_binder/simple_workflow.html) and GitHub) and are reproduced here under the [MIT](https://opensource.org/licenses/MIT) License.
+
+## APIs
+
+The Neotoma Paleoecology Database is a relational database, hosted on servers at [Penn State’s Center for Environmental Informatics](https://sites.psu.edu/environmentalinformatics/). For security reasons, direct access to these servers is quite limited, and available only to a few Neotoma and CEI programmers.
+
+__APIs__ offer public access points into Neotoma that anyone can use. Each API is basically a function: you provide the API with a set of operational parameters, and it returns a set of data or metadata. Each API hence is designed to support one particular task or set of tasks; it offers a narrow window into the larger Neotoma DB. [REST-ful APIs](https://en.wikipedia.org/wiki/Representational_state_transfer) follow a particular set of standards that allow them to be read by web browsers (i.e. within the HTTP protocol) and return data objects, typically in HTML, XML, JSON or other human- & machine-readable formats
+
+The [__Neotoma APIs__](https://api.neotomadb.org/api-docs/) provide a series of functions for retrieving different kinds of data from Neotoma DB. Data objects are returned in [JSON](https://en.wikipedia.org/wiki/JSON) format. For this exercise, we strongly recommend adding an extension to your browser that formats the JSON output to make it easier to read, such as [JSONView](https://addons.mozilla.org/en-US/firefox/addon/jsonview/).
+
+__The APIs for Neotoma are in transition right now, with version 1.0 the working version and versions 1.5 and 2.0 at the beta stage. The V1.5 and 2.0 APIs can be found here: https://api.neotomadb.org/api-docs/__
+
+__The APIs for Neotoma are in transition right now, with version 1.0 the working version and versions 1.5 and 2.0 at the beta stage. The V1.5 and 2.0 APIs can be found here: https://api.neotomadb.org/api-docs/__
+
+__Look through the lists of different APIs and find the one labled GET /v2.0/data/sites/{siteid}. Then, click on the Try It Out button at right, enter 666 into the site identifier box, and click Execute.__
+
+__Then scroll down. You you should see some example code in curl format (ignore this) and as a URL. If you scroll down further, you’ll see the actual data return, in JSON format. JSON is a structured data format designed to be both human-readable and machine-readable. It looks like a nested series of lists__
+
+__Let’s also try a V1.0 API. Put this right in the URL box in your browser:__
+
+https://api.neotomadb.org/v1/data/sites?sitename=*devil*
+
+__This should open a new web page in your browser with a returned JSON object. For this search, the JSON object should include 16 or more sites with the name ‘devil’ in them (note the use of asterisks as wildcards), including Devil’s Lake, WI. The opening line success = 1 means that the API ran successfully.__
+
+__Note that it is possible for an API to run successfully but return no data! For example, try:__
+
+api.neotomadb.org/v1/data/sites?sitename=devil
+
+__Here, success = 1, but data=[], i.e. the API successfully reported back to you that no sites in Neotoma have the exact name of ‘devil’.__
+
+__OK, now your turn:__
+__Exercise Question 1 Use the sites API to retrieve site data for sites of interest. The sites API has a few different parameters, so try out options. In your homework exercise, provide at least two sites API calls with a comment line.__
+
+
+# Part 2: Neotoma workflow
+
+The neotoma package provides a series of functions inside of R, each one of which calls one or more APIs. neotoma was primarily written by Simon Goring, with support from NSF-Geoinformatics and the ROpenSci project.
+
+Let’s begin by loading the neotoma package into RStudio.
+
+```{r, message=FALSE, warning=FALSE, results=FALSE}
+library(neotoma2)
+```
+
+## Finding sites and getting metadata
+
+We’ll start with the function `get_sites()`. `get_sites()` returns a data frame with metadata about sites. You can use this to find the spatial coverage of data in a region (using `get_sites()` with a bounding box), or to get explicit site information easily from more complex data objects. Use `?get_sites` to see all the options available. `get_site()` is essentially an R wrapper for the API sites and has very similar functionality.
+
+You can easily search by site name, for example.
+```{r, message=FALSE, warning=FALSE, results=FALSE}
+samwell_site <- get_sites(sitename = 'Samwell%')
+print(samwell_site)
+```
+
+
+`get_sites()` can return one site (as above) or many, e.g.: `devil_sites <- get_sites(sitename = 'devil%')`.
+
+`get_sites()` (and most `neotoma2` functions) returns an data object of type data.frame that stores vectors of equal length. The nice thing about a data.frame is that each vector can be of a different type (character, numeric values, etc.). In RStudio, use the Environment panel in upper right to explore the contents of `samwell_site`.
+
+While `samwell_site` is a data frame, it also has class 'site', so the print output looks a little different than a standard R data frame. This also allows you to use some of the other `neotoma2` functions more easily.
+
+:::{.callout-caution}
+## Exercise Question X
+How many sites have the name ‘clear’ in them? Show both your code and provide the total count.
+:::
+
+
+You can also search by lat/lon bounding box. This one roughly corresponds to Florida.
+
+```{r, message=FALSE, warning=FALSE, results=FALSE}
+FL_sites <- get_sites(loc = c(-88, -79, 25, 30))
+```
+
+
+__You can also search by geopolitical name or geopolitical IDs (gpid) stored in Neotoma. For a list of names and gpids, use the get_table(table.name = "GeoPoliticalUnits") command. This command works either with an explicit numeric ID, or with a text string:__
+
+__Example: get all sites in New Mexico (gpid=7956)__
+
+__NM_sites <- get_site(gpid = 7956)__
+
+__get all sites in Wisconsin__
+
+__`WI_sites <- get_site(gpid = “Wisconsin”)``__
+
+__Exercise Question 3 Which state has more sites, Minnesota or Wisconsin? How many of each? Provide both code and answer.__
+
+
