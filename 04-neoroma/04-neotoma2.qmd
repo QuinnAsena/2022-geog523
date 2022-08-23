@@ -46,7 +46,7 @@ Note that the R components of this exercise are adapted from materials originall
 
 - Understand the flow of data through the Neotoma Paleoecology Database package, APIs, and neotoma package.
 
-- Learn how to use the neotoma R package and key functions (e.g. get_site, get_dataset, get_download)
+- Learn how to use the neotoma R package and key functions (e.g. `get_sites()`, `get_datasets()`, `get_downloads()`)
 
 - Learn and develop code for single-site and multi-site data visualizations.
 
@@ -68,8 +68,6 @@ The Neotoma Paleoecology Database is a relational database, hosted on servers at
 __APIs__ offer public access points into Neotoma that anyone can use. Each API is basically a function: you provide the API with a set of operational parameters, and it returns a set of data or metadata. Each API hence is designed to support one particular task or set of tasks; it offers a narrow window into the larger Neotoma DB. [REST-ful APIs](https://en.wikipedia.org/wiki/Representational_state_transfer) follow a particular set of standards that allow them to be read by web browsers (i.e. within the HTTP protocol) and return data objects, typically in HTML, XML, JSON or other human- & machine-readable formats
 
 The [__Neotoma APIs__](https://api.neotomadb.org/api-docs/) provide a series of functions for retrieving different kinds of data from Neotoma DB. Data objects are returned in [JSON](https://en.wikipedia.org/wiki/JSON) format. For this exercise, we strongly recommend adding an extension to your browser that formats the JSON output to make it easier to read, such as [JSONView](https://addons.mozilla.org/en-US/firefox/addon/jsonview/).
-
-__The APIs for Neotoma are in transition right now, with version 1.0 the working version and versions 1.5 and 2.0 at the beta stage. The V1.5 and 2.0 APIs can be found here: https://api.neotomadb.org/api-docs/__
 
 __The APIs for Neotoma are in transition right now, with version 1.0 the working version and versions 1.5 and 2.0 at the beta stage. The V1.5 and 2.0 APIs can be found here: https://api.neotomadb.org/api-docs/__
 
@@ -95,61 +93,11 @@ __Exercise Question 1 Use the sites API to retrieve site data for sites of inter
 
 # Part 2: Neotoma workflow
 
-The neotoma package provides a series of functions inside of R, each one of which calls one or more APIs. neotoma was primarily written by Simon Goring, with support from NSF-Geoinformatics and the ROpenSci project. Let’s begin by loading the neotoma package into RStudio.
-
-```{r, message=FALSE, warning=FALSE, results=FALSE}
-library(neotoma2)
-```
-
-## Finding sites and getting metadata
-
-We’ll start with the function `get_sites()`. `get_sites()` returns a `sites` object with metadata about sites. You can use this to find the spatial coverage of data in a region (using `get_sites()` with a bounding box), or to get explicit site information easily from more complex data objects. Use `?get_sites` to see all the options available. `get_site()` is essentially an R wrapper for the API sites and has very similar functionality.
-
-You can easily search by site name, for example.
-```{r, message=FALSE, warning=FALSE, results=FALSE}
-samwell_site <- get_sites(sitename = 'Samwell%')
-print(samwell_site)
-```
-
-`get_sites()` can return one site (as above) or many, e.g.:
-
-```{r, message=FALSE, warning=FALSE, results=FALSE}
-devil_sites <- get_sites(sitename = 'devil%')
-```
-
-`get_sites()` (and most `neotoma2` functions) returns an data object of type `sites`, his also allows us to use some of the other `neotoma2` functions more easily. In RStudio, use the Environment panel in upper right to explore the contents of `samwell_site`.
-
-
-:::{.callout-caution}
-## Exercise Question X
-How many sites have the name ‘clear’ in them? Show both your code and provide the total count.
-:::
-
-You can also search by lat/lon bounding box. This one roughly corresponds to Florida.
-
-```{r, message=FALSE, warning=FALSE, results=FALSE}
-FL_sites <- get_sites(loc = c(-88, -79, 25, 30))
-```
-
-
-__You can also search by geopolitical name or geopolitical IDs (gpid) stored in Neotoma. For a list of names and gpids, use the get_table(table.name = "GeoPoliticalUnits") command. This command works either with an explicit numeric ID, or with a text string:__
-
-__Example: get all sites in New Mexico (gpid=7956)__
-
-__NM_sites <- get_site(gpid = 7956)__
-
-__get all sites in Wisconsin__
-
-__`WI_sites <- get_site(gpid = “Wisconsin”)``__
-
-__Exercise Question 3 Which state has more sites, Minnesota or Wisconsin? How many of each? Provide both code and answer.__
-
-
-## Getting datasets
+The `neotoma2` package provides a series of functions inside of R, each one of which calls one or more APIs. neotoma was primarily written by Simon Goring, with support from NSF-Geoinformatics and the ROpenSci project. 
 
 __The structure of the Neotoma data model, as expressed through the API is roughly: “counts of a fossil taxa within download, download within dataset, dataset within site”. So a dataset contains information about a particular dataset from a given site. A site may have one or several associated datasets.__
 
-The neotoma data structure is as follows (@fig-neostructure):
+The neotoma data structure is as follows:
 
 - sites: smltiple locations (e.g., several lakes)
 
@@ -169,16 +117,70 @@ The neotoma data structure is as follows (@fig-neostructure):
 
 ![`neotoma2` structure and associated functions](AMQUA_binder-main/images/neotomaUML_as.svg){#fig-neostructure}
 
-
-`get_datasets()` returns a list of datasets containing the metadata for each dataset. It can receive as inputs vectors of site names, vectors of site IDs, or data objects of class site (i.e. output from get_site!). For example:
+How the above points relate to eachother is illustrated in  (@fig-neostructure).  (@fig-neostructure) is a handy reference for what functions apply to different parts of the workflow. Let’s begin by loading the neotoma package into RStudio.
 
 ```{r, message=FALSE, warning=FALSE, results=FALSE}
+library(neotoma2)
+```
+
+## Finding sites: `get_sites()`
+
+We’ll start with the function `get_sites()`. `get_sites()` returns a `sites` object with metadata about sites. You can use this to find the spatial coverage of data in a region (using `get_sites()` with a bounding box), or to get explicit site information easily from more complex data objects. Use `?get_sites` to see all the options available. `get_site()` is essentially an R wrapper for the API sites and has very similar functionality.
+
+You can easily search by site name, for example.
+```{r, message=FALSE, warning=FALSE, results=FALSE}
+samwell_site <- get_sites(sitename = 'Samwell%')
+print(samwell_site)
+```
+
+`get_sites()` can return one site (as above) or many, e.g.:
+
+```{r, message=FALSE, warning=FALSE, results=FALSE}
+devil_sites <- get_sites(sitename = 'devil%')
+```
+
+`get_sites()` (and most `neotoma2` functions) returns an data object of class `site`, this also allows us to use some of the other `neotoma2` functions more easily. In RStudio, use the Environment panel in upper right to explore the contents of `samwell_site`.
+
+
+:::{.callout-caution}
+## Exercise Question X
+How many sites have the name ‘clear’ in them? Show both your code and provide the total count.
+:::
+
+You can also search by lat/lon bounding box. This one roughly corresponds to Florida.
+__??? Need to update bounding box ???__
+
+```{r, message=FALSE, warning=FALSE, results=FALSE}
+FL_sites <- get_sites(loc = c(-88, -79, 25, 30))
+```
+
+
+___??? Geopolitical unites not working for me in neotoma2 ???__
+__You can also search by geopolitical name or geopolitical IDs (gpid) stored in Neotoma. For a list of names and gpids, use the get_table(table.name = "GeoPoliticalUnits") command. This command works either with an explicit numeric ID, or with a text string:__
+
+__Example: get all sites in New Mexico (gpid=7956)__
+
+__NM_sites <- get_site(gpid = 7956)__
+
+__get all sites in Wisconsin__
+
+__`WI_sites <- get_site(gpid = “Wisconsin”)``__
+
+__Exercise Question 3 Which state has more sites, Minnesota or Wisconsin? How many of each? Provide both code and answer.__
+
+
+## Getting datasets: `get_datasets()`
+
+To return the metadata on what datasets a collectionunit has, we use the `get_datasets()` function. `get_datasets()` receives as inputs vectors of site names, vectors of site IDs, or data objects of class site (i.e. output from get_site!). For example:
+
+```{r, message=FALSE, warning=FALSE, results=FALSE}
+# We can pass output from get_site to get_datasets:
+
 samwell_datasets <- get_datasets(samwell_site)
 
 print(samwell_datasets)
 
-# We can pass output from get_site to get_datasets,
-# even if get_sites returns multiple sites
+# Even if get_sites returns multiple sites:
 
 devil.meta.dataset  <- get_datasets(devil_sites)
 
@@ -203,14 +205,15 @@ __Note that browse returns a local result of null to R (which is normal) and the
 
 __REPLACE BROWSE WITH `plotLeaflet()`?__
 
+Sometimes, it’s helpful to quickly spot-check your results using Neotoma Explorer and its quick-look visualizations. You can easily visualise your results using the `plotLeaflet()` function. Mapping results can be especially handy if you have returned a site in an unexpected location when searching for sites by a partial name match. Have a look at the geographical locations of sites returned with the name 'Devil'.
 
 ```{r}
 plotLeaflet(devil_sites)
 ```
 
-## Want to read more? get_publications
+## Want to read more? `get_publications()`
 
-You can use `get_publications()` to get more information. Pass in the publication IDs or a dataset object, e.g.: 
+You can use `get_publications()` to get information on publications associated with sites. Pass in the publication IDs or a dataset object, e.g.: 
 ```{r, eval=FALSE}
 samwell_pubs <- get_publications(samwell_datasets)
 # Error in switch(use, dev = "https://api-dev.neotomadb.org/v2.0/", neotoma = "https://api.neotomadb.org/v2.0/",  : 
@@ -218,11 +221,9 @@ samwell_pubs <- get_publications(samwell_datasets)
 ```
 
 
-## Downloading data `get_downloads()` and `get_geochron()`
+## Downloading data `get_downloads()`
 
-`get_downloads()` returns a list of download objects, one for each retrieved dataset. Note that `get_downloads()` returns the actual data associated with each dataset, rather than a list of the available datasets, as in `get_datasets()` above.
-
-`get_downloads()` will accept an object of `class` dataset (e.g., `samwell_dataset`) or of `class` site (e.g., `samwell_site`). If the latter, it will automatically query for the datasets associated in each site. For example:
+`get_downloads()` returns a list of download objects, one for each retrieved dataset. Note that `get_downloads()` returns the actual data associated with each dataset, rather than a list of the available datasets, as in `get_datasets()` above. `get_downloads()` will accept an object of `class` dataset (e.g., `samwell_dataset`) or of `class` site (e.g., `samwell_site`). If the latter, it will automatically query for the datasets associated in each site. For example:
 
 ```{r, message=FALSE, warning=FALSE, results=FALSE}
 samwell_datasets_downloads <- get_downloads(samwell_datasets)
@@ -245,9 +246,11 @@ samwell_geochron <- chronologies(samwell_site_downloads)
 print(samwell_geochron)
 ```
 
-## Filtering
+## Filtering: `filter()`
 
-Collection units contain datasets (@fig-neostructure). We can use the `datasets()` function on a site (or sites) object return details on what records they contain:
+__??? Should Filtering come before downloading???__
+
+Collection units contain datasets (@fig-neostructure). We can use the `datasets()` function on a site (or sites) to return details on what records they contain:
 
 ```{r}
 datasets(samwell_datasets)
@@ -260,7 +263,7 @@ samwell_datasets_vf <- samwell_datasets %>%
   neotoma2::filter(datasettype == "vertebrate fauna" & !is.na(age_range_young))
 ```
 
-Now, we can use get downloads to download a single dataset, rather that _all_ the data as we did above. Let’s look a bit more closely at the data frame returned by `get_downloads()`, using the just the vertebrate datasets for Samwell Cave Popcorn Dome (dataset 14262):
+Now, we can use `get_downloads()` to download a single dataset, rather that _all_ the data as we did above. Let's download only the vertebrate datasets for Samwell Cave Popcorn Dome (dataset 14262):
 
 ```{r, message=FALSE, warning=FALSE, results=FALSE}
 samwell_pd <- get_downloads(14262)
@@ -272,5 +275,17 @@ Let’s examine the available data in this download:
 
 ## Extracting Taxa
 
+__??? Seems to have changed a lot since `neotoma` no longer `compile_taxa()`???__
 
-##
+## Visualising and analyzing results
+
+__???Should this still follow `analogue` like the older resource or `rijoa` like https://open.neotomadb.org/EPD_binder/simple_workflow.html#Searching_for_datasets: ???__
+
+### Visualising and analyzing a single site
+
+### Visualising and analyzing multiple sites
+
+
+## Fun with For-Loops
+
+__??? Section still necessary???__
