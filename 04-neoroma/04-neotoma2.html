@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.0.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -94,6 +94,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="04-neotoma2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="04-neotoma2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="04-neotoma2_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="04-neotoma2_files/libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="04-neotoma2_files/libs/jquery-1.12.4/jquery.min.js"></script>
+<link href="04-neotoma2_files/libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="04-neotoma2_files/libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="04-neotoma2_files/libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="04-neotoma2_files/libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="04-neotoma2_files/libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="04-neotoma2_files/libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="04-neotoma2_files/libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="04-neotoma2_files/libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="04-neotoma2_files/libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<link href="04-neotoma2_files/libs/leaflet-markercluster-1.0.5/MarkerCluster.css" rel="stylesheet">
+<link href="04-neotoma2_files/libs/leaflet-markercluster-1.0.5/MarkerCluster.Default.css" rel="stylesheet">
+<script src="04-neotoma2_files/libs/leaflet-markercluster-1.0.5/leaflet.markercluster.js"></script>
+<script src="04-neotoma2_files/libs/leaflet-markercluster-1.0.5/leaflet.markercluster.freezable.js"></script>
+<script src="04-neotoma2_files/libs/leaflet-markercluster-1.0.5/leaflet.markercluster.layersupport.js"></script>
 
 
 </head>
@@ -108,19 +124,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#before-the-lab" id="toc-before-the-lab" class="nav-link active" data-scroll-target="#before-the-lab">Before the lab</a>
   <ul class="collapse">
-  <li><a href="#install-packages" id="toc-install-packages" class="nav-link" data-scroll-target="#install-packages">Install packages:</a></li>
-  <li><a href="#read" id="toc-read" class="nav-link" data-scroll-target="#read">Read:</a></li>
+  <li><a href="#install-packages" id="toc-install-packages" class="nav-link" data-scroll-target="#install-packages">Install packages</a></li>
+  <li><a href="#read" id="toc-read" class="nav-link" data-scroll-target="#read">Read</a></li>
   </ul></li>
-  <li><a href="#part-1-apis" id="toc-part-1-apis" class="nav-link" data-scroll-target="#part-1-apis">Part 1: APIs</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
   <li><a href="#goals" id="toc-goals" class="nav-link" data-scroll-target="#goals">Goals</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  </ul></li>
+  <li><a href="#part-1-apis" id="toc-part-1-apis" class="nav-link" data-scroll-target="#part-1-apis">Part 1: APIs</a>
+  <ul class="collapse">
   <li><a href="#apis" id="toc-apis" class="nav-link" data-scroll-target="#apis">APIs</a></li>
   </ul></li>
   <li><a href="#part-2-neotoma-workflow" id="toc-part-2-neotoma-workflow" class="nav-link" data-scroll-target="#part-2-neotoma-workflow">Part 2: Neotoma workflow</a>
   <ul class="collapse">
   <li><a href="#finding-sites-and-getting-metadata" id="toc-finding-sites-and-getting-metadata" class="nav-link" data-scroll-target="#finding-sites-and-getting-metadata">Finding sites and getting metadata</a></li>
+  <li><a href="#getting-datasets" id="toc-getting-datasets" class="nav-link" data-scroll-target="#getting-datasets">Getting datasets</a></li>
+  <li><a href="#what-have-i-found-browse" id="toc-what-have-i-found-browse" class="nav-link" data-scroll-target="#what-have-i-found-browse">What have I found <code>browse</code></a></li>
+  <li><a href="#want-to-read-more-get_publications" id="toc-want-to-read-more-get_publications" class="nav-link" data-scroll-target="#want-to-read-more-get_publications">Want to read more? get_publications</a></li>
+  <li><a href="#downloading-data-get_downloads-and-get_geochron" id="toc-downloading-data-get_downloads-and-get_geochron" class="nav-link" data-scroll-target="#downloading-data-get_downloads-and-get_geochron">Downloading data <code>get_downloads()</code> and <code>get_geochron()</code></a></li>
+  <li><a href="#filtering" id="toc-filtering" class="nav-link" data-scroll-target="#filtering">Filtering</a></li>
+  <li><a href="#returning-samples" id="toc-returning-samples" class="nav-link" data-scroll-target="#returning-samples">Returning samples</a></li>
+  <li><a href="#extracting-taxa" id="toc-extracting-taxa" class="nav-link" data-scroll-target="#extracting-taxa">Extracting Taxa</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -152,7 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="before-the-lab" class="level1">
 <h1>Before the lab</h1>
 <section id="install-packages" class="level2">
-<h2 class="anchored" data-anchor-id="install-packages">Install packages:</h2>
+<h2 class="anchored" data-anchor-id="install-packages">Install packages</h2>
 <ul>
 <li><em>neotoma2</em>, <em>analogue</em>, and <em>rworldmap</em>.</li>
 </ul>
@@ -169,19 +195,20 @@ Note:
 <p>To download the latest version of <code>neotoma2</code> you will need to download it from the source on GitHub.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"devtools"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">'NeotomaDB/neotoma2'</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(neotoma2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">'NeotomaDB/neotoma2'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </section>
 <section id="read" class="level2">
-<h2 class="anchored" data-anchor-id="read">Read:</h2>
+<h2 class="anchored" data-anchor-id="read">Read</h2>
 <p>Goring, S., Dawson, A., Simpson, G., Ram, K., Graham, R. W., Grimm, E. C., and Williams, J. W. (2015) neotoma: A Programmatic Interface to the Neotoma Paleoecological Database. Open Quaternary 1:1-17.</p>
 </section>
 </section>
-<section id="part-1-apis" class="level1">
-<h1>Part 1: APIs</h1>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This series of exercises is designed to give you hands-on practice in using APIs and the <code>neotoma2</code> R package (Goring et al, 2015), both for practical reasons and for insights into how open-data systems work. <code>neotoma2</code>’s primary purpose is to pass data from the Neotoma Paleoecology Database (Neotoma DB) into the R environment. Neotoma relies on Application Programming Interfaces (<a href="https://en.wikipedia.org/wiki/API">APIs</a>) to communicate with the Neotoma Paleoecology Database, so we’ll begin with an introduction to APIs.</p>
+<p>Note that the R components of this exercise are adapted from materials originally developed by Simon Goring, Jack Williams, and others for Neotoma training workshops at PalEON and elsewhere (e.g.&nbsp;<a href="https://open.neotomadb.org/EPD_binder/simple_workflow.html">HTML</a> and GitHub) and are reproduced here under the <a href="https://opensource.org/licenses/MIT">MIT</a> License.</p>
 <section id="goals" class="level2">
 <h2 class="anchored" data-anchor-id="goals">Goals</h2>
 <ul>
@@ -198,11 +225,9 @@ Note:
 <li><p><a href="https://neotoma-manual.readthedocs.io/en/latest/">neotoma2 manual</a></p></li>
 </ul>
 </section>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>This series of exercises is designed to give you hands-on practice in using APIs and the <code>neotoma2</code> R package (Goring et al, 2015), both for practical reasons and for insights into how open-data systems work. <code>neotoma2</code>’s primary purpose is to pass data from the Neotoma Paleoecology Database (Neotoma DB) into the R environment. Neotoma relies on Application Programming Interfaces (<a href="https://en.wikipedia.org/wiki/API">APIs</a>) to communicate with the Neotoma Paleoecology Database, so we’ll begin with an introduction to APIs.</p>
-<p>Note that the R components of this exercise are adapted from materials originally developed by Simon Goring, Jack Williams, and others for Neotoma training workshops at PalEON and elsewhere (e.g.&nbsp;<a href="https://open.neotomadb.org/EPD_binder/simple_workflow.html">HTML</a> and GitHub) and are reproduced here under the <a href="https://opensource.org/licenses/MIT">MIT</a> License.</p>
 </section>
+<section id="part-1-apis" class="level1">
+<h1>Part 1: APIs</h1>
 <section id="apis" class="level2">
 <h2 class="anchored" data-anchor-id="apis">APIs</h2>
 <p>The Neotoma Paleoecology Database is a relational database, hosted on servers at <a href="https://sites.psu.edu/environmentalinformatics/">Penn State’s Center for Environmental Informatics</a>. For security reasons, direct access to these servers is quite limited, and available only to a few Neotoma and CEI programmers.</p>
@@ -223,22 +248,23 @@ Note:
 </section>
 <section id="part-2-neotoma-workflow" class="level1">
 <h1>Part 2: Neotoma workflow</h1>
-<p>The neotoma package provides a series of functions inside of R, each one of which calls one or more APIs. neotoma was primarily written by Simon Goring, with support from NSF-Geoinformatics and the ROpenSci project.</p>
-<p>Let’s begin by loading the neotoma package into RStudio.</p>
+<p>The neotoma package provides a series of functions inside of R, each one of which calls one or more APIs. neotoma was primarily written by Simon Goring, with support from NSF-Geoinformatics and the ROpenSci project. Let’s begin by loading the neotoma package into RStudio.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(neotoma2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="finding-sites-and-getting-metadata" class="level2">
 <h2 class="anchored" data-anchor-id="finding-sites-and-getting-metadata">Finding sites and getting metadata</h2>
-<p>We’ll start with the function <code>get_sites()</code>. <code>get_sites()</code> returns a data frame with metadata about sites. You can use this to find the spatial coverage of data in a region (using <code>get_sites()</code> with a bounding box), or to get explicit site information easily from more complex data objects. Use <code>?get_sites</code> to see all the options available. <code>get_site()</code> is essentially an R wrapper for the API sites and has very similar functionality.</p>
+<p>We’ll start with the function <code>get_sites()</code>. <code>get_sites()</code> returns a <code>sites</code> object with metadata about sites. You can use this to find the spatial coverage of data in a region (using <code>get_sites()</code> with a bounding box), or to get explicit site information easily from more complex data objects. Use <code>?get_sites</code> to see all the options available. <code>get_site()</code> is essentially an R wrapper for the API sites and has very similar functionality.</p>
 <p>You can easily search by site name, for example.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>samwell_site <span class="ot">&lt;-</span> <span class="fu">get_sites</span>(<span class="at">sitename =</span> <span class="st">'Samwell%'</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(samwell_site)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><code>get_sites()</code> can return one site (as above) or many, e.g.: <code>devil_sites &lt;- get_sites(sitename = 'devil%')</code>.</p>
-<p><code>get_sites()</code> (and most <code>neotoma2</code> functions) returns an data object of type data.frame that stores vectors of equal length. The nice thing about a data.frame is that each vector can be of a different type (character, numeric values, etc.). In RStudio, use the Environment panel in upper right to explore the contents of <code>samwell_site</code>.</p>
-<p>While <code>samwell_site</code> is a data frame, it also has class ‘site’, so the print output looks a little different than a standard R data frame. This also allows you to use some of the other <code>neotoma2</code> functions more easily.</p>
+<p><code>get_sites()</code> can return one site (as above) or many, e.g.:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>devil_sites <span class="ot">&lt;-</span> <span class="fu">get_sites</span>(<span class="at">sitename =</span> <span class="st">'devil%'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>get_sites()</code> (and most <code>neotoma2</code> functions) returns an data object of type <code>sites</code>, his also allows us to use some of the other <code>neotoma2</code> functions more easily. In RStudio, use the Environment panel in upper right to explore the contents of <code>samwell_site</code>.</p>
 <div class="callout-caution callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -254,7 +280,7 @@ Exercise Question X
 </div>
 <p>You can also search by lat/lon bounding box. This one roughly corresponds to Florida.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>FL_sites <span class="ot">&lt;-</span> <span class="fu">get_sites</span>(<span class="at">loc =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">88</span>, <span class="sc">-</span><span class="dv">79</span>, <span class="dv">25</span>, <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>FL_sites <span class="ot">&lt;-</span> <span class="fu">get_sites</span>(<span class="at">loc =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">88</span>, <span class="sc">-</span><span class="dv">79</span>, <span class="dv">25</span>, <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>You can also search by geopolitical name or geopolitical IDs (gpid) stored in Neotoma. For a list of names and gpids, use the get_table(table.name = “GeoPoliticalUnits”) command. This command works either with an explicit numeric ID, or with a text string:</strong></p>
 <p><strong>Example: get all sites in New Mexico (gpid=7956)</strong></p>
@@ -262,6 +288,143 @@ Exercise Question X
 <p><strong>get all sites in Wisconsin</strong></p>
 <p><strong>`WI_sites &lt;- get_site(gpid = “Wisconsin”)``</strong></p>
 <p><strong>Exercise Question 3 Which state has more sites, Minnesota or Wisconsin? How many of each? Provide both code and answer.</strong></p>
+</section>
+<section id="getting-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="getting-datasets">Getting datasets</h2>
+<p><strong>The structure of the Neotoma data model, as expressed through the API is roughly: “counts of a fossil taxa within download, download within dataset, dataset within site”. So a dataset contains information about a particular dataset from a given site. A site may have one or several associated datasets.</strong></p>
+<p>The neotoma data structure is as follows (<a href="#fig-neostructure">Figure&nbsp;1</a>):</p>
+<ul>
+<li><p>sites: smltiple locations (e.g., several lakes)</p></li>
+<li><p>site: a single location (e.g., a single lake)</p></li>
+<li><p>collection units: one or more sediment core samples from a site</p></li>
+<li><p>collection unit: a simgle core sample</p></li>
+<li><p>datasets: the number of datasets from a single collection unit (e.g., pollen is one dataset, diatoms may be another)</p></li>
+<li><p>dataset: an individual record (e.g., only the pollen data from a core)</p></li>
+<li><p>chronologies: age-depth models associated with a single core (there may be more than one chronology per core)</p></li>
+<li><p>chronology: a single chronology associated with a core sample</p></li>
+</ul>
+<div id="fig-neostructure" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="AMQUA_binder-main/images/neotomaUML_as.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure 1: <code>neotoma2</code> structure and associated functions</figcaption><p></p>
+</figure>
+</div>
+<p><code>get_datasets()</code> returns a list of datasets containing the metadata for each dataset. It can receive as inputs vectors of site names, vectors of site IDs, or data objects of class site (i.e.&nbsp;output from get_site!). For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>samwell_datasets <span class="ot">&lt;-</span> <span class="fu">get_datasets</span>(samwell_site)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(samwell_datasets)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># We can pass output from get_site to get_datasets,</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># even if get_sites returns multiple sites</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>devil.meta.dataset  <span class="ot">&lt;-</span> <span class="fu">get_datasets</span>(devil_sites)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Let’s look at the dataset metadata:</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>devil.meta.dataset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout-caution callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise Question X
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>How many different kinds of datasets are available at Devil’s Lake, WI? Show both code and answer. Ensure that your code just retrieves datasets for just this single site.</p>
+</div>
+</div>
+</section>
+<section id="what-have-i-found-browse" class="level2">
+<h2 class="anchored" data-anchor-id="what-have-i-found-browse">What have I found <code>browse</code></h2>
+<p><strong>Sometimes, it’s helpful to quickly spot-check your results using Neotoma Explorer and its quick-look visualizations. You can pass your results back to Explorer using the browse command. browse will accept a numberic value (a single Dataset ID) and data objects of type ‘dataset’, ‘dataset_list’, ‘download’, or ‘download_list’</strong></p>
+<p><strong>For example: browse(samwell_datasets)</strong></p>
+<p><strong>Note that browse returns a local result of null to R (which is normal) and then calls a new browser window, showing the Samwell datasets in Neotoma Explorer.</strong></p>
+<p><strong>REPLACE BROWSE WITH <code>plotLeaflet()</code>?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotLeaflet</span>(devil_sites)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="htmlwidget-ae81d36aa15642fab0f8" style="width:100%;height:464px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ae81d36aa15642fab0f8">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Stamen.TerrainBackground",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircleMarkers","args":[[48.022914,43.4159,29.36667,30.36667,29.36667,29.86667,38.11667,30.75,48.081514,48.014636,48.022636,43.024608,45.814184,44.98,56.16667,48.0189,35.69722,42.316004,44.034428,48.056368],[-98.962028,-89.73334,-101,-97.75,-82.36667,-82.75,-86.25,-81.5,-98.934766,-98.890688,-98.988878,-77.573886,-93.334446,-123.995754,-133.5,-98.89294,-115.45222,-120.960152,-121.761974,-99.11855],10,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":true,"riseOffset":250,"stroke":true,"color":"#03F","weight":5,"opacity.1":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},{"showCoverageOnHover":true,"zoomToBoundsOnClick":true,"spiderfyOnMaxZoom":true,"removeOutsideVisibleBounds":true,"spiderLegPolylineOptions":{"weight":1.5,"color":"#222","opacity":0.5},"freezeAtZoom":false},null,["<b>Devils Lake, Main Bay<\/b><br><b>Description:<\/b> Very large closed basin, ice-thrust lake, which lies in a preglacial valley. Water level has varied dramatically during the historical period.<br><a href=http://apps.neotomadb.org/explorer/?siteids=665>Explorer Link<\/a>","<b>Devils Lake<\/b><br><b>Description:<\/b> Lake is located in a pre-glacial gorge of the Wisconsin river cut through the Baraboo Hills, a bedrock high. The valley is dammed at both ends by terminal moraines deposited by the Green Bay lobe, which flowed around the Baraboo Hills. Lake is fed by groundwater. Surrounding vegetation: white-black-bur oak.<br><a href=http://apps.neotomadb.org/explorer/?siteids=666>Explorer Link<\/a>","<b>Devil's Mouth [41VV188]<\/b><br><b>Description:<\/b> NA<br><a href=http://apps.neotomadb.org/explorer/?siteids=3686>Explorer Link<\/a>","<b>Devil's Hollow [41TV38]<\/b><br><b>Description:<\/b> NA<br><a href=http://apps.neotomadb.org/explorer/?siteids=4228>Explorer Link<\/a>","<b>Devil's Den<\/b><br><b>Description:<\/b> NA<br><a href=http://apps.neotomadb.org/explorer/?siteids=5092>Explorer Link<\/a>","<b>Devil's Eye Spring<\/b><br><b>Description:<\/b> NA<br><a href=http://apps.neotomadb.org/explorer/?siteids=5189>Explorer Link<\/a>","<b>Devil's Staircase Pit Cave<\/b><br><b>Description:<\/b> NA<br><a href=http://apps.neotomadb.org/explorer/?siteids=5323>Explorer Link<\/a>","<b>Devil's Walking Stick [9Cam177]<\/b><br><b>Description:<\/b> NA<br><a href=http://apps.neotomadb.org/explorer/?siteids=5853>Explorer Link<\/a>","<b>Devils Lake, Creel Bay<\/b><br><b>Description:<\/b> Very large closed basin, ice-thrust lake, which lies in a preglacial valley. Water level has varied dramatically during the historical period. Creel Bay has a maximum depth of about 15 m.<br><a href=http://apps.neotomadb.org/explorer/?siteids=9717>Explorer Link<\/a>","<b>Devils Lake, Mission Bay<\/b><br><b>Description:<\/b> Very large closed basin, ice-thrust lake, which lies in a preglacial valley. Water level has varied dramatically during the historical period. MIssion Bay has a maximum depth of about 13 m.<br><a href=http://apps.neotomadb.org/explorer/?siteids=9732>Explorer Link<\/a>","<b>Devils Lake<\/b><br><b>Description:<\/b> Very large closed basin, ice-thrust lake, which lies in a preglacial valley. Water level has varied dramatically during the historical period. MIssion Bay has a maximum depth of about 13 m.<br><a href=http://apps.neotomadb.org/explorer/?siteids=9961>Explorer Link<\/a>","<b>Devil's Bathtub<\/b><br><b>Description:<\/b> Kettle pond located in the till plains of the Erie-Ontario lowland. Surrounding vegetation: Quercus and Acer saccharum, with nearby plantations of Pinus resinosa.<br><a href=http://apps.neotomadb.org/explorer/?siteids=10280>Explorer Link<\/a>","<b>Devils Lake<\/b><br><b>Description:<\/b> NA<br><a href=http://apps.neotomadb.org/explorer/?siteids=11726>Explorer Link<\/a>","<b>Devil's Lake<\/b><br><b>Description:<\/b> Devils Lake is an eutrophic lake located in Lincoln County on the central Oregon coast. The lake was formed by natural accumulation of. beachs and impounding water at the outlet of the D River.<br><a href=http://apps.neotomadb.org/explorer/?siteids=14224>Explorer Link<\/a>","<b>Devil's Canopy Cave [AKPET221]<\/b><br><b>Description:<\/b> Silty deposit in a cave on Prince of Wales Island, Petersburg quadrangle, southeastern Alaska. <br><a href=http://apps.neotomadb.org/explorer/?siteids=18518>Explorer Link<\/a>","<b>Devils Lake<\/b><br><b>Description:<\/b> NA<br><a href=http://apps.neotomadb.org/explorer/?siteids=23349>Explorer Link<\/a>","<b>Devil Peak Fauna<\/b><br><b>Description:<\/b> NA<br><a href=http://apps.neotomadb.org/explorer/?siteids=23437>Explorer Link<\/a>","<b>Devil Lake<\/b><br><b>Description:<\/b> Juniperus occidentalis, Pinus ponderosa, Artemisia tridentata, Poaceae<br><a href=http://apps.neotomadb.org/explorer/?siteids=27576>Explorer Link<\/a>","<b>Devils Lake<\/b><br><b>Description:<\/b> Abies lasiocarpa, Pinus contorta<br><a href=http://apps.neotomadb.org/explorer/?siteids=27605>Explorer Link<\/a>","<b>Devils<\/b><br><b>Description:<\/b> NA<br><a href=http://apps.neotomadb.org/explorer/?siteids=28909>Explorer Link<\/a>"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[29.36667,56.16667],"lng":[-133.5,-77.573886]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="want-to-read-more-get_publications" class="level2">
+<h2 class="anchored" data-anchor-id="want-to-read-more-get_publications">Want to read more? get_publications</h2>
+<p>You can use <code>get_publications()</code> to get more information. Pass in the publication IDs or a dataset object, e.g.:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>samwell_pubs <span class="ot">&lt;-</span> <span class="fu">get_publications</span>(samwell_datasets)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Error in switch(use, dev = "https://api-dev.neotomadb.org/v2.0/", neotoma = "https://api.neotomadb.org/v2.0/",  : </span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># EXPR must be a length 1 vector</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="downloading-data-get_downloads-and-get_geochron" class="level2">
+<h2 class="anchored" data-anchor-id="downloading-data-get_downloads-and-get_geochron">Downloading data <code>get_downloads()</code> and <code>get_geochron()</code></h2>
+<p><code>get_downloads()</code> returns a list of download objects, one for each retrieved dataset. Note that <code>get_downloads()</code> returns the actual data associated with each dataset, rather than a list of the available datasets, as in <code>get_datasets()</code> above.</p>
+<p><code>get_downloads()</code> will accept an object of <code>class</code> dataset (e.g., <code>samwell_dataset</code>) or of <code>class</code> site (e.g., <code>samwell_site</code>). If the latter, it will automatically query for the datasets associated in each site. For example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>samwell_datasets_downloads <span class="ot">&lt;-</span> <span class="fu">get_downloads</span>(samwell_datasets)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>samwell_site_downloads <span class="ot">&lt;-</span> <span class="fu">get_downloads</span>(samwell_site)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(samwell_datasets_downloads)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(samwell_site_downloads)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that by default, <code>get_downloads()</code> produces a number of messages. These can be suppressed with the argument <code>verbose = FALSE</code> in the function call (<code>samwell_site_downloads &lt;- get_downloads(samwell_site, verbose = FALSE</code>).</p>
+<p><strong>Note that not all of the datasets can be downloaded directly to a <code>download</code> object. This is because geochronological datasets have a different data structure than other data, requiring different fields, and as such, they are obtained using <em>???<code>chronologies()</code> chronologies only works on a download oblect now? Not a site object? ???</em>:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>samwell_geochron <span class="ot">&lt;-</span> <span class="fu">chronologies</span>(samwell_site_downloads)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(samwell_geochron)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="filtering" class="level2">
+<h2 class="anchored" data-anchor-id="filtering">Filtering</h2>
+<p>Collection units contain datasets (<a href="#fig-neostructure">Figure&nbsp;1</a>). We can use the <code>datasets()</code> function on a site (or sites) object return details on what records they contain:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasets</span>(samwell_datasets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> datasetid database      datasettype age_range_old age_range_young
+      4604  FAUNMAP vertebrate fauna      110000.0           11500
+      4605  FAUNMAP vertebrate fauna      110000.0           11500
+      9301  FAUNMAP   geochronologic            NA              NA
+      4606  FAUNMAP vertebrate fauna      110000.0           11500
+      9302  FAUNMAP   geochronologic            NA              NA
+     14261  FAUNMAP   geochronologic            NA              NA
+     14262  FAUNMAP vertebrate fauna       18306.2               0
+                                                                                                                                         notes
+                                                                                                                                          &lt;NA&gt;
+  Synonymizations made from original publication:\r\nSpermophilus douglasi -&gt; Spermophilus beecheyi\r\nLepus audubonii -&gt; Sylvilagus audubonii
+                                                                                                                                          &lt;NA&gt;
+ Synonymizations made from original publication:\r\nLepus audubonii -&gt; Sylvilagus audubonii\r\nPreptoceras sinclairi -&gt; Euceratherium collinum
+                                                                                                                                          &lt;NA&gt;
+                                                                                                                                          &lt;NA&gt;
+               Pleistocene levels are locality V99822 and Holocene levels are locality V99785 in the UCMP. Depths are given in cm below datum.</code></pre>
+</div>
+</div>
+<p>Notice that there are seven datasets associated with the <code>samwell_datasets</code> object, each one with a <code>datasetid</code>. Note that at this point we have not downloaded any data, we are browsing the metadata associated with the site. Downloading data can have a lot of overhead (e.g., download time and API requests), so we try filter results to what we need <em>before</em> downloading the data. For example, if we want to filter the <code>samwell_datasets</code> object for vertebrate fauna we can use:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>samwell_datasets_vf <span class="ot">&lt;-</span> samwell_datasets <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  neotoma2<span class="sc">::</span><span class="fu">filter</span>(datasettype <span class="sc">==</span> <span class="st">"vertebrate fauna"</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(age_range_young))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we can use get downloads to download a single dataset, rather that <em>all</em> the data as we did above. Let’s look a bit more closely at the data frame returned by <code>get_downloads()</code>, using the just the vertebrate datasets for Samwell Cave Popcorn Dome (dataset 14262):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>samwell_pd <span class="ot">&lt;-</span> <span class="fu">get_downloads</span>(<span class="dv">14262</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="returning-samples" class="level2">
+<h2 class="anchored" data-anchor-id="returning-samples">Returning samples</h2>
+<p>Let’s examine the available data in this download:</p>
+</section>
+<section id="extracting-taxa" class="level2">
+<h2 class="anchored" data-anchor-id="extracting-taxa">Extracting Taxa</h2>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
 </section>
 </section>
 
