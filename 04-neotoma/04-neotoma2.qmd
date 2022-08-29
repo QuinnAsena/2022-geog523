@@ -14,9 +14,9 @@ theme:
 
 # Before the lab
 
-## Install packages
+__Install packages:__
 
-- _neotoma2_, _analogue_, and _rworldmap_.
+- `neotoma2`, `analogue`, and `rworldmap`. __??? all still necessary, rijoa how????__
 
 :::{.callout-tip}
 ## Note:
@@ -31,7 +31,7 @@ devtools::install_github('NeotomaDB/neotoma2')
 ```
 :::
 
-## Read
+__Read:__
 
 Goring, S., Dawson, A., Simpson, G., Ram, K., Graham, R. W., Grimm, E. C., and Williams, J. W. (2015) neotoma: A Programmatic Interface to the Neotoma Paleoecological Database. Open Quaternary 1:1-17.
 

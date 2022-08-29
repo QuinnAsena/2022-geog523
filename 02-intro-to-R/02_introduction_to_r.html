@@ -262,7 +262,7 @@ Exercise
 </section>
 <section id="objects-and-assignment" class="level2">
 <h2 class="anchored" data-anchor-id="objects-and-assignment">Objects and assignment</h2>
-<p>Typically we work with ‘objects’ in R. An object can be a value, word, data, matrix, or any acceptable type in R (more on types later). Objects are stored in the ‘environment’ (by default, the top right panel) in RStudio. To create an object we use the ’assignment’operaror (<code>&lt;-</code>).</p>
+<p>Typically we work with ‘objects’ in R. An object can be a value, word, data, matrix, or any acceptable type in R (more on types later). Objects are stored in the ‘environment’ (by default, the top right panel) in RStudio. To create an object we use the ‘assignment’ operaror (<code>&lt;-</code>).</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -277,7 +277,7 @@ Reference resource
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign a value of 3 to an object called 'radious'.</span></span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign a value of 3 to an object called 'radius'.</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>radius <span class="ot">&lt;-</span> <span class="dv">3</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># See it appear in your 'working environment'?</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -417,9 +417,9 @@ Reference resource
 </div>
 <p>To find the type of an object use the function <code>class()</code>. Data structures are organised sets of values. The most fundamental are:</p>
 <ul>
-<li><p>Vectors: one dimentional structures of a single type</p></li>
+<li><p>Vectors: one dimensional structures of a single type</p></li>
 <li><p>Matrices: two dimensional structures of a single type</p></li>
-<li><p>Data frames: two dimentional structures of mixed types</p></li>
+<li><p>Data frames: two dimensional structures of mixed types</p></li>
 </ul>
 <p>The <code>radius</code> and <code>area</code> objects are vector objects of length 1. Other structures exists such as lists and arrays which we will leave alone for now.</p>
 <p>The function <code>c()</code> concatenates (sticks together) multiple values that must be of the same type into a vector.</p>
@@ -430,7 +430,7 @@ Reference resource
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>factor_vec <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>, <span class="st">"large"</span>)) </span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>int_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(1L, 2L, 3L, 4L) <span class="co"># 'L' indicates an integer.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The <code>matrix()</code> function creates a two dimentional matrix that must also be of the same type.</p>
+<p>The <code>matrix()</code> function creates a two dimensional matrix that must also be of the same type.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># vector of numbers from 1 to 10.</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(a, <span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="co"># Converts 'a' into a 5x2 matrix names 'A'.</span></span>

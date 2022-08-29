@@ -100,7 +100,7 @@ pi / 4 # note that 'pi' is built into R.
 
 ## Objects and assignment
 
-Typically we work with 'objects' in R. An object can be a value, word, data, matrix, or any acceptable type in R (more on types later). Objects are stored in the 'environment' (by default, the top right panel) in RStudio. To create an object we use the 'assignment'operaror (`<-`). 
+Typically we work with 'objects' in R. An object can be a value, word, data, matrix, or any acceptable type in R (more on types later). Objects are stored in the 'environment' (by default, the top right panel) in RStudio. To create an object we use the 'assignment' operaror (`<-`). 
 
 :::{.callout-note}
 ## Reference resource
@@ -110,7 +110,7 @@ Typically we work with 'objects' in R. An object can be a value, word, data, mat
 
 ```{r objects}
 
-# Assign a value of 3 to an object called 'radious'.
+# Assign a value of 3 to an object called 'radius'.
 radius <- 3
 # See it appear in your 'working environment'?
 
@@ -224,11 +224,11 @@ logic <- TRUE # Logical types are TRUE or FALSE (case sensitie)
 
 To find the type of an object use the function `class()`. Data structures are organised sets of values. The most fundamental are:
 
-- Vectors: one dimentional structures of a single type
+- Vectors: one dimensional structures of a single type
 
 - Matrices: two dimensional structures of a single type
 
-- Data frames: two dimentional structures of mixed types
+- Data frames: two dimensional structures of mixed types
 
 The `radius` and `area` objects are vector objects of length 1. Other structures exists such as lists and arrays which we will leave alone for now.
 
@@ -242,7 +242,7 @@ factor_vec <- factor(c("small", "medium", "large", "large"))
 int_vec <- c(1L, 2L, 3L, 4L) # 'L' indicates an integer.
 ```
 
-The `matrix()` function creates a two dimentional matrix that must also be of the same type.
+The `matrix()` function creates a two dimensional matrix that must also be of the same type.
 
 ```{r matrices}
 a <- c(1:10) # vector of numbers from 1 to 10.
