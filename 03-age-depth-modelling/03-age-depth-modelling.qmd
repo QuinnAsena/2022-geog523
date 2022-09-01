@@ -14,20 +14,20 @@ theme:
 
 # Before the lab
 
-Using what you learned from the last lab:
+__Using what you learned from the last lab:__
 
 1. create a directory for this lab called 03-age-depth-modelling and two sub-directories within it called 'data', and 'outputs'
 
 2. create an R project inside 03-age-depth-modelling, open a new R script, install the packages 'clam', and 'Bchron', and save your script
 
-Read these two papers:
+__Read these two papers:__
 
 1. Bronk Ramsey, C. (2008) Radiocarbon dating: Revolutions in understanding. Archaeometry 50:249-275. Read only to p.260. A good overview of radiocarbon fundamentals and interpretation for a general audience.
 
 2. Blaauw, M. (2010) Methods and code for ‘classical’ age-modelling of radiocarbon sequences. Quaternary Geochronology 5:512-518. Good overview and code for ‘classic’ age-depth modeling: linear interpolation, regression, polynomial regression, splines, etc.
 
-```{r packages, include=FALSE}
-install.packages("clam", repos='http://cran.us.r-project.org')
+```{r packages, eval=FALSE, include=FALSE}
+install.packages("clam")
 
 library(clam)
 ```
@@ -66,11 +66,11 @@ Splines, which are a special kind of polynomial function that are locally fitted
 
 ## Callibration
 
- Radiocarbon dates need to be calibrated to place them on the calendar year scale. Different calibration curves are used for the Northern and Southern Hemisphere, and sediment types. The package `Bchron` makes calibrating dates to different curves easy for us.
+ Radiocarbon dates need to be calibrated to place them on the calendar year scale. Different calibration curves are used for the Northern and Southern Hemispheres, and sediment types. The package `Bchron` makes calibrating dates to different curves easy for us.
 
 :::{.callout-note}
 ## Note
-Recall from the previous lab that you need to load packages with the `library()` function before you can access the functions provided by `Bchron`. Alternatively you can use `package::function()` to specify a function from a particular package. For example, `Bchron::BchronCalibrate()`
+Recall from the previous lab that you need to load packages with the `library()` function before you can access the functions provided by `Bchron`. Alternatively you can use the syntax `package::function()` to specify a function from a particular package. For example, `Bchron::BchronCalibrate()`.
 :::
 
 First, we will check out different calibration curves of a single date using the example provided in the `Bchron` help. The function for calibrating radiocarbon dates in `Bchron` is `BchronCalibrate()`.
@@ -90,11 +90,11 @@ First, we will check out different calibration curves of a single date using the
 ## Homework
 Construct a table of a single date calibrated to three different curves specifying:
 
+- the calibration curve used.
+
 - the original radiocarbon age and standard deviation.
 
 - the calibrated age ranges from `summary()`.
-
-- the calibration curve used.
 
 :::
 
@@ -148,4 +148,17 @@ Note that in clam you can also specify the position of ‘slumps’ (instantaneo
 
 There are two equally advanced package for age-depth modelling in R: `rbacon` (usually called just bacon) and `Bchron`. We will be experimenting withe `Bchron` as it is marginally more user friendly in R. Bacon requires a specific directory structure and column ordering of data. Remember, software such as R and packages such as Bacon regularly update. Things that were difficult or impossible last month may have changed by the next.
 
-[Bchron guide](https://cran.r-project.org/web/packages/Bchron/vignettes/Bchron.html#calibrating-radiocarbon-dates)
+Bchron has a useful [guide](https://cran.r-project.org/web/packages/Bchron/vignettes/Bchron.html#calibrating-radiocarbon-dates) with a working example using a dataset built-in with the package. Today we will use the Devil's Lake data. Download the csv fil 'devils_lake_bchron.csv' and read it into R as a data.frame. Check out the structure of the data. Unlike `rbacon`, in `Bchron` the data do not need to be stored in a specific directory structure and the columns do not need to be in a specific order. 
+
+:::{.callout-warning}
+## Homework
+
+Using the `Bchron` guide:
+
+1. Find the working example of how to run the age depth model and adapt the code to run the model on the Devil's lake data
+
+2. Include the `plot` output from the age depth model of Devil's Lake tp your report
+
+3. Include the `summary` output as a table in your report
+
+:::

@@ -16,7 +16,7 @@ theme:
 
 __Install packages:__
 
-- `neotoma2`, `analogue`, and `rworldmap`. __??? all still necessary, rijoa how????__
+- `neotoma2`, `analogue`, and `rworldmap`. __??? all still necessary, rijoa replaced analogue?, rworldmap replaced by leaflet? ????__
 
 :::{.callout-tip}
 ## Note:
@@ -97,9 +97,9 @@ The `neotoma2` package provides a series of functions inside of R, each one of w
 
 __The structure of the Neotoma data model, as expressed through the API is roughly: “counts of a fossil taxa within download, download within dataset, dataset within site”. So a dataset contains information about a particular dataset from a given site. A site may have one or several associated datasets.__
 
-The neotoma data structure is as follows:
+The neotoma data structure is as follows (take note of plural/singular):
 
-- sites: smltiple locations (e.g., several lakes)
+- sites: multiple locations (e.g., several lakes)
 
 - site: a single location (e.g., a single lake)
 
