@@ -54,12 +54,9 @@ It is important to structure projects carefully so that data and scripts are sto
 [Projects and working directories](https://environmentalcomputing.net/getting-started-with-r/project-management/).
 :::
 
-**IMAGE OF DIRECTORY STRUCTURE HERE**
-
 - 2022-Geog523
   - 02-intro-to-r
     - data
-    - outputs
 
 Future labs will be set up following a similar structure.
 
@@ -100,7 +97,7 @@ pi / 4 # note that 'pi' is built into R.
 
 ## Objects and assignment
 
-Typically we work with 'objects' in R. An object can be a value, word, data, matrix, or any acceptable type in R (more on types later). Objects are stored in the 'environment' (by default, the top right panel) in RStudio. To create an object we use the 'assignment' operaror (`<-`). 
+Typically we work with 'objects' in R. An object can be a value, word, data, matrix, or any acceptable type in R (more on types later). Objects are displyed in the 'environment' (by default, the top right panel) in RStudio. To create an object we use the 'assignment' operaror (`<-`). 
 
 :::{.callout-note}
 ## Reference resource
@@ -151,7 +148,7 @@ When writing code it is best practice to include comments. When  you look back a
 
 ## Functions and help
 
-There are many functions built into R to make life easier. Functions are easy to recognise because most are a function name followed by parentheses, e.g., `sqrt()`. Requirements of the function inside the parentheses are called 'arguments'. A function takes an input (or several) and produces an output. For example:
+There are many functions built into R to make life easier. Functions are easy to recognise because most are a function name followed by parentheses, e.g., `sqrt()`. Requirements of the function are put inside the parentheses and are called 'arguments'. A function takes an input (or several) and produces an output. For example:
 
 ```{r functions}
 # Take the square root of the number 16.
@@ -175,7 +172,7 @@ area_round <- round(area)
 
 Functions can be simple (like the examples above), or designed to complete sophisticated analyses. To find out more about a function you can bring up the help using the `?` followed by the function name:
 
-```{r help, message=FALSE, warning=FALSE, results=FALSE}
+```{r help, message=FALSE, warning=FALSE, results=FALSE, eval=FALSE}
 ?round
 ```
 
@@ -193,18 +190,18 @@ R has a set of functions built in like the examples above but often we need more
 
 To install a package we use the function `install.packages()` and put the name of the package in quotation marks:
 
-```{r install, message=FALSE, warning=FALSE, results=FALSE}
-# We will use the analogue package later in the course.
-install.packages("analogue", repos='http://cran.us.r-project.org')
+```{r install, message=FALSE, warning=FALSE, results=FALSE, eval=FALSE}
+# We will use the rioja package later in the course.
+install.packages("rioja")
 ```
 
 To access the set of functions in a package we have to tell R to load them using the `library()` function:
 
 ```{r libraray, message=FALSE, warning=FALSE, results=FALSE}
-library(analogue)
+library(rioja)
 ```
 
-Now R knows we want to access functions from the analogue package. More on this later in the course.
+Now R knows we want to access functions from the rioja package. More on this later in the course.
 
 ## Data types and structures
 
@@ -216,7 +213,7 @@ Data types and structures are important concepts in R. The objects we worked wit
 :::
 
 ```{r types}
-char <- "this is a string" # String is indicated by ""
+char <- "this is a string" # A string is indicated by ""
 int <- 42L # Integers are indicated by the 'L'
 doub <- 1.61803 # Double (can also be single digits)
 logic <- TRUE # Logical types are TRUE or FALSE (case sensitie)
@@ -230,9 +227,7 @@ To find the type of an object use the function `class()`. Data structures are or
 
 - Data frames: two dimensional structures of mixed types
 
-The `radius` and `area` objects are vector objects of length 1. Other structures exists such as lists and arrays which we will leave alone for now.
-
-The function `c()` concatenates (sticks together) multiple values that must be of the same type into a vector.
+The `radius` and `area` objects are vector objects of length 1. Other structures exists such as lists and arrays which we will leave alone for now. The function `c()` concatenates (sticks together) multiple values that must be of the same type into a vector.
 
 ```{r vectors}
 # Create a vector of type double
@@ -250,7 +245,7 @@ A <- matrix(a, nrow = 5, ncol = 2) # Converts 'a' into a 5x2 matrix names 'A'.
 A
 ```
 
-The `data.frame()` function can combine the vectors into a data frame. 
+The `data.frame()` function can combine the vectors into a data frame. A dataframe can store data of mixed types. That is, each column can have a different type, you may have a column of strings (e.g., species names), and a column of values belonging to each species (e.g., abundances).
 
 ```{r dfs}
 data_mixed <- data.frame(factor_vec, doub_vec, int_vec)
@@ -292,9 +287,3 @@ If you are unfamiliar with R, go through this workbook again and link through to
 
 - [stackoverflow](https://stackoverflow.com/)
   - I recommend only browsing stackoverflow at this stage. The community does not like duplicated questions.
-
-# Notes
-
-- [ ] More time on working directories
-
-- [ ] Less on single values, go to vectors

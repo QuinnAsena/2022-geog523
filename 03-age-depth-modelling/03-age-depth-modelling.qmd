@@ -54,9 +54,9 @@ Different kinds of age-depth models exist, each with their own underlying assump
 
 1. **Linear interpolation**, a.k.a. ‘connect the dots,’ in which straight lines are drawn between each depth-adjacent pair of age controls.
 
-2. **Linear regression** (y=b0 + b1x; y=time and x=depth; b0 and b1 are constants), in which a single straight line is fitted through the entire set of age controls. In ordinary linear regression (OLS), the chosen line will minimize the y-dimension distances of individual points to the line. Standard OLS assumes that all observations are normally distributed, which is a poor assumption for calibrated radiocarbon dates.
+2. **Linear regression** ($y=b0 + b1x$; $y=$time and $x=$depth; $b0$ and $b1$ are constants), in which a single straight line is fitted through the entire set of age controls. In ordinary linear regression (OLS), the chosen line will minimize the y-dimension distances of individual points to the line. Standard OLS assumes that all observations are normally distributed, which is a poor assumption for calibrated radiocarbon dates.
 
-3. **Polynomials**, also fitted to the entire set of age controls (y= b0 + b1x + b2x^2 + b3x^3 + …bnx^n) and are an extension of linear regression, with additional terms for x^2, x^3, etc. Some arbitrary maximum n is chosen, usually in the range of 3 to 5.
+3. **Polynomials**, also fitted to the entire set of age controls ($y= b0 + b1x + b2x^2 + b3x^3 + …bnx^n$) and are an extension of linear regression, with additional terms for $x^2$, $x^3$, etc. Some arbitrary maximum n is chosen, usually in the range of 3 to 5.
 Splines, which are a special kind of polynomial function that are locally fitted to subsets of the age controls, and then smoothly interpolate between points. (Several different formulas can be used to generate splines; common forms include cubic, smooth, monotonic, and LOWESS).
 
 4. **Bayesian age models** (e.g. bacon, bchron, oxcal, etc.). Bayesian models differ in detail, but all combine a statistical representation of prior knowledge with the new data (i.e. the age controls at a site) to build an age-depth model with posterior estimates of age for any given depth. Bayesian models are now widely used because 1) they allow the incorporation of prior knowledge (e.g., from coring many lakes, we now have decent estimates of typical sediment accumulation rates, (Goring et al. 2012); 2) they can handle highly irregular probability distribution functions such as those for after-calibration radiocarbon dates; and as a result 3) they generally do a better job of describing uncertainty than traditional age-depth models.
@@ -148,12 +148,12 @@ Note that in clam you can also specify the position of ‘slumps’ (instantaneo
 
 There are two equally advanced package for age-depth modelling in R: `rbacon` (usually called just bacon) and `Bchron`. We will be experimenting withe `Bchron` as it is marginally more user friendly in R. Bacon requires a specific directory structure and column ordering of data. Remember, software such as R and packages such as Bacon regularly update. Things that were difficult or impossible last month may have changed by the next.
 
-Bchron has a useful [guide](https://cran.r-project.org/web/packages/Bchron/vignettes/Bchron.html#calibrating-radiocarbon-dates) with a working example using a dataset built-in with the package. Today we will use the Devil's Lake data. Download the csv fil 'devils_lake_bchron.csv' and read it into R as a data.frame. Check out the structure of the data. Unlike `rbacon`, in `Bchron` the data do not need to be stored in a specific directory structure and the columns do not need to be in a specific order. 
+Bchron has a useful [guide](https://cran.r-project.org/web/packages/Bchron/vignettes/Bchron.html#calibrating-radiocarbon-dates) with a working example using a dataset built-in with the package. Today we will use the Devil's Lake data. Download the csv file: 'devils_lake_bchron.csv' to your working directory, and read it into R as a data.frame. Check out the structure of the data. Unlike `rbacon`, in `Bchron` the data do not need to be stored in a specific directory structure and the columns do not need to be in a specific order. 
 
 :::{.callout-warning}
 ## Homework
 
-Using the `Bchron` guide:
+__Download the Devil's Lake data from the bchron_data directory.__ The data are the same, only the structure is slightly modified to work with `Bchron`. Using the `Bchron` guide:
 
 1. Find the working example of how to run the age depth model and adapt the code to run the model on the Devil's lake data
 

@@ -124,7 +124,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
   <li><a href="#sec-resources" id="toc-sec-resources" class="nav-link" data-scroll-target="#sec-resources">Resources</a></li>
-  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
   </ul>
 </nav>
 </div>
@@ -195,14 +194,12 @@ Reference resource
 <p><a href="https://environmentalcomputing.net/getting-started-with-r/project-management/">Projects and working directories</a>.</p>
 </div>
 </div>
-<p><strong>IMAGE OF DIRECTORY STRUCTURE HERE</strong></p>
 <ul>
 <li>2022-Geog523
 <ul>
 <li>02-intro-to-r
 <ul>
 <li>data</li>
-<li>outputs</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -262,7 +259,7 @@ Exercise
 </section>
 <section id="objects-and-assignment" class="level2">
 <h2 class="anchored" data-anchor-id="objects-and-assignment">Objects and assignment</h2>
-<p>Typically we work with ‘objects’ in R. An object can be a value, word, data, matrix, or any acceptable type in R (more on types later). Objects are stored in the ‘environment’ (by default, the top right panel) in RStudio. To create an object we use the ‘assignment’ operaror (<code>&lt;-</code>).</p>
+<p>Typically we work with ‘objects’ in R. An object can be a value, word, data, matrix, or any acceptable type in R (more on types later). Objects are displyed in the ‘environment’ (by default, the top right panel) in RStudio. To create an object we use the ‘assignment’ operaror (<code>&lt;-</code>).</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -323,7 +320,7 @@ Exercise
 </section>
 <section id="functions-and-help" class="level2">
 <h2 class="anchored" data-anchor-id="functions-and-help">Functions and help</h2>
-<p>There are many functions built into R to make life easier. Functions are easy to recognise because most are a function name followed by parentheses, e.g., <code>sqrt()</code>. Requirements of the function inside the parentheses are called ‘arguments’. A function takes an input (or several) and produces an output. For example:</p>
+<p>There are many functions built into R to make life easier. Functions are easy to recognise because most are a function name followed by parentheses, e.g., <code>sqrt()</code>. Requirements of the function are put inside the parentheses and are called ‘arguments’. A function takes an input (or several) and produces an output. For example:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take the square root of the number 16.</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">16</span>) <span class="co"># '16' is the input provided to the function sqrt.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -384,14 +381,14 @@ Exercise
 <p>R has a set of functions built in like the examples above but often we need more that come from downloading packages. A package is a collection of functions. Packages are often specialized to complete particular tasks and analyses. A lot of learning R is figuring out the functions you need.</p>
 <p>To install a package we use the function <code>install.packages()</code> and put the name of the package in quotation marks:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We will use the analogue package later in the course.</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"analogue"</span>, <span class="at">repos=</span><span class="st">'http://cran.us.r-project.org'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We will use the rioja package later in the course.</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rioja"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To access the set of functions in a package we have to tell R to load them using the <code>library()</code> function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(analogue)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rioja)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now R knows we want to access functions from the analogue package. More on this later in the course.</p>
+<p>Now R knows we want to access functions from the rioja package. More on this later in the course.</p>
 </section>
 <section id="data-types-and-structures" class="level2">
 <h2 class="anchored" data-anchor-id="data-types-and-structures">Data types and structures</h2>
@@ -410,7 +407,7 @@ Reference resource
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>char <span class="ot">&lt;-</span> <span class="st">"this is a string"</span> <span class="co"># String is indicated by ""</span></span>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>char <span class="ot">&lt;-</span> <span class="st">"this is a string"</span> <span class="co"># A string is indicated by ""</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>int <span class="ot">&lt;-</span> 42L <span class="co"># Integers are indicated by the 'L'</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>doub <span class="ot">&lt;-</span> <span class="fl">1.61803</span> <span class="co"># Double (can also be single digits)</span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>logic <span class="ot">&lt;-</span> <span class="cn">TRUE</span> <span class="co"># Logical types are TRUE or FALSE (case sensitie)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -421,8 +418,7 @@ Reference resource
 <li><p>Matrices: two dimensional structures of a single type</p></li>
 <li><p>Data frames: two dimensional structures of mixed types</p></li>
 </ul>
-<p>The <code>radius</code> and <code>area</code> objects are vector objects of length 1. Other structures exists such as lists and arrays which we will leave alone for now.</p>
-<p>The function <code>c()</code> concatenates (sticks together) multiple values that must be of the same type into a vector.</p>
+<p>The <code>radius</code> and <code>area</code> objects are vector objects of length 1. Other structures exists such as lists and arrays which we will leave alone for now. The function <code>c()</code> concatenates (sticks together) multiple values that must be of the same type into a vector.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector of type double</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>doub_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.87</span>, <span class="dv">5</span>, <span class="dv">42</span>, <span class="fl">10.0</span>)</span>
@@ -444,7 +440,7 @@ Reference resource
 [5,]    5   10</code></pre>
 </div>
 </div>
-<p>The <code>data.frame()</code> function can combine the vectors into a data frame.</p>
+<p>The <code>data.frame()</code> function can combine the vectors into a data frame. A dataframe can store data of mixed types. That is, each column can have a different type, you may have a column of strings (e.g., species names), and a column of values belonging to each species (e.g., abundances).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>data_mixed <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(factor_vec, doub_vec, int_vec)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>data_mixed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -490,15 +486,6 @@ Reference resource
 <ul>
 <li>I recommend only browsing stackoverflow at this stage. The community does not like duplicated questions.</li>
 </ul></li>
-</ul>
-</section>
-<section id="notes" class="level1">
-<h1>Notes</h1>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="">
-More time on working directories</p></li>
-<li><p><input type="checkbox" disabled="">
-Less on single values, go to vectors</p></li>
 </ul>
 </section>
 

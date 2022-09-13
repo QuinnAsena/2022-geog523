@@ -85,12 +85,12 @@ ul.task-list{list-style: none;}
 
 <section id="before-the-lab" class="level1">
 <h1>Before the lab</h1>
-<p>Using what you learned from the last lab:</p>
+<p><strong>Using what you learned from the last lab:</strong></p>
 <ol type="1">
 <li><p>create a directory for this lab called 03-age-depth-modelling and two sub-directories within it called ‘data’, and ‘outputs’</p></li>
 <li><p>create an R project inside 03-age-depth-modelling, open a new R script, install the packages ‘clam’, and ‘Bchron’, and save your script</p></li>
 </ol>
-<p>Read these two papers:</p>
+<p><strong>Read these two papers:</strong></p>
 <ol type="1">
 <li><p>Bronk Ramsey, C. (2008) Radiocarbon dating: Revolutions in understanding. Archaeometry 50:249-275. Read only to p.260. A good overview of radiocarbon fundamentals and interpretation for a general audience.</p></li>
 <li><p>Blaauw, M. (2010) Methods and code for ‘classical’ age-modelling of radiocarbon sequences. Quaternary Geochronology 5:512-518. Good overview and code for ‘classic’ age-depth modeling: linear interpolation, regression, polynomial regression, splines, etc.</p></li>
@@ -126,7 +126,7 @@ ul.task-list{list-style: none;}
 <h1>Part 2: Exercises</h1>
 <section id="callibration" class="level2">
 <h2 class="anchored" data-anchor-id="callibration">Callibration</h2>
-<p>Radiocarbon dates need to be calibrated to place them on the calendar year scale. Different calibration curves are used for the Northern and Southern Hemisphere, and sediment types. The package <code>Bchron</code> makes calibrating dates to different curves easy for us.</p>
+<p>Radiocarbon dates need to be calibrated to place them on the calendar year scale. Different calibration curves are used for the Northern and Southern Hemispheres, and sediment types. The package <code>Bchron</code> makes calibrating dates to different curves easy for us.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -137,7 +137,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Recall from the previous lab that you need to load packages with the <code>library()</code> function before you can access the functions provided by <code>Bchron</code>. Alternatively you can use <code>package::function()</code> to specify a function from a particular package. For example, <code>Bchron::BchronCalibrate()</code></p>
+<p>Recall from the previous lab that you need to load packages with the <code>library()</code> function before you can access the functions provided by <code>Bchron</code>. Alternatively you can use the syntax <code>package::function()</code> to specify a function from a particular package. For example, <code>Bchron::BchronCalibrate()</code>.</p>
 </div>
 </div>
 <p>First, we will check out different calibration curves of a single date using the example provided in the <code>Bchron</code> help. The function for calibrating radiocarbon dates in <code>Bchron</code> is <code>BchronCalibrate()</code>.</p>
@@ -172,9 +172,9 @@ Homework
 <div class="callout-body-container callout-body">
 <p>Construct a table of a single date calibrated to three different curves specifying:</p>
 <ul>
+<li><p>the calibration curve used.</p></li>
 <li><p>the original radiocarbon age and standard deviation.</p></li>
 <li><p>the calibrated age ranges from <code>summary()</code>.</p></li>
-<li><p>the calibration curve used.</p></li>
 </ul>
 </div>
 </div>
@@ -232,7 +232,25 @@ Homework
 <section id="exercise-3-bayesian-age-depth-modelling" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-3-bayesian-age-depth-modelling">Exercise 3: Bayesian age-depth modelling</h2>
 <p>There are two equally advanced package for age-depth modelling in R: <code>rbacon</code> (usually called just bacon) and <code>Bchron</code>. We will be experimenting withe <code>Bchron</code> as it is marginally more user friendly in R. Bacon requires a specific directory structure and column ordering of data. Remember, software such as R and packages such as Bacon regularly update. Things that were difficult or impossible last month may have changed by the next.</p>
-<p><a href="https://cran.r-project.org/web/packages/Bchron/vignettes/Bchron.html#calibrating-radiocarbon-dates">Bchron guide</a></p>
+<p>Bchron has a useful <a href="https://cran.r-project.org/web/packages/Bchron/vignettes/Bchron.html#calibrating-radiocarbon-dates">guide</a> with a working example using a dataset built-in with the package. Today we will use the Devil’s Lake data. Download the csv file: ‘devils_lake_bchron.csv’ to your working directory, and read it into R as a data.frame. Check out the structure of the data. Unlike <code>rbacon</code>, in <code>Bchron</code> the data do not need to be stored in a specific directory structure and the columns do not need to be in a specific order.</p>
+<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Homework
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using the <code>Bchron</code> guide:</p>
+<ol type="1">
+<li><p>Find the working example of how to run the age depth model and adapt the code to run the model on the Devil’s lake data</p></li>
+<li><p>Include the <code>plot</code> output from the age depth model of Devil’s Lake tp your report</p></li>
+<li><p>Include the <code>summary</code> output as a table in your report</p></li>
+</ol>
+</div>
+</div>
 </section>
 </section>
 
