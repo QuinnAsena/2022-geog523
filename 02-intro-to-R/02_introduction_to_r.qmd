@@ -115,7 +115,7 @@ RStudio has four main panels (the source panel will appear after you open an R s
 
 - **Files, plots...** Where you can view your files, plots package help and plots.
 
-![RStudio interface](/images/rstudio_session_4pane_layout.png)
+![RStudio interface](./images/rstudio_session_4pane_layout.png)
 
 Each panel has multiple tabs for different features, for example there is a 'Terminal' tab next to the 'Console' tab for operating the terminal rather than R.
 
@@ -305,7 +305,7 @@ Data structures are organised sets of values. The most fundamental are:
 
 - Data frames: two dimensional structures of mixed types
 
-![Data structures](/images/Data_types_structure_image.jpg)
+![Data structures](./images/Data_types_structure_image.jpg)
 
 ### Vector examples
 ```{r vectors}
@@ -376,6 +376,7 @@ dim(penguins)
 The following code generates a plot of penguine body mass against flipper length and saves it to an object called `mass_flipper`. The three different species of penguin are plot using different shapes and colours. The plot is generated using the `ggplot2` package. Have a look through the code and copy it to your script and run it. If you cannot make sense of the code at this point, don't worry about it. We will be going through the details later in the course.
 
 ```{r ExamplePlot, message=FALSE, warning=FALSE, results=FALSE}
+# Following example from: https://allisonhorst.github.io/palmerpenguins/articles/examples.html
 mass_flipper <- ggplot(data = penguins, 
                        aes(x = flipper_length_mm,
                            y = body_mass_g)) +
