@@ -95,6 +95,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="02_introduction_to_r_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="02_introduction_to_r_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -113,15 +114,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#r-basics" id="toc-r-basics" class="nav-link" data-scroll-target="#r-basics">R basics</a>
   <ul class="collapse">
+  <li><a href="#why-use-r" id="toc-why-use-r" class="nav-link" data-scroll-target="#why-use-r">Why use R?</a></li>
+  <li><a href="#rstudio-interface" id="toc-rstudio-interface" class="nav-link" data-scroll-target="#rstudio-interface">RStudio interface</a></li>
   <li><a href="#projects-and-working-directories" id="toc-projects-and-working-directories" class="nav-link" data-scroll-target="#projects-and-working-directories">Projects and Working Directories</a></li>
   <li><a href="#maths-and-operations" id="toc-maths-and-operations" class="nav-link" data-scroll-target="#maths-and-operations">Maths and operations</a></li>
   <li><a href="#objects-and-assignment" id="toc-objects-and-assignment" class="nav-link" data-scroll-target="#objects-and-assignment">Objects and assignment</a></li>
   <li><a href="#comments" id="toc-comments" class="nav-link" data-scroll-target="#comments">Comments</a></li>
   <li><a href="#functions-and-help" id="toc-functions-and-help" class="nav-link" data-scroll-target="#functions-and-help">Functions and help</a></li>
   <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
-  <li><a href="#data-types-and-structures" id="toc-data-types-and-structures" class="nav-link" data-scroll-target="#data-types-and-structures">Data types and structures</a></li>
+  <li><a href="#data-types-and-structures" id="toc-data-types-and-structures" class="nav-link" data-scroll-target="#data-types-and-structures">Data types and structures</a>
+  <ul class="collapse">
+  <li><a href="#vector-examples" id="toc-vector-examples" class="nav-link" data-scroll-target="#vector-examples">Vector examples</a></li>
+  <li><a href="#matrix-example" id="toc-matrix-example" class="nav-link" data-scroll-target="#matrix-example">Matrix example</a></li>
+  <li><a href="#data-frame-examples" id="toc-data-frame-examples" class="nav-link" data-scroll-target="#data-frame-examples">Data frame examples</a></li>
+  </ul></li>
   <li><a href="#saving-and-loading-data" id="toc-saving-and-loading-data" class="nav-link" data-scroll-target="#saving-and-loading-data">Saving and loading data</a></li>
   </ul></li>
+  <li><a href="#plotting" id="toc-plotting" class="nav-link" data-scroll-target="#plotting">Plotting</a></li>
   <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
   <li><a href="#sec-resources" id="toc-sec-resources" class="nav-link" data-scroll-target="#sec-resources">Resources</a></li>
   </ul>
@@ -166,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="getting-help-in-geog523" class="level2">
 <h2 class="anchored" data-anchor-id="getting-help-in-geog523">Getting help in Geog523</h2>
 <p>R is hard, we know, and we can’t teach it all in one lab. Take advantage of the out-of-class resources including the slack channel and office-hours. <em>We are here to support you through the learning curve</em>. While coursework should be completed independently we also encourage students to help each other out.</p>
-<p>This workbook is intended to provide you with some basics skills, but primarily to direct you to relevant resources. Links will be provided along the way and in <a href="#sec-resources">Section&nbsp;4</a> are resources (some of which this lab is based on) that include everything needed for this module.</p>
+<p>This workbook is intended to provide you with some basics skills, but primarily to direct you to relevant resources. Links will be provided along the way and in <a href="#sec-resources">Section&nbsp;5</a> are resources (some of which this lab is based on) that include everything needed for this module.</p>
 <p>When posting in the Geog523 slack channel:</p>
 <ul>
 <li><p>Make sure you have looked through the resources and tried to solve the problem yourself.</p></li>
@@ -177,10 +186,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="r-basics" class="level1">
 <h1>R basics</h1>
-<p>Buckle up, here we go! We will have regular check-ins during the lab to make sure everyone is keeping up. If you are struggling, put a red sticky on the top of your screen, if all is good, put the green sticky on your screen.</p>
+<p>Buckle up, here we go! We will have regular check-ins during the lab to make sure everyone is keeping up.</p>
+<section id="why-use-r" class="level2">
+<h2 class="anchored" data-anchor-id="why-use-r">Why use R?</h2>
+<p>Coding is an essential skill to any data-science and analysis. Software such as R is:</p>
+<ul>
+<li><p>reproducible (unlike point and click software)</p></li>
+<li><p>capable complicated analyses,</p></li>
+<li><p>open source</p></li>
+</ul>
+<p>Data visualisation is an important part of communicating results. Below is an example of visualisations of penguin morphometric data. We will be visualising palaeoecological data later in the course.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02_introduction_to_r_files/figure-html/patch-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Example of visualising data from penguins</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="rstudio-interface" class="level2">
+<h2 class="anchored" data-anchor-id="rstudio-interface">RStudio interface</h2>
+<p>RStudio has four main panels (the source panel will appear after you open an R script):</p>
+<ul>
+<li><p><strong>Source</strong> is where your script displays.</p></li>
+<li><p><strong>Environment</strong> where data, objects and functions are shown.</p></li>
+<li><p><strong>Console</strong> where the code runs (either from your script or written directly into the console).</p></li>
+<li><p><strong>Files, plots…</strong> Where you can view your files, plots package help and plots.</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="/images/rstudio_session_4pane_layout.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">RStudio interface</figcaption><p></p>
+</figure>
+</div>
+<p>Each panel has multiple tabs for different features, for example there is a ‘Terminal’ tab next to the ‘Console’ tab for operating the terminal rather than R.</p>
+</section>
 <section id="projects-and-working-directories" class="level2">
 <h2 class="anchored" data-anchor-id="projects-and-working-directories">Projects and Working Directories</h2>
-<p>It is important to structure projects carefully so that data and scripts are stored in the same location. Usually a project’s structure will have a high level directory that contains several sub-directories for data and outputs. For example you might want to create a course directory called ‘2022-Geog523’, a directory within that for this lab called ‘02-intro-to-r’, and two sub-directories within that named ‘data’ and ‘outputs’ respectively that we will use later.</p>
+<p>It is important to structure projects carefully from the outset so that data and scripts are stored in the same location. Usually a project’s structure will have a high level directory that contains several sub-directories for data and outputs. For example you might want to create a course directory called ‘2022-Geog523’, a directory within that for this lab called ‘02-intro-to-r’, and two sub-directories within that named ‘data’ and ‘outputs’ respectively that we will use later.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -200,6 +246,7 @@ Reference resource
 <li>02-intro-to-r
 <ul>
 <li>data</li>
+<li>outputs</li>
 </ul></li>
 </ul></li>
 </ul>
@@ -217,6 +264,7 @@ Exercise
 <ol type="1">
 <li><p>Create the described directory structure above</p></li>
 <li><p>Open up RStudio click ‘File’ -&gt; ‘New Project’ -&gt; ‘Existing Directory’. Navigate to the directory you created called 02-intro-to-r and hit Create Project.</p></li>
+<li><p>Create an R script (Click ‘file’ -&gt; ‘New File’ -&gt; ‘R Script’)</p></li>
 </ol>
 </div>
 </div>
@@ -249,9 +297,7 @@ Exercise
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li><p>Click ‘file’ -&gt; ‘New File’ -&gt; ‘R Script’.</p></li>
-<li><p>Using mathematical operators, try subtract your age from the current year.</p></li>
-<li><p>Type the calculation into your R script, and use control + enter to run the line of code.</p></li>
+<li><p>Write the calculation <code>pi * 3^2</code> in your R script and hit <code>ctr + enter</code> to run it in the console.</p></li>
 <li><p>Save your R script to the high level directory you created earlier called 02-intro-to-r.</p></li>
 </ol>
 </div>
@@ -306,9 +352,9 @@ Exercise
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li><p>assign your age to an object called <code>my_age</code></p></li>
-<li><p>assign the current year to an object called <code>year</code></p></li>
-<li><p>subtract the two objects from each other and see if you get the right result.</p></li>
+<li><p>The formula for the volume of a sphere is: <span class="math inline">\(\frac{4}{3}\pi r^3\)</span></p></li>
+<li><p>assign a value to an object <code>raduis</code></p></li>
+<li><p>assign the output of the calculation for the volume of a sphere to an object called <code>sphere_volume</code></p></li>
 </ol>
 <p><em>Note object names cannot have spaces or begin with numbers. Use snake_case or CamelCase</em></p>
 </div>
@@ -381,18 +427,19 @@ Exercise
 <p>R has a set of functions built in like the examples above but often we need more that come from downloading packages. A package is a collection of functions. Packages are often specialized to complete particular tasks and analyses. A lot of learning R is figuring out the functions you need.</p>
 <p>To install a package we use the function <code>install.packages()</code> and put the name of the package in quotation marks:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We will use the rioja package later in the course.</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rioja"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"palmerpenguins"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To access the set of functions in a package we have to tell R to load them using the <code>library()</code> function:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rioja)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now R knows we want to access functions from the rioja package. More on this later in the course.</p>
+<p>Now R knows we want to access functions from the <code>palmerpenguins</code> package. More on this later in the course.</p>
 </section>
 <section id="data-types-and-structures" class="level2">
 <h2 class="anchored" data-anchor-id="data-types-and-structures">Data types and structures</h2>
-<p>Data types and structures are important concepts in R. The objects we worked with, <code>radius</code> and <code>area</code>, were both type double (decimal). Other types include: characters (also called strings), integers, and logial.</p>
+<p>Data types and structures are important concepts in R. The objects we worked with, <code>radius</code> and <code>area</code>, were both type double (decimal). Other types include: characters (also called strings), integers, logical, and factor.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -410,15 +457,24 @@ Reference resource
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>char <span class="ot">&lt;-</span> <span class="st">"this is a string"</span> <span class="co"># A string is indicated by ""</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>int <span class="ot">&lt;-</span> 42L <span class="co"># Integers are indicated by the 'L'</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>doub <span class="ot">&lt;-</span> <span class="fl">1.61803</span> <span class="co"># Double (can also be single digits)</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>logic <span class="ot">&lt;-</span> <span class="cn">TRUE</span> <span class="co"># Logical types are TRUE or FALSE (case sensitie)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>logic <span class="ot">&lt;-</span> <span class="cn">TRUE</span> <span class="co"># Logical types are TRUE or FALSE (case sensitie)</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>fact <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>, <span class="st">"large"</span>)) <span class="co"># factors or categories</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To find the type of an object use the function <code>class()</code>. Data structures are organised sets of values. The most fundamental are:</p>
+<p>To find the type of an object use the function <code>class()</code>. The <code>radius</code> and <code>area</code> objects are vector objects of length 1. Other structures exists such as lists and arrays which we will leave alone for now. The function <code>c()</code> used above concatenates (sticks together) multiple values that must be of the same type into a vector.</p>
+<p>Data structures are organised sets of values. The most fundamental are:</p>
 <ul>
 <li><p>Vectors: one dimensional structures of a single type</p></li>
 <li><p>Matrices: two dimensional structures of a single type</p></li>
 <li><p>Data frames: two dimensional structures of mixed types</p></li>
 </ul>
-<p>The <code>radius</code> and <code>area</code> objects are vector objects of length 1. Other structures exists such as lists and arrays which we will leave alone for now. The function <code>c()</code> concatenates (sticks together) multiple values that must be of the same type into a vector.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="/images/Data_types_structure_image.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Data structures</figcaption><p></p>
+</figure>
+</div>
+<section id="vector-examples" class="level3">
+<h3 class="anchored" data-anchor-id="vector-examples">Vector examples</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector of type double</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>doub_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.87</span>, <span class="dv">5</span>, <span class="dv">42</span>, <span class="fl">10.0</span>)</span>
@@ -426,10 +482,13 @@ Reference resource
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>factor_vec <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>, <span class="st">"large"</span>)) </span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>int_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(1L, 2L, 3L, 4L) <span class="co"># 'L' indicates an integer.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="matrix-example" class="level3">
+<h3 class="anchored" data-anchor-id="matrix-example">Matrix example</h3>
 <p>The <code>matrix()</code> function creates a two dimensional matrix that must also be of the same type.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># vector of numbers from 1 to 10.</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(a, <span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="co"># Converts 'a' into a 5x2 matrix names 'A'.</span></span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creats a 5x2 matrix from the numbers 1 to 10</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="co"># the ':' means 'to', e.g., from 1 to 10.</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>A</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
@@ -440,7 +499,10 @@ Reference resource
 [5,]    5   10</code></pre>
 </div>
 </div>
-<p>The <code>data.frame()</code> function can combine the vectors into a data frame. A dataframe can store data of mixed types. That is, each column can have a different type, you may have a column of strings (e.g., species names), and a column of values belonging to each species (e.g., abundances).</p>
+</section>
+<section id="data-frame-examples" class="level3">
+<h3 class="anchored" data-anchor-id="data-frame-examples">Data frame examples</h3>
+<p>A data frame can store data of mixed types. That is, each column can have a different type, you may have a column of strings (e.g., species names), and a column of values belonging to each species (e.g., abundances). The <code>data.frame()</code> function can combine the vectors into a data frame.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>data_mixed <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(factor_vec, doub_vec, int_vec)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>data_mixed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -452,6 +514,25 @@ Reference resource
 4      large    10.00       4</code></pre>
 </div>
 </div>
+<div class="callout-caution callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Exercise
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li>use the functions <code>class()</code>, <code>str()</code>, <code>dim()</code>, and <code>colnames()</code> on the object <code>data_mixed</code>
+<ul>
+<li>use the help <code>?</code> to find out what the functions do</li>
+</ul></li>
+</ol>
+</div>
+</div>
+</section>
 </section>
 <section id="saving-and-loading-data" class="level2">
 <h2 class="anchored" data-anchor-id="saving-and-loading-data">Saving and loading data</h2>
@@ -468,6 +549,47 @@ Reference resource
 <p>To load the data back into R we would use the <code>read.csv()</code> function. We will use this later in the course.</p>
 </section>
 </section>
+<section id="plotting" class="level1">
+<h1>Plotting</h1>
+<p>To finish up with something fun, let’s check-out the penguins data shown at the start. The <code>palmerpenguins</code> package has a data frame called <code>penguins</code> built-in. To load the data use:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">'palmerpenguins'</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Have a look at the data:</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>penguins</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># What are the dimensions of the data:</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The following code generates a plot of penguine body mass against flipper length and saves it to an object called <code>mass_flipper</code>. The three different species of penguin are plot using different shapes and colours. The plot is generated using the <code>ggplot2</code> package. Have a look through the code and copy it to your script and run it. If you cannot make sense of the code at this point, don’t worry about it. We will be going through the details later in the course.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>mass_flipper <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> penguins, </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                           <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> species, </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">shape =</span> species),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkorange"</span>,<span class="st">"purple"</span>,<span class="st">"cyan4"</span>)) <span class="sc">+</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Penguin size, Palmer Station LTER"</span>,</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins"</span>,</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Flipper length (mm)"</span>,</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Body mass (g)"</span>,</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Penguin species"</span>,</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">"Penguin species"</span>) <span class="sc">+</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.7</span>),</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title.position =</span> <span class="st">"plot"</span>,</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">face=</span> <span class="st">"italic"</span>),</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption.position =</span> <span class="st">"plot"</span>)</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>mass_flipper</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="02_introduction_to_r_files/figure-html/ExamplePlot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Now we can save the image to our outputs directory:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"outputs/mass_flipper.png"</span>, <span class="at">plot =</span> mass_flipper, <span class="at">device =</span> <span class="st">"png"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
 <section id="homework" class="level1">
 <h1>Homework</h1>
 <p>If you are unfamiliar with R, go through this workbook again and link through to the reference resources provided along the way. Each link points to a useful recourse for each topic (assignment, objects, and data structures) that go into more detail.</p>
@@ -478,7 +600,7 @@ Reference resource
 <li><p><a href="https://environmentalcomputing.net/about-this-site/">Environmental Computing</a></p></li>
 <li><p><a href="https://cran.r-project.org/doc/contrib/Owen-TheRGuide.pdf">The R Guide, W. J. Owen</a></p></li>
 <li><p><a href="https://carpentries.org/workshops-curricula/">Data and Software carpentry</a></p></li>
-<li><p><a href="Free%20books%20on%20R">https://bookdown.org/</a></p>
+<li><p><a href="https://bookdown.org/">Free books on R</a></p>
 <ul>
 <li>In-depth resources, see: Hands-On Programming with R</li>
 </ul></li>

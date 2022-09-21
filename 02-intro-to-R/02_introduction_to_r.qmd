@@ -40,14 +40,88 @@ When posting in the Geog523 slack channel:
 
 Best practice for asking questions is to create a ['reprex'](https://stackoverflow.com/help/minimal-reproducible-example). Often you will solve your own question by working it through.
 
-
 # R basics
 
-Buckle up, here we go! We will have regular check-ins during the lab to make sure everyone is keeping up. If you are struggling, put a red sticky on the top of your screen, if all is good, put the green sticky on your screen.
+Buckle up, here we go! We will have regular check-ins during the lab to make sure everyone is keeping up.
+
+## Why use R?
+
+Coding is an essential skill to any data-science and analysis. Software such as R is:
+
+- reproducible (unlike point and click software) 
+
+- capable complicated analyses, 
+
+- open source
+
+Data visualisation is an important part of communicating results. Below is an example of visualisations of penguin morphometric data. We will be visualising palaeoecological data later in the course.
+```{r plot, include=FALSE}
+# From: https://allisonhorst.github.io/palmerpenguins/articles/examples.html
+pkg_list <- c("palmerpenguins", "ggplot2", "patchwork")
+new_packages <- pkg_list[!(pkg_list %in% installed.packages()[,"Package"])]
+if(length(new_packages)) install.packages(new_packages, repos='http://cran.us.r-project.org')
+
+library(patchwork)
+library(palmerpenguins)
+library(ggplot2)
+ggplot2::theme_set(ggplot2::theme_minimal())
+
+flipper_hist <- ggplot(data = penguins, aes(x = flipper_length_mm)) +
+  geom_histogram(aes(fill = species), 
+                 alpha = 0.5, 
+                 position = "identity") +
+  scale_fill_manual(values = c("darkorange","purple","cyan4")) +
+  labs(x = "Flipper length (mm)",
+       y = "Frequency",
+       title = "Penguin flipper lengths")
+
+flipper_box <- ggplot(data = penguins, aes(x = species, y = flipper_length_mm)) +
+  geom_boxplot(aes(color = species), width = 0.3, show.legend = FALSE) +
+  geom_jitter(aes(color = species), alpha = 0.5, show.legend = FALSE, position = position_jitter(width = 0.2, seed = 0)) +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(x = "Species",)
+
+flipper_body_mass <- ggplot(penguins, aes(x = flipper_length_mm,
+                            y = body_mass_g)) +
+  geom_point(aes(color = sex)) +
+  scale_color_manual(values = c("darkorange","cyan4"), na.translate = FALSE) +
+  labs(title = "Penguin flipper and body mass",
+       subtitle = "Dimensions for male and female Adelie, Chinstrap and Gentoo Penguins at Palmer Station LTER",
+       x = "Flipper length (mm)",
+       y = "Body mass (g)",
+       color = "Penguin sex") +
+  theme(legend.position = "bottom",
+        plot.title.position = "plot",
+        plot.caption = element_text(hjust = 0, face= "italic"),
+        plot.caption.position = "plot") +
+  facet_wrap(~species)
+```
+
+```{r patch, message=FALSE, echo=FALSE, warning=FALSE, fig.height=10, fig.cap = "Example of visualising data from penguins"}
+#(flipper_hist + flipper_box) / flipper_body_mass
+flipper_hist / flipper_body_mass
+```
+
+
+## RStudio interface
+
+RStudio has four main panels (the source panel will appear after you open an R script):
+
+- **Source** is where your script displays.
+
+- **Environment** where data, objects and functions are shown.
+
+- **Console** where the code runs (either from your script or written directly into the console).
+
+- **Files, plots...** Where you can view your files, plots package help and plots.
+
+![RStudio interface](/images/rstudio_session_4pane_layout.png)
+
+Each panel has multiple tabs for different features, for example there is a 'Terminal' tab next to the 'Console' tab for operating the terminal rather than R.
 
 ## Projects and Working Directories
 
-It is important to structure projects carefully so that data and scripts are stored in the same location. Usually a project's structure will have a high level directory that contains several sub-directories for data and outputs. For example you might want to create a course directory called '2022-Geog523', a directory within that for this lab called '02-intro-to-r', and two sub-directories within that named 'data' and 'outputs' respectively that we will use later. 
+It is important to structure projects carefully from the outset so that data and scripts are stored in the same location. Usually a project's structure will have a high level directory that contains several sub-directories for data and outputs. For example you might want to create a course directory called '2022-Geog523', a directory within that for this lab called '02-intro-to-r', and two sub-directories within that named 'data' and 'outputs' respectively that we will use later. 
 
 :::{.callout-note}
 ## Reference resource
@@ -57,6 +131,7 @@ It is important to structure projects carefully so that data and scripts are sto
 - 2022-Geog523
   - 02-intro-to-r
     - data
+    - outputs
 
 Future labs will be set up following a similar structure.
 
@@ -65,6 +140,8 @@ Future labs will be set up following a similar structure.
 1. Create the described directory structure above
 
 2. Open up RStudio click 'File' -> 'New Project' -> 'Existing Directory'. Navigate to the directory you created called 02-intro-to-r and hit Create Project.
+
+3. Create an R script (Click 'file' -> 'New File' -> 'R Script')
 :::
 
 
@@ -84,13 +161,9 @@ pi / 4 # note that 'pi' is built into R.
 :::{.callout-caution}
 ## Exercise
 
-1. Click 'file' -> 'New File' -> 'R Script'.
+1. Write the calculation `pi * 3^2` in your R script and hit `ctr + enter` to run it in the console.
 
-2. Using mathematical operators, try subtract your age from the current year.
-
-3. Type the calculation into your R script, and use control + enter to run the line of code.
-
-4. Save your R script to the high level directory you created earlier called 02-intro-to-r.
+2. Save your R script to the high level directory you created earlier called 02-intro-to-r.
 :::
 
 
@@ -133,11 +206,11 @@ area
 :::{.callout-caution}
 ## Exercise
 
-1. assign your age to an object called `my_age`
+1. The formula for the volume of a sphere is: $\frac{4}{3}\pi r^3$
 
-2. assign the current year to an object called `year`
+2. assign a value to an object `raduis`
 
-3. subtract the two objects from each other and see if you get the right result.
+3. assign the output of the calculation for the volume of a sphere to an object called `sphere_volume`
 
 *Note object names cannot have spaces or begin with numbers. Use snake_case or CamelCase*
 :::
@@ -191,21 +264,22 @@ R has a set of functions built in like the examples above but often we need more
 To install a package we use the function `install.packages()` and put the name of the package in quotation marks:
 
 ```{r install, message=FALSE, warning=FALSE, results=FALSE, eval=FALSE}
-# We will use the rioja package later in the course.
-install.packages("rioja")
+install.packages("palmerpenguins")
+install.packages("ggplot2")
 ```
 
 To access the set of functions in a package we have to tell R to load them using the `library()` function:
 
 ```{r libraray, message=FALSE, warning=FALSE, results=FALSE}
-library(rioja)
+library(palmerpenguins)
+library(ggplot2)
 ```
 
-Now R knows we want to access functions from the rioja package. More on this later in the course.
+Now R knows we want to access functions from the `palmerpenguins` package. More on this later in the course.
 
 ## Data types and structures
 
-Data types and structures are important concepts in R. The objects we worked with, `radius` and `area`, were both type double (decimal). Other types include: characters (also called strings), integers, and logial.
+Data types and structures are important concepts in R. The objects we worked with, `radius` and `area`, were both type double (decimal). Other types include: characters (also called strings), integers, logical, and factor.
 
 :::{.callout-note}
 ## Reference resource
@@ -217,9 +291,13 @@ char <- "this is a string" # A string is indicated by ""
 int <- 42L # Integers are indicated by the 'L'
 doub <- 1.61803 # Double (can also be single digits)
 logic <- TRUE # Logical types are TRUE or FALSE (case sensitie)
+fact <- factor(c("small", "medium", "large", "large")) # factors or categories
 ```
 
-To find the type of an object use the function `class()`. Data structures are organised sets of values. The most fundamental are:
+To find the type of an object use the function `class()`. The `radius` and `area` objects are vector objects of length 1. Other structures exists such as lists and arrays which we will leave alone for now. The function `c()` used above concatenates (sticks together) multiple values that must be of the same type into a vector.
+
+
+Data structures are organised sets of values. The most fundamental are:
 
 - Vectors: one dimensional structures of a single type
 
@@ -227,8 +305,9 @@ To find the type of an object use the function `class()`. Data structures are or
 
 - Data frames: two dimensional structures of mixed types
 
-The `radius` and `area` objects are vector objects of length 1. Other structures exists such as lists and arrays which we will leave alone for now. The function `c()` concatenates (sticks together) multiple values that must be of the same type into a vector.
+![Data structures](/images/Data_types_structure_image.jpg)
 
+### Vector examples
 ```{r vectors}
 # Create a vector of type double
 doub_vec <- c(1.87, 5, 42, 10.0)
@@ -237,20 +316,31 @@ factor_vec <- factor(c("small", "medium", "large", "large"))
 int_vec <- c(1L, 2L, 3L, 4L) # 'L' indicates an integer.
 ```
 
+### Matrix example
+
 The `matrix()` function creates a two dimensional matrix that must also be of the same type.
 
 ```{r matrices}
-a <- c(1:10) # vector of numbers from 1 to 10.
-A <- matrix(a, nrow = 5, ncol = 2) # Converts 'a' into a 5x2 matrix names 'A'.
+# creats a 5x2 matrix from the numbers 1 to 10
+A <- matrix(1:10, nrow = 5, ncol = 2) # the ':' means 'to', e.g., from 1 to 10.
 A
 ```
 
-The `data.frame()` function can combine the vectors into a data frame. A dataframe can store data of mixed types. That is, each column can have a different type, you may have a column of strings (e.g., species names), and a column of values belonging to each species (e.g., abundances).
+### Data frame examples
+
+A data frame can store data of mixed types. That is, each column can have a different type, you may have a column of strings (e.g., species names), and a column of values belonging to each species (e.g., abundances). The `data.frame()` function can combine the vectors into a data frame. 
 
 ```{r dfs}
 data_mixed <- data.frame(factor_vec, doub_vec, int_vec)
 data_mixed
 ```
+
+:::{.callout-caution}
+## Exercise
+1. use the functions `class()`, `str()`, `dim()`, and `colnames()` on the object `data_mixed`
+    - use the help `?` to find out what the functions do
+
+:::
 
 ## Saving and loading data
 
@@ -270,6 +360,50 @@ write.csv(data_mixed, file = "data/data_mixed.csv")
 
 To load the data back into R we would use the `read.csv()` function. We will use this later in the course.
 
+
+# Plotting
+
+To finish up with something fun, let's check-out the penguins data shown at the start. The `palmerpenguins` package has a data frame called `penguins` built-in. To load the data use:
+
+```{r data, message=FALSE, warning=FALSE, results=FALSE}
+data(package = 'palmerpenguins')
+# Have a look at the data:
+penguins
+# What are the dimensions of the data:
+dim(penguins)
+```
+
+The following code generates a plot of penguine body mass against flipper length and saves it to an object called `mass_flipper`. The three different species of penguin are plot using different shapes and colours. The plot is generated using the `ggplot2` package. Have a look through the code and copy it to your script and run it. If you cannot make sense of the code at this point, don't worry about it. We will be going through the details later in the course.
+
+```{r ExamplePlot, message=FALSE, warning=FALSE, results=FALSE}
+mass_flipper <- ggplot(data = penguins, 
+                       aes(x = flipper_length_mm,
+                           y = body_mass_g)) +
+  geom_point(aes(color = species, 
+                 shape = species),
+             size = 3,
+             alpha = 0.8) +
+  scale_color_manual(values = c("darkorange","purple","cyan4")) +
+  labs(title = "Penguin size, Palmer Station LTER",
+       subtitle = "Flipper length and body mass for Adelie, Chinstrap and Gentoo Penguins",
+       x = "Flipper length (mm)",
+       y = "Body mass (g)",
+       color = "Penguin species",
+       shape = "Penguin species") +
+  theme(legend.position = c(0.2, 0.7),
+        plot.title.position = "plot",
+        plot.caption = element_text(hjust = 0, face= "italic"),
+        plot.caption.position = "plot")
+
+mass_flipper
+```
+
+Now we can save the image to our outputs directory:
+
+```{r plotsave, message=FALSE, warning=FALSE, results=FALSE, eval=FALSE}
+ggsave(filename = "outputs/mass_flipper.png", plot = mass_flipper, device = "png")
+```
+
 # Homework
 
 If you are unfamiliar with R, go through this workbook again and link through to the reference resources provided along the way. Each link points to a useful recourse for each topic (assignment, objects, and data structures) that go into more detail.
@@ -282,7 +416,7 @@ If you are unfamiliar with R, go through this workbook again and link through to
 
 - [Data and Software carpentry](https://carpentries.org/workshops-curricula/)
 
-- [https://bookdown.org/](Free books on R)
+- [Free books on R](https://bookdown.org/)
   - In-depth resources, see: Hands-On Programming with R
 
 - [stackoverflow](https://stackoverflow.com/)
