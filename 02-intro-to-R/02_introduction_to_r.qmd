@@ -50,7 +50,7 @@ Coding is an essential skill to any data-science and analysis. Software such as 
 
 - reproducible (unlike point and click software) 
 
-- capable complicated analyses, 
+- capable complicated analyses
 
 - open source
 
@@ -97,7 +97,7 @@ flipper_body_mass <- ggplot(penguins, aes(x = flipper_length_mm,
   facet_wrap(~species)
 ```
 
-```{r patch, message=FALSE, echo=FALSE, warning=FALSE, fig.height=10, fig.cap = "Example of visualising data from penguins"}
+```{r patch, message=FALSE, echo=FALSE, warning=FALSE, fig.height=10, fig.cap = "Example of visualising data from penguins: from [Alison Horst](https://allisonhorst.github.io/palmerpenguins/articles/examples.html)"}
 #(flipper_hist + flipper_box) / flipper_body_mass
 flipper_hist / flipper_body_mass
 ```
@@ -115,7 +115,7 @@ RStudio has four main panels (the source panel will appear after you open an R s
 
 - **Files, plots...** Where you can view your files, plots package help and plots.
 
-![RStudio interface](./images/rstudio_session_4pane_layout.png)
+![RStudio interface from [Data Carpentry](https://datacarpentry.org/genomics-r-intro/00-introduction/index.html)](./images/rstudio_session_4pane_layout.png)
 
 Each panel has multiple tabs for different features, for example there is a 'Terminal' tab next to the 'Console' tab for operating the terminal rather than R.
 
@@ -190,7 +190,7 @@ area <- pi * radius^2
 
 ```
 
-These lines of code first, assign a value of 3 to an object called 'radius' and then assign the result of a calculation (using the object radius) to a second object called 'area'. `pi` is predefined in R; thus, does not need to be assigned to an object.
+These lines of code first, assign a value of 3 to an object called '`radius`' and then assign the result of a calculation (using the object `radius`) to a second object called '`area`'. `pi` is predefined in R; thus, does not need to be assigned to an object.
 
 Note that assignment does not print the result. To do so we can 'call' the object by running it (control enter).
 
@@ -249,7 +249,7 @@ Functions can be simple (like the examples above), or designed to complete sophi
 ?round
 ```
 
-See the help for the function `round` tells you the details? If you scroll down to Arguments section you will see it has a second argument called digits. You will also see examples of how to use the function.
+See the help for the function `round` tells you the details? If you scroll down to the 'Arguments' section you will see it has a second argument called digits. You will also see examples of how to use the function.
 
 :::{.callout-caution}
 ## Exercise
@@ -305,7 +305,7 @@ Data structures are organised sets of values. The most fundamental are:
 
 - Data frames: two dimensional structures of mixed types
 
-![Data structures](./images/Data_types_structure_image.jpg)
+![Data structures, from: [Environmental computing](https://environmentalcomputing.net/getting-started-with-r/data-types-structure/)](./images/Data_types_structure_image.jpg)
 
 ### Vector examples
 ```{r vectors}
@@ -363,7 +363,7 @@ To load the data back into R we would use the `read.csv()` function. We will use
 
 # Plotting
 
-To finish up with something fun, let's check-out the penguins data shown at the start. The `palmerpenguins` package has a data frame called `penguins` built-in. To load the data use:
+To finish up with something fun, let's check-out the penguins data shown at the start. The `palmerpenguins` package has a data frame called `penguins` built-in. The dataset describes morphological traits of three different species of penguin: Adelie, Chinstrap, and Gentoo Penguins. To load the data use:
 
 ```{r data, message=FALSE, warning=FALSE, results=FALSE}
 data(package = 'palmerpenguins')
@@ -375,7 +375,7 @@ dim(penguins)
 
 The following code generates a plot of penguine body mass against flipper length and saves it to an object called `mass_flipper`. The three different species of penguin are plot using different shapes and colours. The plot is generated using the `ggplot2` package. Have a look through the code and copy it to your script and run it. If you cannot make sense of the code at this point, don't worry about it. We will be going through the details later in the course.
 
-```{r ExamplePlot, message=FALSE, warning=FALSE, results=FALSE}
+```{r ExamplePlot, message=FALSE, warning=FALSE, results=FALSE, fig.cap="Body mass against flipper length from [Alison Horst](https://allisonhorst.github.io/palmerpenguins/articles/examples.html)"}
 # Following example from: https://allisonhorst.github.io/palmerpenguins/articles/examples.html
 mass_flipper <- ggplot(data = penguins, 
                        aes(x = flipper_length_mm,

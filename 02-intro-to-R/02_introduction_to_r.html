@@ -192,7 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Coding is an essential skill to any data-science and analysis. Software such as R is:</p>
 <ul>
 <li><p>reproducible (unlike point and click software)</p></li>
-<li><p>capable complicated analyses,</p></li>
+<li><p>capable complicated analyses</p></li>
 <li><p>open source</p></li>
 </ul>
 <p>Data visualisation is an important part of communicating results. Below is an example of visualisations of penguin morphometric data. We will be visualising palaeoecological data later in the course.</p>
@@ -201,7 +201,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="02_introduction_to_r_files/figure-html/patch-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Example of visualising data from penguins</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Example of visualising data from penguins: from <a href="https://allisonhorst.github.io/palmerpenguins/articles/examples.html">Alison Horst</a></figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -219,7 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="./images/rstudio_session_4pane_layout.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">RStudio interface</figcaption><p></p>
+<p></p><figcaption class="figure-caption">RStudio interface from <a href="https://datacarpentry.org/genomics-r-intro/00-introduction/index.html">Data Carpentry</a></figcaption><p></p>
 </figure>
 </div>
 <p>Each panel has multiple tabs for different features, for example there is a ‘Terminal’ tab next to the ‘Console’ tab for operating the terminal rather than R.</p>
@@ -328,7 +328,7 @@ Reference resource
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>area <span class="ot">&lt;-</span> pi <span class="sc">*</span> radius<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># the assigned value is the result of the calculation on the right hand side of the assignment operator (&lt;-).</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>These lines of code first, assign a value of 3 to an object called ‘radius’ and then assign the result of a calculation (using the object radius) to a second object called ‘area’. <code>pi</code> is predefined in R; thus, does not need to be assigned to an object.</p>
+<p>These lines of code first, assign a value of 3 to an object called ‘<code>radius</code>’ and then assign the result of a calculation (using the object <code>radius</code>) to a second object called ‘<code>area</code>’. <code>pi</code> is predefined in R; thus, does not need to be assigned to an object.</p>
 <p>Note that assignment does not print the result. To do so we can ‘call’ the object by running it (control enter).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># By running the name of an object it will 'print' the output to the console.</span></span>
@@ -405,7 +405,7 @@ Reference resource
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>?round</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>See the help for the function <code>round</code> tells you the details? If you scroll down to Arguments section you will see it has a second argument called digits. You will also see examples of how to use the function.</p>
+<p>See the help for the function <code>round</code> tells you the details? If you scroll down to the ‘Arguments’ section you will see it has a second argument called digits. You will also see examples of how to use the function.</p>
 <div class="callout-caution callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -583,7 +583,12 @@ Exercise
 <span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>mass_flipper</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="02_introduction_to_r_files/figure-html/ExamplePlot-1.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02_introduction_to_r_files/figure-html/ExamplePlot-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Body mass against flipper length from <a href="https://allisonhorst.github.io/palmerpenguins/articles/examples.html">Alison Horst</a></figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Now we can save the image to our outputs directory:</p>
