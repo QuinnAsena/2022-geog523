@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.37">
+<meta name="generator" content="quarto-1.0.36">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2022-08-08">
+<meta name="dcterms.date" content="2022-09-22">
 
 <title>Lab 2: Introduction to R and RStudio</title>
 <style>
@@ -117,7 +117,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#why-use-r" id="toc-why-use-r" class="nav-link" data-scroll-target="#why-use-r">Why use R?</a></li>
   <li><a href="#rstudio-interface" id="toc-rstudio-interface" class="nav-link" data-scroll-target="#rstudio-interface">RStudio interface</a></li>
   <li><a href="#projects-and-working-directories" id="toc-projects-and-working-directories" class="nav-link" data-scroll-target="#projects-and-working-directories">Projects and Working Directories</a></li>
-  <li><a href="#maths-and-operations" id="toc-maths-and-operations" class="nav-link" data-scroll-target="#maths-and-operations">Maths and operations</a></li>
+  <li><a href="#math-operators" id="toc-math-operators" class="nav-link" data-scroll-target="#math-operators">Math operators</a></li>
   <li><a href="#objects-and-assignment" id="toc-objects-and-assignment" class="nav-link" data-scroll-target="#objects-and-assignment">Objects and assignment</a></li>
   <li><a href="#comments" id="toc-comments" class="nav-link" data-scroll-target="#comments">Comments</a></li>
   <li><a href="#functions-and-help" id="toc-functions-and-help" class="nav-link" data-scroll-target="#functions-and-help">Functions and help</a></li>
@@ -132,6 +132,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#plotting" id="toc-plotting" class="nav-link" data-scroll-target="#plotting">Plotting</a></li>
   <li><a href="#homework" id="toc-homework" class="nav-link" data-scroll-target="#homework">Homework</a></li>
+  <li><a href="#main-exercise" id="toc-main-exercise" class="nav-link" data-scroll-target="#main-exercise">Main Exercise</a>
+  <ul class="collapse">
+  <li><a href="#additional-comments-on-the-owen-exercises" id="toc-additional-comments-on-the-owen-exercises" class="nav-link" data-scroll-target="#additional-comments-on-the-owen-exercises">Additional Comments on the Owen exercises</a>
+  <ul class="collapse">
+  <li><a href="#overall" id="toc-overall" class="nav-link" data-scroll-target="#overall">Overall</a></li>
+  <li><a href="#section-1.2" id="toc-section-1.2" class="nav-link" data-scroll-target="#section-1.2">Section 1.2</a></li>
+  <li><a href="#section-1.3" id="toc-section-1.3" class="nav-link" data-scroll-target="#section-1.3">Section 1.3</a></li>
+  <li><a href="#section-1.4" id="toc-section-1.4" class="nav-link" data-scroll-target="#section-1.4">Section 1.4</a></li>
+  <li><a href="#section-1.5" id="toc-section-1.5" class="nav-link" data-scroll-target="#section-1.5">Section 1.5</a></li>
+  <li><a href="#section-1.7" id="toc-section-1.7" class="nav-link" data-scroll-target="#section-1.7">Section 1.7</a></li>
+  <li><a href="#section-1.9" id="toc-section-1.9" class="nav-link" data-scroll-target="#section-1.9">Section 1.9</a></li>
+  <li><a href="#section-3.4" id="toc-section-3.4" class="nav-link" data-scroll-target="#section-3.4">Section 3.4</a></li>
+  </ul></li>
+  </ul></li>
   <li><a href="#sec-resources" id="toc-sec-resources" class="nav-link" data-scroll-target="#sec-resources">Resources</a></li>
   </ul>
 </nav>
@@ -151,7 +165,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 8, 2022</p>
+      <p class="date">September 22, 2022</p>
     </div>
   </div>
     
@@ -175,7 +189,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="getting-help-in-geog523" class="level2">
 <h2 class="anchored" data-anchor-id="getting-help-in-geog523">Getting help in Geog523</h2>
 <p>R is hard, we know, and we can’t teach it all in one lab. Take advantage of the out-of-class resources including the slack channel and office-hours. <em>We are here to support you through the learning curve</em>. While coursework should be completed independently we also encourage students to help each other out.</p>
-<p>This workbook is intended to provide you with some basics skills, but primarily to direct you to relevant resources. Links will be provided along the way and in <a href="#sec-resources">Section&nbsp;5</a> are resources (some of which this lab is based on) that include everything needed for this module.</p>
+<p>This workbook is intended to provide you with some basics skills, but primarily to direct you to relevant resources. Links will be provided along the way and in <a href="#sec-resources">Section&nbsp;6</a> are resources (some of which this lab is based on) that include everything needed for this module.</p>
 <p>When posting in the Geog523 slack channel:</p>
 <ul>
 <li><p>Make sure you have looked through the resources and tried to solve the problem yourself.</p></li>
@@ -269,9 +283,9 @@ Exercise
 </div>
 </div>
 </section>
-<section id="maths-and-operations" class="level2">
-<h2 class="anchored" data-anchor-id="maths-and-operations">Maths and operations</h2>
-<p>Fundamentally, R does maths. R supports mathematical operators:</p>
+<section id="math-operators" class="level2">
+<h2 class="anchored" data-anchor-id="math-operators">Math operators</h2>
+<p>Fundamentally, R does math. In other words, R supports mathematical operators:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -470,7 +484,7 @@ Reference resource
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="./images/Data_types_structure_image.jpg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Data structures</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Data structures, from: <a href="https://environmentalcomputing.net/getting-started-with-r/data-types-structure/">Environmental computing</a></figcaption><p></p>
 </figure>
 </div>
 <section id="vector-examples" class="level3">
@@ -479,7 +493,7 @@ Reference resource
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector of type double</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>doub_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.87</span>, <span class="dv">5</span>, <span class="dv">42</span>, <span class="fl">10.0</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a factor vector, a special type of vector indicating categories.</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>factor_vec <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>, <span class="st">"large"</span>)) </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>factor_vec <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"small"</span>, <span class="st">"medium"</span>, <span class="st">"large"</span>, <span class="st">"large"</span>))</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>int_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(1L, 2L, 3L, 4L) <span class="co"># 'L' indicates an integer.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -551,7 +565,7 @@ Exercise
 </section>
 <section id="plotting" class="level1">
 <h1>Plotting</h1>
-<p>To finish up with something fun, let’s check-out the penguins data shown at the start. The <code>palmerpenguins</code> package has a data frame called <code>penguins</code> built-in. To load the data use:</p>
+<p>To finish up with something fun, let’s check-out the penguins data shown at the start. The <code>palmerpenguins</code> package has a data frame called <code>penguins</code> built-in. The dataset describes morphological traits of three different species of penguin: Adelie, Chinstrap, and Gentoo Penguins. To load the data use:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">'palmerpenguins'</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Have a look at the data:</span></span>
@@ -562,10 +576,10 @@ Exercise
 <p>The following code generates a plot of penguine body mass against flipper length and saves it to an object called <code>mass_flipper</code>. The three different species of penguin are plot using different shapes and colours. The plot is generated using the <code>ggplot2</code> package. Have a look through the code and copy it to your script and run it. If you cannot make sense of the code at this point, don’t worry about it. We will be going through the details later in the course.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Following example from: https://allisonhorst.github.io/palmerpenguins/articles/examples.html</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>mass_flipper <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> penguins, </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>mass_flipper <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> penguins,</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">aes</span>(<span class="at">x =</span> flipper_length_mm,</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">y =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> species, </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> species,</span>
 <span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">shape =</span> species),</span>
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>,</span>
 <span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
@@ -598,7 +612,49 @@ Exercise
 </section>
 <section id="homework" class="level1">
 <h1>Homework</h1>
-<p>If you are unfamiliar with R, go through this workbook again and link through to the reference resources provided along the way. Each link points to a useful recourse for each topic (assignment, objects, and data structures) that go into more detail.</p>
+<p>As a starting point, if you are unfamiliar with R, go through this workbook again and link through to the reference resources provided along the way. Each link points to a useful recourse for each topic (assignment, objects, and data structures) that go into more detail.</p>
+</section>
+<section id="main-exercise" class="level1">
+<h1>Main Exercise</h1>
+<p>For the main exercise, we’re going to shamelessly borrow for this introductory lab exercise and have you work through the first <strong>three</strong> chapters of an on-line tutorial (PDF format) developed by W. J. Owen of the University of Richmond. You can obtain it here from <a href="http://www.cran.r-project.org/doc/contrib/Owen-TheRGuide.pdf">CRAN</a> and from our course lab folder on <a href="https://uwmadison.box.com/s/23lgj5ehh6d1rzqg4rq863pypdbf84e2">WiscBox</a></p>
+<p>In WiscBox, there’s a starter script (i.e.&nbsp;R file) that you can use as a template for working through these exercises. During lab, Quinn and I are available as resources. I also strongly suggest that you look for ways to peer-mentor. Slack is an excellent avenue for posting questions to your classmates and instructors.</p>
+<p>During lab, you’re free to work individually or in small groups of 2-3 people. OK also to work in groups outside of class. However, 1) I want each student to turn in their own assignment and 2) research shows that the student working at the computer learns much more than the student observing. So if you do work in pairs, be sure to regularly switch roles.</p>
+<p>Once you’re done, please submit the R script to me via Canvas/Assignments. I’ll then review the code (and comments!) and test-run it.</p>
+<section id="additional-comments-on-the-owen-exercises" class="level2">
+<h2 class="anchored" data-anchor-id="additional-comments-on-the-owen-exercises">Additional Comments on the Owen exercises</h2>
+<section id="overall" class="level3">
+<h3 class="anchored" data-anchor-id="overall">Overall</h3>
+<p>Be sure to comment your code! Good code is well-commented code. Usually the biggest beneficiary of well-commented code is the future you, so learn good habits early! In R, any line beginning with # is a comment line and the computer will skip it when running the code.</p>
+</section>
+<section id="section-1.2" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.2">Section 1.2</h3>
+<p>You can skip this, and simply start RStudio. RStudio includes a window with a command-line interface for running R code.</p>
+</section>
+<section id="section-1.3" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.3">Section 1.3</h3>
+<p>This command is already in the demo script – practice running it.</p>
+</section>
+<section id="section-1.4" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.4">Section 1.4</h3>
+<p>Practice the ls() command. But note too that you can also look at the output in the Environment tab in upper right.</p>
+</section>
+<section id="section-1.5" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.5">Section 1.5</h3>
+<p>Practice the help() command. But note that RStudio also provides a help option in the lower right window.</p>
+</section>
+<section id="section-1.7" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.7">Section 1.7</h3>
+<p>You can skip this - but be sure to periodically save the scripts in your RStudio workspace.</p>
+</section>
+<section id="section-1.9" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.9">Section 1.9</h3>
+<p>Q3: Don’t give me your phone number! How about your StudentID instead. Q4: An Identity Matrix is a square matrix (NRows=Ncolumns) in which all values in the principal diagonal (from upper left to lower right) are equal to 1, while every other value in the matrix is 0. Q5: Save the RStudio workspace and R script, rather than a txt file.</p>
+</section>
+<section id="section-3.4" class="level3">
+<h3 class="anchored" data-anchor-id="section-3.4">Section 3.4</h3>
+<p>Q3: No need to estimate your grade: just provide coursenumber and coursedays.</p>
+</section>
+</section>
 </section>
 <section id="sec-resources" class="level1">
 <h1>Resources</h1>
