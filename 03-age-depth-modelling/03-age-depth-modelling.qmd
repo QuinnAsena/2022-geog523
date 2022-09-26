@@ -14,11 +14,9 @@ theme:
 
 # Before the lab
 
-__Using what you learned from the last lab:__
+1. create a directory for this lab called 03-age-depth-modelling and two sub-directories within it called 'data', and 'outputs'.
 
-1. create a directory for this lab called 03-age-depth-modelling and two sub-directories within it called 'data', and 'outputs'
-
-2. create an R project inside 03-age-depth-modelling, open a new R script, install the packages 'clam', and 'Bchron', and save your script
+2. create an R project inside 03-age-depth-modelling, open a new R script, install the packages `clam`, and `Bchron`, and save your script.
 
 __Read these two papers:__
 
@@ -162,3 +160,4 @@ __Download the Devil's Lake data from the bchron_data directory.__ The data are 
 3. Include the `summary` output as a table in your report
 
 :::
+
