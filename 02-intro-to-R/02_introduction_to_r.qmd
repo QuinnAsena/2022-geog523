@@ -1,7 +1,7 @@
 ---
 title: "Lab 2: Introduction to R and RStudio"
 Author: "Quinn Asena and Jack Williams"
-date: "August 8, 2022"
+date: "September 22, 2022"
 format:
   html:
     code-fold: false
@@ -30,7 +30,7 @@ RStudio is an integrated development environment (IDE) for R and runs R under th
 
 R is hard, we know, and we can't teach it all in one lab. Take advantage of the out-of-class resources including the slack channel and office-hours. _We are here to support you through the learning curve_. While coursework should be completed independently we also encourage students to help each other out.
 
-This workbook is intended to provide you with some basics skills, but primarily to direct you to relevant resources. Links will be provided along the way and in @sec-resources are resources (some of which this lab is based on) that include everything needed for this module. 
+This workbook is intended to provide you with some basics skills, but primarily to direct you to relevant resources. Links will be provided along the way and in @sec-resources are resources (some of which this lab is based on) that include everything needed for this module.
 
 When posting in the Geog523 slack channel:
 
@@ -48,7 +48,7 @@ Buckle up, here we go! We will have regular check-ins during the lab to make sur
 
 Coding is an essential skill to any data-science and analysis. Software such as R is:
 
-- reproducible (unlike point and click software) 
+- reproducible (unlike point and click software)
 
 - capable complicated analyses
 
@@ -67,8 +67,8 @@ library(ggplot2)
 ggplot2::theme_set(ggplot2::theme_minimal())
 
 flipper_hist <- ggplot(data = penguins, aes(x = flipper_length_mm)) +
-  geom_histogram(aes(fill = species), 
-                 alpha = 0.5, 
+  geom_histogram(aes(fill = species),
+                 alpha = 0.5,
                  position = "identity") +
   scale_fill_manual(values = c("darkorange","purple","cyan4")) +
   labs(x = "Flipper length (mm)",
@@ -121,7 +121,7 @@ Each panel has multiple tabs for different features, for example there is a 'Ter
 
 ## Projects and Working Directories
 
-It is important to structure projects carefully from the outset so that data and scripts are stored in the same location. Usually a project's structure will have a high level directory that contains several sub-directories for data and outputs. For example you might want to create a course directory called '2022-Geog523', a directory within that for this lab called '02-intro-to-r', and two sub-directories within that named 'data' and 'outputs' respectively that we will use later. 
+It is important to structure projects carefully from the outset so that data and scripts are stored in the same location. Usually a project's structure will have a high level directory that contains several sub-directories for data and outputs. For example you might want to create a course directory called '2022-Geog523', a directory within that for this lab called '02-intro-to-r', and two sub-directories within that named 'data' and 'outputs' respectively that we will use later.
 
 :::{.callout-note}
 ## Reference resource
@@ -145,9 +145,9 @@ Future labs will be set up following a similar structure.
 :::
 
 
-## Maths and operations
+## Math operators
 
-Fundamentally, R does maths. R supports mathematical operators:
+Fundamentally, R does math. In other words, R supports mathematical operators:
 
 ```{r operators}
 
@@ -170,7 +170,7 @@ pi / 4 # note that 'pi' is built into R.
 
 ## Objects and assignment
 
-Typically we work with 'objects' in R. An object can be a value, word, data, matrix, or any acceptable type in R (more on types later). Objects are displyed in the 'environment' (by default, the top right panel) in RStudio. To create an object we use the 'assignment' operaror (`<-`). 
+Typically we work with 'objects' in R. An object can be a value, word, data, matrix, or any acceptable type in R (more on types later). Objects are displyed in the 'environment' (by default, the top right panel) in RStudio. To create an object we use the 'assignment' operaror (`<-`).
 
 :::{.callout-note}
 ## Reference resource
@@ -270,7 +270,7 @@ install.packages("ggplot2")
 
 To access the set of functions in a package we have to tell R to load them using the `library()` function:
 
-```{r libraray, message=FALSE, warning=FALSE, results=FALSE}
+```{r library, message=FALSE, warning=FALSE, results=FALSE}
 library(palmerpenguins)
 library(ggplot2)
 ```
@@ -312,7 +312,7 @@ Data structures are organised sets of values. The most fundamental are:
 # Create a vector of type double
 doub_vec <- c(1.87, 5, 42, 10.0)
 # Create a factor vector, a special type of vector indicating categories.
-factor_vec <- factor(c("small", "medium", "large", "large")) 
+factor_vec <- factor(c("small", "medium", "large", "large"))
 int_vec <- c(1L, 2L, 3L, 4L) # 'L' indicates an integer.
 ```
 
@@ -328,7 +328,7 @@ A
 
 ### Data frame examples
 
-A data frame can store data of mixed types. That is, each column can have a different type, you may have a column of strings (e.g., species names), and a column of values belonging to each species (e.g., abundances). The `data.frame()` function can combine the vectors into a data frame. 
+A data frame can store data of mixed types. That is, each column can have a different type, you may have a column of strings (e.g., species names), and a column of values belonging to each species (e.g., abundances). The `data.frame()` function can combine the vectors into a data frame.
 
 ```{r dfs}
 data_mixed <- data.frame(factor_vec, doub_vec, int_vec)
@@ -377,10 +377,10 @@ The following code generates a plot of penguine body mass against flipper length
 
 ```{r ExamplePlot, message=FALSE, warning=FALSE, results=FALSE, fig.cap="Body mass against flipper length from [Alison Horst](https://allisonhorst.github.io/palmerpenguins/articles/examples.html)"}
 # Following example from: https://allisonhorst.github.io/palmerpenguins/articles/examples.html
-mass_flipper <- ggplot(data = penguins, 
+mass_flipper <- ggplot(data = penguins,
                        aes(x = flipper_length_mm,
                            y = body_mass_g)) +
-  geom_point(aes(color = species, 
+  geom_point(aes(color = species,
                  shape = species),
              size = 3,
              alpha = 0.8) +
@@ -406,8 +406,44 @@ ggsave(filename = "outputs/mass_flipper.png", plot = mass_flipper, device = "png
 ```
 
 # Homework
+As a starting point, if you are unfamiliar with R, go through this workbook again and link through to the reference resources provided along the way. Each link points to a useful recourse for each topic (assignment, objects, and data structures) that go into more detail.
 
-If you are unfamiliar with R, go through this workbook again and link through to the reference resources provided along the way. Each link points to a useful recourse for each topic (assignment, objects, and data structures) that go into more detail.
+# Main Exercise
+For the main exercise, we're going to shamelessly borrow for this introductory lab exercise and have you work through the first **three** chapters of an on-line tutorial (PDF format) developed by W. J. Owen of the University of Richmond.  You can obtain it here from [CRAN](http://www.cran.r-project.org/doc/contrib/Owen-TheRGuide.pdf) and from our course lab folder on [WiscBox](https://uwmadison.box.com/s/23lgj5ehh6d1rzqg4rq863pypdbf84e2)
+
+In WiscBox, there's a starter script (i.e. R file) that you can use as a template for working through these exercises.  During lab, Quinn and I are available as resources.  I also strongly suggest that you look for ways to peer-mentor.  Slack is an excellent avenue for posting questions to your classmates and instructors.
+
+During lab, you’re free to work individually or in small groups of 2-3 people.  OK also to work in groups outside of class.  However, 1) I want each student to turn in their own assignment and 2) research shows that the student working at the computer learns much more than the student observing.  So if you do work in pairs, be sure to regularly switch roles.
+
+Once you’re done, please submit the R script to me via Canvas/Assignments.  I’ll then review the code (and comments!) and test-run it.
+
+## Additional Comments on the Owen exercises
+
+### Overall
+Be sure to comment your code!  Good code is well-commented code.  Usually the biggest beneficiary of well-commented code is the future you, so learn good habits early!  In R, any line beginning with # is a comment line and the computer will skip it when running the code.
+
+### Section 1.2
+You can skip this, and simply start RStudio.  RStudio includes a window with a command-line interface for running R code.
+
+### Section 1.3
+This command is already in the demo script – practice running it.
+
+### Section 1.4
+Practice the ls() command.  But note too that you can also look at the output in the Environment tab in upper right.
+
+### Section 1.5
+Practice the help() command.  But note that RStudio also provides a help option in the lower right window.
+
+### Section 1.7
+You can skip this - but be sure to periodically save the scripts in your RStudio workspace.
+
+### Section 1.9
+Q3:  Don't give me your phone number!  How about your StudentID instead.
+Q4:  An Identity Matrix is a square matrix (NRows=Ncolumns) in which all values in the principal diagonal (from upper left to lower right) are equal to 1, while every other value in the matrix is 0.
+Q5:  Save the RStudio workspace and R script, rather than a txt file.
+
+### Section 3.4
+Q3:  No need to estimate your grade:  just provide coursenumber and coursedays.
 
 # Resources {#sec-resources}
 
