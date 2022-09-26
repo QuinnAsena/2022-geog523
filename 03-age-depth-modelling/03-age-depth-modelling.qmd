@@ -124,11 +124,14 @@ Construct a table of a single date calibrated to three different curves specifyi
 
     iv) cubic spline (type=3)
 
+Note that `clam` will save outputs to the directory clam_runs/DevilsLakeAMS/DevilsLakeAMS.csv, including the age depth model plots you need for the homework below. Newer package generate the plots and data that can be storred as objects in R (this way is better!).
 :::
 
 
 :::{.callout-warning}
 ## Homework
+
+**Needs updating: Action point for Jack**
 
 - Add the classical age-depth from clam to your homework. One axis should show depth and the other show age. Make sure each plot is titled so that I know which model is which.
 
@@ -146,7 +149,7 @@ Note that in clam you can also specify the position of ‘slumps’ (instantaneo
 
 ## Exercise 3: Bayesian age-depth modelling
 
-There are two equally advanced package for age-depth modelling in R: `rbacon` (usually called just bacon) and `Bchron`. We will be experimenting withe `Bchron` as it is marginally more user friendly in R. Bacon requires a specific directory structure and column ordering of data. Remember, software such as R and packages such as Bacon regularly update. Things that were difficult or impossible last month may have changed by the next.
+There are two equally advanced package for age-depth modelling in R: `rbacon` (usually called just bacon) and `Bchron`. We will be experimenting with `Bchron` as it is marginally more user friendly in R. Bacon requires a specific directory structure and column ordering of data. Remember, software such as R and packages such as Bacon regularly update. Things that were difficult or impossible last month may have changed by the next.
 
 Bchron has a useful [guide](https://cran.r-project.org/web/packages/Bchron/vignettes/Bchron.html#calibrating-radiocarbon-dates) with a working example using a dataset built-in with the package. Today we will use the Devil's Lake data. Download the csv file: 'devils_lake_bchron.csv' to your working directory, and read it into R as a data.frame. Check out the structure of the data. Unlike `rbacon`, in `Bchron` the data do not need to be stored in a specific directory structure and the columns do not need to be in a specific order. 
 
