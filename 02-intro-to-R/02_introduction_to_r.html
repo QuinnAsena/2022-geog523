@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.36">
+<meta name="generator" content="quarto-1.0.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -147,6 +147,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   </ul></li>
   <li><a href="#sec-resources" id="toc-sec-resources" class="nav-link" data-scroll-target="#sec-resources">Resources</a></li>
+  <li><a href="#tips-and-best-practice" id="toc-tips-and-best-practice" class="nav-link" data-scroll-target="#tips-and-best-practice">Tips and best practice</a>
+  <ul class="collapse">
+  <li><a href="#layout-and-structure" id="toc-layout-and-structure" class="nav-link" data-scroll-target="#layout-and-structure">Layout and structure</a></li>
+  </ul></li>
   </ul>
 </nav>
 </div>
@@ -671,6 +675,25 @@ Exercise
 <li>I recommend only browsing stackoverflow at this stage. The community does not like duplicated questions.</li>
 </ul></li>
 </ul>
+</section>
+<section id="tips-and-best-practice" class="level1">
+<h1>Tips and best practice</h1>
+<p>Here are additional tips to read in your own time that help make your scripting life easier. Some are general best practices that are useful to integrate while you learn how to code.</p>
+<section id="layout-and-structure" class="level2">
+<h2 class="anchored" data-anchor-id="layout-and-structure">Layout and structure</h2>
+<p>R scripts can have a layout with headings that you can view by clicking the ‘outline’ symbol on the top right of your source panel. To insert a heading use either 5 hashtags: <code>##### Heading title</code> or <code># Heading title --------------------------</code>. Include plenty of comments. Writing informative comments is quite a skill.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Libraries ---------------------------------------------------------------</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># A list of required libraries and I like a comment indicating what they are for.</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>() <span class="co"># For ...</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>() <span class="co"># If you have any source functions (i.e., a separate script of functions you have written)</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Data wrangling ----------------------------------------------------------</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># I like to set a file pathway with the 'here' package before reading in data</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>data_files <span class="ot">&lt;-</span> <span class="fu">read.csv</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The above code chunk is a good way to layout a script. Typically a list of libraries is included at the top (rather that dispersed throughout). Functions are sourced, then data are read in, manipulated, visualised and analysed.</p>
+</section>
 </section>
 
 </main>
