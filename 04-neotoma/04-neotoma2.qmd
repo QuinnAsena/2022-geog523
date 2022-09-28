@@ -40,8 +40,6 @@ Goring, S., Dawson, A., Simpson, G., Ram, K., Graham, R. W., Grimm, E. C., and W
 
 This series of exercises is designed to give you hands-on practice in using APIs and the `neotoma2` R package (Goring et al, 2015), both for practical reasons and for insights into how open-data systems work. `neotoma2`’s primary purpose is to pass data from the Neotoma Paleoecology Database (Neotoma DB) into the R environment. Neotoma relies on Application Programming Interfaces ([APIs](https://en.wikipedia.org/wiki/API)) to communicate with the Neotoma Paleoecology Database, so we’ll begin with an introduction to APIs.
 
-Note that the R components of this exercise are adapted from materials originally developed by Simon Goring, Jack Williams, and others for Neotoma training workshops at PalEON and elsewhere (e.g. [HTML](https://open.neotomadb.org/EPD_binder/simple_workflow.html) and GitHub) and are reproduced here under the [MIT](https://opensource.org/licenses/MIT) License.
-
 ## Goals
 
 - Understand the flow of data through the Neotoma Paleoecology Database package, APIs, and neotoma package.

@@ -1,6 +1,6 @@
 ---
 title: "Lab 2: Introduction to R and RStudio"
-Author: "Quinn Asena and Jack Williams"
+author: "Quinn Asena and Jack Williams"
 date: "September 22, 2022"
 format:
   html:
