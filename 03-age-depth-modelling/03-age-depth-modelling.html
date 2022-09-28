@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.37">
+<meta name="generator" content="quarto-1.0.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -32,6 +32,7 @@ ul.task-list{list-style: none;}
 <link href="03-age-depth-modelling_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="03-age-depth-modelling_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -116,8 +117,8 @@ ul.task-list{list-style: none;}
 <p>Different kinds of age-depth models exist, each with their own underlying assumptions and behavior. In the list below, #1-4 are classical or traditional forms of age-depth models, but Bayesian models (bacon, bchron) are now the norm. For learning purposes, we’ll begin with the classics.</p>
 <ol type="1">
 <li><p><strong>Linear interpolation</strong>, a.k.a. ‘connect the dots,’ in which straight lines are drawn between each depth-adjacent pair of age controls.</p></li>
-<li><p><strong>Linear regression</strong> (y=b0 + b1x; y=time and x=depth; b0 and b1 are constants), in which a single straight line is fitted through the entire set of age controls. In ordinary linear regression (OLS), the chosen line will minimize the y-dimension distances of individual points to the line. Standard OLS assumes that all observations are normally distributed, which is a poor assumption for calibrated radiocarbon dates.</p></li>
-<li><p><strong>Polynomials</strong>, also fitted to the entire set of age controls (y= b0 + b1x + b2x^2 + b3x^3 + …bnx^n) and are an extension of linear regression, with additional terms for x^2, x^3, etc. Some arbitrary maximum n is chosen, usually in the range of 3 to 5. Splines, which are a special kind of polynomial function that are locally fitted to subsets of the age controls, and then smoothly interpolate between points. (Several different formulas can be used to generate splines; common forms include cubic, smooth, monotonic, and LOWESS).</p></li>
+<li><p><strong>Linear regression</strong> (<span class="math inline">\(y=b0 + b1x\)</span>; <span class="math inline">\(y=\)</span>time and <span class="math inline">\(x=\)</span>depth; <span class="math inline">\(b0\)</span> and <span class="math inline">\(b1\)</span> are constants), in which a single straight line is fitted through the entire set of age controls. In ordinary linear regression (OLS), the chosen line will minimize the y-dimension distances of individual points to the line. Standard OLS assumes that all observations are normally distributed, which is a poor assumption for calibrated radiocarbon dates.</p></li>
+<li><p><strong>Polynomials</strong>, also fitted to the entire set of age controls (<span class="math inline">\(y= b0 + b1x + b2x^2 + b3x^3 + …bnx^n\)</span>) and are an extension of linear regression, with additional terms for <span class="math inline">\(x^2\)</span>, <span class="math inline">\(x^3\)</span>, etc. Some arbitrary maximum n is chosen, usually in the range of 3 to 5. Splines, which are a special kind of polynomial function that are locally fitted to subsets of the age controls, and then smoothly interpolate between points. (Several different formulas can be used to generate splines; common forms include cubic, smooth, monotonic, and LOWESS).</p></li>
 <li><p><strong>Bayesian age models</strong> (e.g.&nbsp;bacon, bchron, oxcal, etc.). Bayesian models differ in detail, but all combine a statistical representation of prior knowledge with the new data (i.e.&nbsp;the age controls at a site) to build an age-depth model with posterior estimates of age for any given depth. Bayesian models are now widely used because 1) they allow the incorporation of prior knowledge (e.g., from coring many lakes, we now have decent estimates of typical sediment accumulation rates, (Goring et al.&nbsp;2012); 2) they can handle highly irregular probability distribution functions such as those for after-calibration radiocarbon dates; and as a result 3) they generally do a better job of describing uncertainty than traditional age-depth models.</p></li>
 </ol>
 </section>
@@ -207,6 +208,7 @@ Exercise
 <li><p>cubic spline (type=3)</p></li>
 </ol></li>
 </ol>
+<p>Note that <code>clam</code> will save outputs to the directory clam_runs/DevilsLakeAMS/DevilsLakeAMS.csv, including the age depth model plots you need for the homework below. Newer package generate the plots and data that can be storred as objects in R (this way is better!).</p>
 </div>
 </div>
 <div class="callout-warning callout callout-style-default callout-captioned">
@@ -219,6 +221,7 @@ Homework
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>Needs updating: Action point for Jack</strong></p>
 <ul>
 <li><p>Add the classical age-depth from clam to your homework. One axis should show depth and the other show age. Make sure each plot is titled so that I know which model is which.</p></li>
 <li><p>Look at the Devils Lake pollen diagram in Neotoma Explorer and pick two notable vegetation events (e.g.&nbsp;end-Pleistocene Picea decline). Then, identify the depths of these events in Neotoma Explorer and use your output from clam to build a table that reports the inferred mean age and 95% CI of these events in separate columns. Your table will have at least XX columns: Depth, MeanAge_LinInterp, 95%CI_LinInterp, MeanAge_LinReg, 95%CI_LinReg, MeanAge_Poly, 95%CI_Poly, MeanAge_Spline, 95%CI_Spline.</p></li>
@@ -231,7 +234,7 @@ Homework
 </section>
 <section id="exercise-3-bayesian-age-depth-modelling" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-3-bayesian-age-depth-modelling">Exercise 3: Bayesian age-depth modelling</h2>
-<p>There are two equally advanced package for age-depth modelling in R: <code>rbacon</code> (usually called just bacon) and <code>Bchron</code>. We will be experimenting withe <code>Bchron</code> as it is marginally more user friendly in R. Bacon requires a specific directory structure and column ordering of data. Remember, software such as R and packages such as Bacon regularly update. Things that were difficult or impossible last month may have changed by the next.</p>
+<p>There are two equally advanced package for age-depth modelling in R: <code>rbacon</code> (usually called just bacon) and <code>Bchron</code>. We will be experimenting with <code>Bchron</code> as it is marginally more user friendly in R. Bacon requires a specific directory structure and column ordering of data. Remember, software such as R and packages such as Bacon regularly update. Things that were difficult or impossible last month may have changed by the next.</p>
 <p>Bchron has a useful <a href="https://cran.r-project.org/web/packages/Bchron/vignettes/Bchron.html#calibrating-radiocarbon-dates">guide</a> with a working example using a dataset built-in with the package. Today we will use the Devil’s Lake data. Download the csv file: ‘devils_lake_bchron.csv’ to your working directory, and read it into R as a data.frame. Check out the structure of the data. Unlike <code>rbacon</code>, in <code>Bchron</code> the data do not need to be stored in a specific directory structure and the columns do not need to be in a specific order.</p>
 <div class="callout-warning callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
@@ -243,7 +246,7 @@ Homework
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Using the <code>Bchron</code> guide:</p>
+<p><strong>Download the Devil’s Lake data from the bchron_data directory.</strong> The data are the same, only the structure is slightly modified to work with <code>Bchron</code>. Using the <code>Bchron</code> guide:</p>
 <ol type="1">
 <li><p>Find the working example of how to run the age depth model and adapt the code to run the model on the Devil’s lake data</p></li>
 <li><p>Include the <code>plot</code> output from the age depth model of Devil’s Lake tp your report</p></li>
