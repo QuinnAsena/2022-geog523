@@ -1,6 +1,6 @@
 ---
 title: "Lab 3: Age-Depth Models"
-Author: "Quinn Asena and Jack Williams"
+author: "Quinn Asena and Jack Williams"
 date: "September 29, 2022"
 format:
   html:
@@ -84,7 +84,6 @@ First, we will check out different calibration curves of a single date using the
     - You can copy and paste the code into your R script.
 
 2. run the same example using a different inputs for `calCurves = ` argument. Try using both the Shouthern Hemisphere curve and the marine curves.
-
 :::
 
 :::{.callout-warning}
@@ -96,7 +95,6 @@ Construct a table of a single date calibrated to three different curves specifyi
 - the original radiocarbon age and standard deviation.
 
 - the calibrated age ranges from `summary()`.
-
 :::
 
 ## Classical age-depth
@@ -117,13 +115,13 @@ Construct a table of a single date calibrated to three different curves specifyi
 
 2. Build the following age-depth models
 
-    i) linear interpolation (type=1)
+    i) linear interpolation (`type=1`)
 
-    ii) linear regression (type=2) [default is linear]
+    ii) linear regression (`type=2) [default is linear`]
 
-    iii) 3rd-order polynomial (type=2, smooth=3) [the smooth parameter sets the polynomial degree]
+    iii) 3rd-order polynomial (`type=2, smooth=3`) [the smooth parameter sets the polynomial degree]
 
-    iv) cubic spline (type=3)
+    iv) cubic spline (`type=3`)
 
 Note that `clam` will save outputs to the directory clam_runs/DevilsLakeAMS/DevilsLakeAMS.csv, including the age depth model plots you need for the homework below. Newer package generate the plots and data that can be storred as objects in R (this way is better!).
 :::
@@ -132,19 +130,16 @@ Note that `clam` will save outputs to the directory clam_runs/DevilsLakeAMS/Devi
 :::{.callout-warning}
 ## Homework
 
-**Needs updating: Action point for Jack**
-
 - Add the classical age-depth from clam to your homework. One axis should show depth and the other show age. Make sure each plot is titled so that I know which model is which.
 
-- Look at the Devils Lake pollen diagram in Neotoma Explorer and pick two notable vegetation events (e.g. end-Pleistocene Picea decline). Then, identify the depths of these events in Neotoma Explorer and use your output from clam to build a table that reports the inferred mean age and 95% CI of these events in separate columns. Your table will have at least XX columns: Depth, MeanAge_LinInterp, 95%CI_LinInterp, MeanAge_LinReg, 95%CI_LinReg, MeanAge_Poly, 95%CI_Poly, MeanAge_Spline, 95%CI_Spline.
+- Look at the Devils Lake pollen diagram in Neotoma Explorer and pick two notable vegetation events (e.g. end-Pleistocene Picea decline). Then, identify the depths of these events in Neotoma Explorer and use your output from clam to build a table that reports the inferred mean age and 95% CI of these events in separate columns. Your table will have at least the columns: depth,	min95%,	max95%,	best, accrate.
 
-- Using clam, construct a smooth spline (type="smooth") with the default smoothing parameter
+- Using clam, construct a cubic spline (`type=3`) with the default smoothing parameter
 
 - Experiment with alternative values of the smooth parameter and pick 3-4 that show a range of model behavior
 
 - Homework: As in 3., make age-depth plots to show the various splines. To the table created above, add columns that reports the mean age estimates and uncertainties.
 Note that in clam you can also specify the position of ‘slumps’ (instantaneously deposited sediments, like a flood layer) and ‘hiatuses’ (gaps in the sediment record). Feel free to play with these options.
-
 :::
 
 
@@ -161,8 +156,7 @@ __Download the Devil's Lake data from the bchron_data directory.__ The data are 
 
 1. Find the working example of how to run the age depth model and adapt the code to run the model on the Devil's lake data
 
-2. Include the `plot` output from the age depth model of Devil's Lake tp your report
+2. Include the `plot` output from the age depth model of Devil's Lake to your homework
 
-3. Include the `summary` output as a table in your report
-
+3. Include the `summary` output as a table in your homework
 :::
