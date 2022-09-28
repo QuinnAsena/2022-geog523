@@ -1,7 +1,7 @@
 ---
-title: "Lab 3: Age-depth modelling"
+title: "Lab 3: Age-Depth Models"
 author: "Quinn Asena and Jack Williams"
-date: "August 8, 2022"
+date: "September 29, 2022"
 format:
   html:
     code-fold: false
@@ -11,14 +11,15 @@ theme:
   light: flatly
   dark: darkly
 ---
+## Quinn Asena & Jack Williams
 
 # Before the lab
 
 __Using what you learned from the last lab:__
 
-1. create a directory for this lab called 03-age-depth-modelling and two sub-directories within it called 'data', and 'outputs'
+1. Create a directory for this lab called 03-age-depth-models and two sub-directories within it called 'data', and 'outputs'
 
-2. create an R project inside 03-age-depth-modelling, open a new R script, install the packages 'clam', and 'Bchron', and save your script
+2. Create an R project inside 03-age-depth-models, open a new R script, install the packages 'clam', and 'Bchron', and save your script
 
 __Read these two papers:__
 
@@ -146,7 +147,7 @@ Note that in clam you can also specify the position of ‘slumps’ (instantaneo
 
 There are two equally advanced package for age-depth modelling in R: `rbacon` (usually called just bacon) and `Bchron`. We will be experimenting with `Bchron` as it is marginally more user friendly in R. Bacon requires a specific directory structure and column ordering of data. Remember, software such as R and packages such as Bacon regularly update. Things that were difficult or impossible last month may have changed by the next.
 
-Bchron has a useful [guide](https://cran.r-project.org/web/packages/Bchron/vignettes/Bchron.html#calibrating-radiocarbon-dates) with a working example using a dataset built-in with the package. Today we will use the Devil's Lake data. Download the csv file: 'devils_lake_bchron.csv' to your working directory, and read it into R as a data.frame. Check out the structure of the data. Unlike `rbacon`, in `Bchron` the data do not need to be stored in a specific directory structure and the columns do not need to be in a specific order. 
+Bchron has a useful [guide](https://cran.r-project.org/web/packages/Bchron/vignettes/Bchron.html#calibrating-radiocarbon-dates) with a working example using a dataset built-in with the package. Today we will use the Devil's Lake data. Download the csv file: 'devils_lake_bchron.csv' to your working directory, and read it into R as a data.frame. Check out the structure of the data. Unlike `rbacon`, in `Bchron` the data do not need to be stored in a specific directory structure and the columns do not need to be in a specific order.
 
 :::{.callout-warning}
 ## Homework
