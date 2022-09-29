@@ -62,14 +62,14 @@ Different kinds of age-depth models exist, each with their own underlying assump
 4. **Splines**, which are a special kind of polynomial function that are locally fitted to subsets of the age controls, and then smoothly interpolated between points. (Several different formulas can be used to generate splines; common forms include cubic, smooth, monotonic, and LOWESS).
 
 5. **Bayesian age models** (e.g. `bacon`, `bchron`, `oxcal`, etc.). Bayesian models differ in detail, but all combine a statistical representation of prior knowledge with the new data (i.e. the age controls at a site) to build an age-depth model with posterior estimates of age for any given depth. Bayesian models are now widely used because
-  i) they allow the incorporation of prior knowledge (e.g., from coring many lakes, we now have decent estimates of typical sediment accumulation rates, [Goring et al. 2012](https://www.sciencedirect.com/science/article/abs/pii/S0277379112002132));
-  ii) they can handle highly irregular probability distribution functions such as those for radiocarbon dates after calibration; and as a result
-  iii) they generally do a better job of describing uncertainty than traditional age-depth models.
+    i) they allow the incorporation of prior knowledge (e.g., from coring many lakes, we now have decent estimates of typical sediment accumulation rates, [Goring et al. 2012](https://www.sciencedirect.com/science/article/abs/pii/S0277379112002132));
+    ii) they can handle highly irregular probability distribution functions such as those for radiocarbon dates after calibration; and as a result
+    iii)  they generally do a better job of describing uncertainty than traditional age-depth models.
 
 # Part 2: Exercises
 
 
-## Calibration
+## Exercise 1: Calibration
  Here we'll experiment with calibrating radiocarbon dates, using various calibration curves. The package `Bchron` makes calibrating dates to different curves easy for us.
 
 :::{.callout-note}
@@ -84,7 +84,7 @@ First, we will check out different calibration curves of a single date using the
 
 1. Using the help `?`, read the documentation of the `BchronCalibrate` function and run the first example provided.  Copy and paste the code into your R script.
 
-2. Run the same example using a different inputs for `calCurves = ` argument. Try using both the Shouthern Hemisphere curve and the marine curves.  Show all variants in your R script.
+2. For three examples of radiocarbon age estimates (5000, 10000, 20000 years BP, each with a standard deviation of 100 years),  calibrate each using the IntCal20 Northern Hemisphere curve.
 
 3. For three examples of radiocarbon age estimates (5000, 10000, 20000 years BP, each with a standard deviation of 100 years), calibrate each using the IntCal20 Northern Hemisphere curve.
 
@@ -100,7 +100,7 @@ How different are the resultant age estimates? As before, show all work and writ
 
 :::
 
-## Classical age-depth
+## Exercise 2: Classical age-depth models
 
 Here we'll explore and compare the results from some classical models using the `clam` package. As noted above, `clam` is now out of date. However, it is useful to see how different classical models work, because they are simpler than Bayesian methods and were widely used and in the literature.
 
@@ -137,16 +137,16 @@ Note that in clam you can also specify the position of ‘slumps’ (instantaneo
 
 :::
 
-## Exercise 3: Bayesian age-depth modelling
+## Exercise 3: Bayesian age-depth models
 
 There are two equally advanced package for age-depth modelling in R: `rbacon` (usually called just bacon) and `Bchron`. We will be experimenting with `Bchron` as it is marginally more user friendly in R. Like clam, bacon requires a specific directory structure and column ordering of data, which is a bit clunky. Of course, software and packages are regularly updated. Things that were difficult or impossible last month may have changed by the next.
 
 Bchron has a useful [guide](https://cran.r-project.org/web/packages/Bchron/vignettes/Bchron.html#calibrating-radiocarbon-dates) with a working example using a dataset built-in with the package. Today we will use the Devil's Lake data. Download the csv file: 'devils_lake_bchron.csv' to your working directory, and read it into R as a data.frame. Check out the structure of the data. Unlike `rbacon`, in `Bchron` the data do not need to be stored in a specific directory structure and the columns do not need to be in a specific order.
 
 :::{.callout-warning}
-## Bchron Homework
+## Bchron Exercise
 
-**Download the Devil's Lake data from the bchron_data directory.** The data are the same, only the structure is slightly modified to work with `Bchron`. Using the `Bchron` guide:
+Download the Devil's Lake data from the bchron_data directory. The data are the same, only the structure is slightly modified to work with `Bchron`. Using the `Bchron` guide:
 
 1. Find the working example of how to run the age depth model and adapt the code to run the model on the Devil's lake data
 
