@@ -1,6 +1,6 @@
 ---
 title: "Lab 3: Age-Depth Models"
-author: "Quinn Asena and Jack Williams"
+author: "Jack Williams & Quinn Asena"
 date: "September 29, 2022"
 format:
   html:
@@ -11,7 +11,6 @@ theme:
   light: flatly
   dark: darkly
 ---
-### Authors: Quinn Asena & Jack Williams
 
 # Before the lab
 
@@ -62,14 +61,14 @@ Different kinds of age-depth models exist, each with their own underlying assump
 4. **Splines**, which are a special kind of polynomial function that are locally fitted to subsets of the age controls, and then smoothly interpolated between points. (Several different formulas can be used to generate splines; common forms include cubic, smooth, monotonic, and LOWESS).
 
 5. **Bayesian age models** (e.g. `bacon`, `bchron`, `oxcal`, etc.). Bayesian models differ in detail, but all combine a statistical representation of prior knowledge with the new data (i.e. the age controls at a site) to build an age-depth model with posterior estimates of age for any given depth. Bayesian models are now widely used because
-  i) they allow the incorporation of prior knowledge (e.g., from coring many lakes, we now have decent estimates of typical sediment accumulation rates, [Goring et al. 2012](https://www.sciencedirect.com/science/article/abs/pii/S0277379112002132));
-  ii) they can handle highly irregular probability distribution functions such as those for radiocarbon dates after calibration; and as a result
-  iii) they generally do a better job of describing uncertainty than traditional age-depth models.
+    i) they allow the incorporation of prior knowledge (e.g., from coring many lakes, we now have decent estimates of typical sediment accumulation rates, [Goring et al. 2012](https://www.sciencedirect.com/science/article/abs/pii/S0277379112002132));
+    ii) they can handle highly irregular probability distribution functions such as those for radiocarbon dates after calibration; and as a result
+    iii)  they generally do a better job of describing uncertainty than traditional age-depth models.
 
 # Part 2: Exercises
 
 
-## Calibration
+## Exercise 1: Calibration
  Here we'll experiment with calibrating radiocarbon dates, using various calibration curves. The package `Bchron` makes calibrating dates to different curves easy for us.
 
 :::{.callout-note}
@@ -84,32 +83,19 @@ First, we will check out different calibration curves of a single date using the
 
 1. Using the help `?`, read the documentation of the `BchronCalibrate` function and run the first example provided.  Copy and paste the code into your R script.
 
-2. Run the same example using a different inputs for `calCurves = ` argument. Try using both the Shouthern Hemisphere curve and the marine curves.  Show all variants in your R script.
+2. For three examples of radiocarbon age estimates (5000, 10000, 20000 years BP, each with a standard deviation of 100 years),  calibrate each using the IntCal20 Northern Hemisphere curve.
 
-<<<<<<< HEAD
-3. For three examples of radiocarbon age estimates (5000, 10000, 20000 years BP, each with a standard deviation of 100 years),  calibrate each using the IntCal20 Northern Hemisphere curve.
+3. Calculate the difference between the original ^14^C age and the median calibrated age estimate.
 
-4. Calculate the difference between the original ^14^C age and the median calibrated age estimate.
-=======
-2. run the same example using a different inputs for `calCurves = ` argument. Try using both the Shouthern Hemisphere curve and the marine curves.
-:::
->>>>>>> main
+4.  For a radiocarbon age estimate of 10000 years BP with a standard deviation of 100 years, calibrate it to three different calibration curves.  Try using both the Southern Hemisphere curve and the marine curves.  Show all these variants in your R script.  How much do these different calibration curves affect the resultant age estimates?
 
 5. Describe in general terms the relationship between a radiocarbon age estimate and the true calibrated age estimate, i.e. are calibrated age estimates older or younger than the radiocarbon ages, and does this difference change over time?
 
 Show all work in your R script.  For Q5, write your answer as a comment in the R script.
 
-6. For a radiocarbon age estimate of 10000 years BP with a standard deviation of 100 years, calibrate it to three different calibration curves.
-
-<<<<<<< HEAD
-How different are the resultant age estimates?  As before, show all work and write your answers in the R script.
-
-=======
-- the calibrated age ranges from `summary()`.
->>>>>>> main
 :::
 
-## Classical age-depth
+## Exercise 2: Classical age-depth models
 
 Here we'll explore and compare the results from some classical models using the `clam` package. As noted above, `clam` is now out of date. However, it is useful to see how different classical models work, because they are simpler than Bayesian methods and were widely used and in the literature.
 
@@ -137,47 +123,31 @@ Here we'll explore and compare the results from some classical models using the 
 
 Note that `clam` will save outputs to the directory clam_runs/DevilsLakeAMS/DevilsLakeAMS.csv, including the age-depth model plots you need for the homework below. (This is a bit clunky!  Newer packages will generate the plots and data that can be stored as objects in R.)
 
-<<<<<<< HEAD
 3.  Make a plot for each of the four classical age-depth models above.  One axis should show depth and the other show age; make sure that the axes are labeled.  Give each plot a title to indicate what kind of age-depth model was used.
 
-- Look at the Devils Lake pollen diagram in Neotoma Explorer and pick two notable vegetation events (e.g. end-Pleistocene *Picea* decline). Then, identify the depths of these events in Neotoma Explorer and use your output from clam to build a data matrix that reports the inferred mean age and 95% CI of these events in separate columns. Your data matrix should have 9 columns: Depth, MeanAge_LinInterp, 95%CI_LinInterp, MeanAge_LinReg, 95%CI_LinReg, MeanAge_Poly, 95%CI_Poly, MeanAge_Spline, 95%CI_Spline.
+4. Look at the Devils Lake pollen diagram in Neotoma Explorer and pick two notable vegetation events (e.g. end-Pleistocene *Picea* decline). Then, identify the depths of these events in Neotoma Explorer and use your output from clam to build a data matrix that reports the inferred mean age and 95% CI of these events in separate columns. Your table should have at least the columns: depth,	min95%,	max95%,	best, accrate.
 
-4. Using clam, construct a smooth spline (type="smooth") with the default smoothing parameter. Experiment with alternative values of the smooth parameter and pick 3-4 that show a range of model behavior.  ake age-depth plots to show the various splines.
-=======
-:::{.callout-warning}
-## Homework
-
-- Add the classical age-depth from clam to your homework. One axis should show depth and the other show age. Make sure each plot is titled so that I know which model is which.
-
-- Look at the Devils Lake pollen diagram in Neotoma Explorer and pick two notable vegetation events (e.g. end-Pleistocene Picea decline). Then, identify the depths of these events in Neotoma Explorer and use your output from clam to build a table that reports the inferred mean age and 95% CI of these events in separate columns. Your table will have at least the columns: depth,	min95%,	max95%,	best, accrate.
-
-- Using clam, construct a cubic spline (`type=3`) with the default smoothing parameter
+5. Using clam, construct a smooth spline (`type=3`) with the default smoothing parameter. Experiment with alternative values of the smooth parameter and pick 3-4 that show a range of model behavior.  Make age-depth plots to show the various splines.
 
 Note that in clam you can also specify the position of ‘slumps’ (instantaneously deposited sediments, like a flood layer) and ‘hiatuses’ (gaps in the sediment record). Feel free to play with these options.
 :::
 
-## Exercise 3: Bayesian age-depth modelling
+## Exercise 3: Bayesian age-depth models
 
 There are two equally advanced package for age-depth modelling in R: `rbacon` (usually called just bacon) and `Bchron`. We will be experimenting with `Bchron` as it is marginally more user friendly in R. Like clam, bacon requires a specific directory structure and column ordering of data, which is a bit clunky. Of course, software and packages are regularly updated. Things that were difficult or impossible last month may have changed by the next.
 
 Bchron has a useful [guide](https://cran.r-project.org/web/packages/Bchron/vignettes/Bchron.html#calibrating-radiocarbon-dates) with a working example using a dataset built-in with the package. Today we will use the Devil's Lake data. Download the csv file: 'devils_lake_bchron.csv' to your working directory, and read it into R as a data.frame. Check out the structure of the data. Unlike `rbacon`, in `Bchron` the data do not need to be stored in a specific directory structure and the columns do not need to be in a specific order.
 
 :::{.callout-warning}
-## Bchron Homework
+## Bchron Exercise
 
-**Download the Devil's Lake data from the bchron_data directory.** The data are the same, only the structure is slightly modified to work with `Bchron`. Using the `Bchron` guide:
+Download the Devil's Lake data from the bchron_data directory. The data are the same, only the structure is slightly modified to work with `Bchron`. Using the `Bchron` guide:
 
 1. Find the working example of how to run the age depth model and adapt the code to run the model on the Devil's lake data
 
-<<<<<<< HEAD
 2. Include code to show the `plot` output from the age depth model of Devil's Lake
 
 3. Save the `summary` output as a named data object in your R Description
 
-What similarities or differences do you notice in the BChron age-depth plot versus the plots generated by CLAM?  The most notable difference is likely to be in the uncertainty envelopes.  How are these different?  As above, write your answer as a comment in the R script.
-=======
-2. Include the `plot` output from the age depth model of Devil's Lake to your homework
->>>>>>> main
-
-3. Include the `summary` output as a table in your homework
+4. What similarities or differences do you notice in the BChron age-depth plot versus the plots generated by CLAM?  The most notable difference is likely to be in the uncertainty envelopes.  How are these different?  As above, write your answer as a comment in the R script.
 :::
