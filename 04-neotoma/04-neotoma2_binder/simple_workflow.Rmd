@@ -93,6 +93,9 @@ devil_sites <- neotoma2::get_sites(sitename = "%Devil%")
 plotLeaflet(devil_sites)
 ```
 
+If we want an individual record we can use the siteid: `r devils_lake <- neotoma2::get_sites(siteid = 666)`.
+
+
 #### Location: `loc=c()` {.tabset}
 
 The `neotoma` package used a bounding box for locations, structured as a vector of latitude and longitude values: `c(xmin, ymin, xmax, ymax)`.  The `neotoma2` R package supports both this simple bounding box, but also more complex spatial objects, using the [`sf` package](https://r-spatial.github.io/sf/). Using the `sf` package allows us to more easily work with raster and polygon data in R, and to select sites from more complex spatial objects.  The `loc` parameter works with the simple vector, [WKT](https://arthur-e.github.io/Wicket/sandbox-gmaps3.html), [geoJSON](http://geojson.io/#map=2/20.0/0.0) objects and native `sf` objects in R.  **Note however** that the `neotoma2` package is a wrapper for a simple API call using a URL ([api.neotomadb.org](https://api.neotomadb.org)), and URL strings can only be 1028 characters long, so the API cannot accept very long/complex spatial objects.
@@ -262,21 +265,51 @@ The `taxonid` values can be linked to the `taxonid` column in the `samples()`. T
 
 #### Simple Harmonization {.tabset}
 
-Lets say we want all samples from which *Plantago* taxa have been reported to be grouped together into one pseudo-taxon called *Plantago*. There are several ways of doing this, either directly by exporting the file and editing each individual cell, or by creating an external "harmonization" table (which we did in the prior `neotoma` package).
+Lets say we want all samples from which *Pinus* taxa have been reported to be grouped together into one pseudo-taxon called *Pinus*. There are several ways of doing this, either directly by exporting the file and editing each individual cell, or by creating an external "harmonization" table (which we did in the prior `neotoma` package).
 
-Programmatically, we can harmonize taxon by taxon using matching and transformation. We're using `dplyr` type coding here to `mutate()` the column `variablename` so that any time we detect (`str_detect()`) a `variablename` that starts with `Plantago` (the `.*` represents a wildcard for any character [`.`], zero or more times [`*`]) we `replace()` it with the character string `"Plantago"`.  Note that this changes *Plantago* in the `allSamp` object, but if we were to call `samples()` again, the taxonomy would return to its original form.
+Programmatically, we can harmonize taxon by taxon using matching and transformation. We're using `dplyr` type coding here to `mutate()` the column `variablename` so that any time we detect (`str_detect()`) a `variablename` that starts with `Pinus` (the `.*` represents a wildcard for any character [`.`], zero or more times [`*`]) we `replace()` it with the character string `"Pinus"`. Note that this changes *Pinus* in the `allSamp` object, but if we were to call `samples()` again, the taxonomy would return to its original form.
 
-We're going to filter the ecological groups to include only *UPHE* (upleand/heath) and *TRSH* (trees and shrubs).  More information about ecological groups is available from the [Neotoma Online Manual](https://open.neotomadb.org/manual).
+We're going to filter the ecological groups to include only *UPHE* (upleand/heath) and *TRSH* (trees and shrubs). More information about ecological groups is available from the [Neotoma Online Manual](https://open.neotomadb.org/manual). After converting all *Pinus ...* records to *Pinus* we then sum the counts of the *Pinus records*. 
 
-```{r simpleTaxonChange, eval=FALSE, eval=FALSE}
+```{r simpleTaxonChange, echo=FALSE, message=FALSE}
 allSamp <- allSamp %>% 
   dplyr::filter(ecologicalgroup %in% c("UPHE", "TRSH")) %>%
   mutate(variablename = replace(variablename, 
-                                stringr::str_detect(variablename, "Plantago.*"), 
-                                "Plantago"))
+                                stringr::str_detect(variablename, "Pinus.*"), 
+                                "Pinus")) %>% 
+  group_by(siteid, sitename,
+           sampleid, variablename, units, age,
+           agetype, depth, datasetid,
+           long, lat) %>%
+  summarise(value = sum(value), .groups='keep')
 ```
 
-There were originally r sum(stringr::str_detect(neotomatx$variablename, 'Plantago.*')) different taxa identified as being within the genus *Plantago* (including *Plantago*, *Plantago major*, and *Plantago alpina-type*). The above code reduces them all to a single taxonomic group *Plantago*.
+There were originally `r sum(stringr::str_detect(neotomatx$variablename, 'Pinus.*'))` different taxa identified as being within the genus *Pinus* (including *Pinus*, *Pinus subg. Pinus*, and *Pinus undiff.*). The above code reduces them all to a single taxonomic group *Pinus*. We can check out the unique names by using:
+
+##### Code 
+
+```{r UniqueNames, eval=FALSE}
+neotomatx %>%
+  ungroup() %>% 
+  filter(stringr::str_detect(variablename, "Pinus")) %>% 
+  summarise(pinus_spp = unique(variablename))
+
+# I actually like Base here for the one-liner:
+# unique(grep("Pinus", neotomatx$variablename, value = TRUE))
+```
+
+##### Result
+
+```{r UniqueNamesTab, echo=FALSE, message=FALSE}
+neotomatx %>%
+  ungroup() %>% 
+  filter(stringr::str_detect(variablename, "Pinus")) %>% 
+  summarise(pinus_spp = unique(variablename)) %>%
+  DT::datatable(data = ., 
+                options = list(scrollX = "100%", dom = 't'))
+```
+
+#### {- .tabset}
 
 If we want to have an artifact of our choices, we can use an external table.  For example, a table of pairs (what we want changed, and the name we want it replaced with) can be generated, and it can include regular expressions (if we choose):
 
@@ -290,6 +323,7 @@ If we want to have an artifact of our choices, we can use an external table.  Fo
 
 We can get the list of original names directly from the `taxa()` call, applied to a `sites` object, and then export it using `write.csv()`. 
 
+
 ##### Code 
 
 ```{r countbySitesSamples, eval=FALSE}
@@ -300,7 +334,7 @@ readr::write_csv(taxaplots, "data/mytaxontable.csv")
 
 ##### Result
 
-```{r PlotTaxonCounts, echo=FALSE, eval=FALSE, fig.cap="**Figure**. A plot of the number of sites a taxon appears in, against the number of samples a taxon appears in.", message=FALSE}
+```{r PlotTaxonCounts, echo=FALSE, fig.cap="**Figure**. A plot of the number of sites a taxon appears in, against the number of samples a taxon appears in.", message=FALSE}
 taxaplots <- taxa(mich_dl)
 ggplot(data = taxaplots, aes(x = sites, y = samples)) +
   geom_point() +
@@ -315,64 +349,38 @@ ggplot(data = taxaplots, aes(x = sites, y = samples)) +
 
 The plot is mostly for illustration, but we can see, as a sanity check, that the relationship is as we'd expect.
 
-You can then export either one of these tables and add a column with the counts, you could also add extra contextual information, such as the `ecologicalgroup` or `taxongroup` to help you out. Once you've cleaned up the translation table you can load it in, and then apply the transformation:
-
-```{r translationTable, message=FALSE, eval=FALSE}
-translation <- readr::read_csv("data/taxontable.csv")
-```
-
-```{r translationDisplay, message=FALSE, echo = FALSE, eval=FALSE}
-translation <- readr::read_csv("data/taxontable.csv")
-DT::datatable(translation, rownames = FALSE, 
-                options = list(scrollX = "100%", dom = 't'))
-
-```
-
-You can see we've changed some of the taxon names in the taxon table (don't look too far, I just did this as an example).  To replace the names in the `samples()` output, we'll join the two tables using an `inner_join()` (meaning the `variablename` must appear in both tables for the result to be included), and then we're going to select only those elements of the sample tables that are relevant to our later analysis:
-
-```{r joinTranslation, eval = FALSE}
-allSamp <- samples(mich_dl)
-
-allSamp <- allSamp %>%
-  inner_join(translation, by = c("variablename" = "variablename")) %>% 
-  dplyr::select(!c("variablename", "sites", "samples")) %>% 
-  group_by(siteid, sitename, replacement,
-           sampleid, units, age,
-           agetype, depth, datasetid,
-           long, lat) %>%
-  summarise(value = sum(value), .groups='keep')
-```
-
-```{r harmonizationTableOut, message = FALSE, echo=FALSE, eval=FALSE}
-DT::datatable(head(allSamp, n = 50), rownames = FALSE,
-                options = list(scrollX = "100%", dom = 't'))
-```
-
 ## Simple Analytics
 
 ### Stratigraphic Plotting
 
-We can use packages like `rioja` to do stratigraphic plotting for a single record, but first we need to do some different data management.  Although we could do harmonization again we're going to simply take the top ten most common taxa at a single site and plot them in a stratigraphic diagram.
+We can use packages like `rioja` to do stratigraphic plotting for a single record. We're going to take a few key species at a single site and plot them in a stratigraphic diagram.
 
-We're using the `arrange()` call to sort by the number of times that the taxon appears within the core. This way we can take out samples and select the taxa that appear in the first ten rows of the `plottingTaxa` `data.frame`.
-
-```{r stratiplot, message = FALSE, eval=FALSE}
+```{r stratiplot, message = FALSE, include=FALSE, eval=FALSE}
 # Get a particular site, select only taxa identified from pollen (and only trees/shrubs)
-plottingSite <- mich_dl[[1]]
+plottingSite <- mich_dl[[25]]
 
 plottingTaxa <- taxa(plottingSite) %>%
-  filter(ecologicalgroup %in% c("TRSH")) %>%
-  filter(elementtype == "pollen") %>%
-  arrange(desc(samples)) %>% 
-  head(n = 10)
+  filter(ecologicalgroup %in% c("TRSH"),
+         elementtype == "pollen") %>%
+  arrange(desc(samples))
 
 # Clean up. Select only pollen measured using NISP.
 # We repeat the filters for pollen & ecological group on the samples
 shortSamples <- samples(plottingSite) %>% 
-  filter(variablename %in% plottingTaxa$variablename) %>% 
-  filter(ecologicalgroup %in% c("TRSH")) %>%
-  filter(elementtype == "pollen") %>%
-  filter(units == "NISP")
+  filter(variablename %in% plottingTaxa$variablename,
+         ecologicalgroup %in% c("TRSH"),
+         elementtype == "pollen",
+         units == "NISP") 
+
+shortSamples <- shortSamples %>% 
+  mutate(variablename = replace(variablename, 
+                                stringr::str_detect(variablename, "Pinus.*"), 
+                                "Pinus"))  %>% 
+  group_by(siteid, sitename,
+           sampleid, variablename, units, age,
+           agetype, depth, datasetid,
+           long, lat) %>%
+  summarise(value = sum(value), .groups='keep')
 
 # Transform to proportion values.
 onesite <- shortSamples %>%
@@ -385,7 +393,9 @@ onesite <- shortSamples %>%
 # Spread the data to a "wide" table, with taxa as column headings.
 widetable <- onesite %>%
   dplyr::select(age, variablename, prop) %>% 
-  mutate(prop = as.numeric(prop))
+  mutate(prop = as.numeric(prop))  %>% 
+  filter(variablename %in% c("Pinus", "Betula", "Quercus",
+                             "Tsuga", "Ulmus"))
 
 counts <- tidyr::pivot_wider(widetable,
                              id_cols = age,
@@ -394,11 +404,36 @@ counts <- tidyr::pivot_wider(widetable,
                              values_fill = 0)
 ```
 
-This appears to be a fairly long set of commands, but the code is pretty straightforward, and it provides you with significant control over the taxa, units and other elements of your data before you get them into the wide matrix (`depth` by `taxon`) that most statistical tools such as the `vegan` package or `rioja` use.
 
-To plot we can use `rioja`'s `strat.plot()`, sorting the taxa using weighted averaging scores (`wa.order`). I've also added a CONISS plot to the edge of the the plot, to show how the new *wide* data frame works with distance metric funcitons.
 
-```{r plotStrigraph, message=FALSE, warning=FALSE, eval=FALSE}
+```{r stratiplot2, message = FALSE}
+# Get a particular site, select only taxa identified from pollen (and only trees/shrubs)
+# Transform to proportion values.
+onesite <- allSamp %>% 
+  filter(siteid == 13582) %>% 
+  group_by(age) %>%
+  mutate(pollencount = sum(value, na.rm = TRUE)) %>%
+  group_by(variablename) %>% 
+  mutate(prop = value / pollencount) %>% 
+  arrange(desc(age))
+
+# Spread the data to a "wide" table, with taxa as column headings.
+widetable <- onesite %>%
+  dplyr::select(age, variablename, prop) %>% 
+  mutate(prop = as.numeric(prop))  %>% 
+  filter(variablename %in% c("Pinus", "Betula", "Quercus",
+                             "Tsuga", "Ulmus"))
+
+counts <- tidyr::pivot_wider(widetable,
+                             id_cols = age,
+                             names_from = variablename,
+                             values_from = prop,
+                             values_fill = 0)
+```
+
+This appears to be a fairly long set of commands, but the code is pretty straightforward, and it provides you with significant control over the taxa, units and other elements of your data before you get them into the wide matrix (`depth` by `taxon`) that most statistical tools such as the `vegan` package or `rioja` use. To plot we can use `rioja`'s `strat.plot()`, sorting the taxa using weighted averaging scores (`wa.order`). I've also added a CONISS plot to the edge of the the plot, to show how the new *wide* data frame works with distance metric funcitons.
+
+```{r plotStrigraph, message=FALSE, warning=FALSE}
 clust <- rioja::chclust(dist(sqrt(counts)),
                         method = "coniss")
 
@@ -415,22 +450,51 @@ rioja::addClustZone(plot, clust, 4, col = "red")
 
 ### Change in Time Across Sites
 
-We now have site information across the Czech Republic, with samples, and with taxon names. I'm interested in looking at the distributions of taxa across time, their presence/absence. I'm going to pick the top 20 taxa (based on the number of times they appear in the records) and look at their distributions in time:
+We now have site information across Michigan, with samples, and with taxon names. Let's say we are interested in looking at the distributions of the selected taxa across time, their presence/absence:
 
-```{r summarizeByTime, message = FALSE, eval=FALSE}
-plottingTaxa <- taxa(plottingSite) %>%
-  filter(ecologicalgroup %in% c("TRSH")) %>%
-  filter(elementtype == "pollen") %>%
-  arrange(desc(sites)) %>% 
-  head(n = 20)
+```{r summarizeByTime, message = FALSE}
+# plottingTaxa <- taxa(plottingSite) %>%
+#   filter(ecologicalgroup %in% c("TRSH")) %>%
+#   filter(elementtype == "pollen") %>%
+#   arrange(desc(sites)) %>% 
+#   head(n = 20)
+# 
+# taxabyage <- samples(cz_dl) %>% 
+#   filter(variablename %in% plottingTaxa$variablename) %>% 
+#   group_by(variablename, "age" = round(age * 2, -3) / 2) %>% 
+#   summarise(n = length(unique(siteid)), .groups = 'keep')
+# 
+# samplesbyage <- samples(cz_dl) %>% 
+#   filter(variablename %in% plottingTaxa$variablename) %>% 
+#   group_by("age" = round(age * 2, -3) / 2) %>% 
+#   summarise(samples = length(unique(siteid)), .groups = 'keep')
+# 
+# groupbyage <- taxabyage %>%
+#   inner_join(samplesbyage, by = "age") %>% 
+#   mutate(proportion = n / samples)
+# 
+# ggplot(groupbyage, aes(x = age, y = proportion)) +
+#   geom_point() +
+#   geom_smooth(method = 'gam', 
+#               method.args = list(family = 'binomial')) +
+#   facet_wrap(~variablename) +
+#   coord_cartesian(xlim = c(20000, 0), ylim = c(0, 1)) +
+#   scale_x_reverse(breaks = c(10000, 20000)) +
+#   xlab("Proportion of Sites with Taxon") +
+#   theme_bw()
 
-taxabyage <- samples(mich_dl) %>% 
-  filter(variablename %in% plottingTaxa$variablename) %>% 
+
+
+taxabyage <- allSamp %>%
+  filter(variablename %in% c("Pinus", "Betula", "Quercus",
+                             "Tsuga", "Ulmus"),
+                             age < 11000) %>%
   group_by(variablename, "age" = round(age * 2, -3) / 2) %>% 
   summarise(n = length(unique(siteid)), .groups = 'keep')
 
-samplesbyage <- samples(mich_dl) %>% 
-  filter(variablename %in% plottingTaxa$variablename) %>% 
+samplesbyage <- allSamp %>%
+  filter(variablename %in% c("Pinus", "Betula", "Quercus",
+                             "Tsuga", "Ulmus")) %>%
   group_by("age" = round(age * 2, -3) / 2) %>% 
   summarise(samples = length(unique(siteid)), .groups = 'keep')
 
@@ -443,10 +507,11 @@ ggplot(groupbyage, aes(x = age, y = proportion)) +
   geom_smooth(method = 'gam', 
               method.args = list(family = 'binomial')) +
   facet_wrap(~variablename) +
-  coord_cartesian(xlim = c(20000, 0), ylim = c(0, 1)) +
-  scale_x_reverse(breaks = c(10000, 20000)) +
+  #coord_cartesian(xlim = c(22500, 0), ylim = c(0, 1)) +
+  scale_x_reverse() +
   xlab("Proportion of Sites with Taxon") +
   theme_bw()
+
 ```
 
 We can see clear patterns of change, and the smooths are modeled using Generalized Additive Models (GAMs) in R, so we can have more or less control over the actual modeling using the `gam` or `mgcv` packages.  Depending on how we divide the data we can also look at shifts in altitude, latitude or longitude to better understand how species distributions and abundances changed over time in this region.
@@ -457,10 +522,11 @@ We are often interested in the interaction between taxa and climate, assuming th
 
 The first step is taking our sample data and turning it into a spatial object using the `sf` package in R:
 
-```{r makeSamplesSpatial, eval=FALSE}
-modern <- samples(mich_dl) %>% 
-  filter(age < 50) %>% 
-  filter(ecologicalgroup == "TRSH" & elementtype == "pollen" & units == "NISP")
+```{r makeSamplesSpatial}
+modern <- allSamp %>%
+  filter(variablename %in% c("Pinus", "Betula", "Quercus",
+                             "Tsuga", "Ulmus"),
+         age < 50)
 
 spatial <- sf::st_as_sf(modern, 
                         coords = c("long", "lat"),
@@ -473,14 +539,14 @@ We can use the [`getData()` function](https://www.rdocumentation.org/packages/ra
 
 Here we pull in the raster data, at a 10 minute resolution for the $T_{max}$ variable, maximum monthly temperature.  The raster itself has 12 layers, one for each month.  With the `extract()` function we just get information for the seventh month, July.  
 
-```{r worldTmax, eval=FALSE}
+```{r worldTmax}
 worldTmax <- raster::getData('worldclim', var = 'tmax', res = 10)
 spatial$tmax7 <- raster::extract(worldTmax, spatial)[,7]
 ```
 
 This adds a column to the `data.frame` `spatial`, that contains the maximum July temperature for each taxon at each site (all taxa at a site will share the same value).  We've already filtered to all UPHE taxa, but that still leaves us with r length(length(unique(spatial$variablename))) distinct names for the taxa.  We're going to use `dplyr`'s `mutate()` function to extract just the genus:
 
-```{r toGenus, eval=FALSE}
+```{r toGenus}
 spatial <- spatial %>%
   mutate(variablename = stringr::str_replace(variablename, "[[:punct:]]", " ")) %>% 
   mutate(variablename = stringr::word(variablename, 1)) %>% 
@@ -492,9 +558,9 @@ spatial <- spatial %>%
 
 #### Setting the Background
 
-We want to get the background distribution of July temperatures in the Czech Republic, to plot our taxon distributions against by taking the maximum value of the temperature, however, since all values at the site are the same (because we used a spatial overlay) the maximum is the same as the actual July temperature at the site.
+We want to get the background distribution of July temperatures in Michigan, to plot our taxon distributions against by taking the maximum value of the temperature, however, since all values at the site are the same (because we used a spatial overlay) the maximum is the same as the actual July temperature at the site.
 
-```{r topten, eval=FALSE}
+```{r topten}
 maxsamp <- spatial %>% 
   dplyr::group_by(siteid) %>% 
   dplyr::summarise(tmax7 = max(tmax7), .groups = 'keep')
@@ -502,7 +568,7 @@ maxsamp <- spatial %>%
 
 Now we're going to plot it out, using `facet_wrap()` to plot each taxon in its own panel:
 
-```{r ggplot, eval=FALSE}
+```{r ggplot}
 ggplot() +
   geom_density(data = spatial,
                aes(x = round(tmax7 / 10, 0)), col = 2) +
