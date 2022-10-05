@@ -30,10 +30,41 @@ library(neotoma2)
 
 In this tutorial you will learn how to:
 
+* Use the Neotoma API
 * Search for sites using site names and geographic parameters
 * Filter results using temporal and spatial parameters
 * Obtain sample information for the selected datasets
 * Perform basic analysis including the use of climate data from rasters
+
+### APIs
+
+The Neotoma Paleoecology Database is a relational database, hosted on servers at [Penn State’s Center for Environmental Informatics](https://sites.psu.edu/environmentalinformatics/). For security reasons, direct access to these servers is quite limited, and available only to a few Neotoma and CEI programmers.
+
+__APIs__ offer public access points into Neotoma that anyone can use. Each API is basically a function: you provide the API with a set of operational parameters, and it returns a set of data or metadata. Each API hence is designed to support one particular task or set of tasks; it offers a narrow window into the larger Neotoma DB. [REST-ful APIs](https://en.wikipedia.org/wiki/Representational_state_transfer) follow a particular set of standards that allow them to be read by web browsers (i.e. within the HTTP protocol) and return data objects, typically in HTML, XML, JSON or other human- & machine-readable formats
+
+The [__Neotoma APIs__](https://api.neotomadb.org/api-docs/) provide a series of functions for retrieving different kinds of data from Neotoma DB. Data objects are returned in [JSON](https://en.wikipedia.org/wiki/JSON) format. For this exercise, we strongly recommend adding an extension to your browser that formats the JSON output to make it easier to read, such as [JSONView](https://addons.mozilla.org/en-US/firefox/addon/jsonview/).
+
+__The APIs for Neotoma are in transition right now, with version 1.0 the working version and versions 1.5 and 2.0 at the beta stage. The V1.5 and 2.0 APIs can be found here: https://api.neotomadb.org/api-docs/__
+
+__Look through the lists of different APIs and find the one labled GET /v2.0/data/sites/{siteid}. Then, click on the Try It Out button at right, enter 666 into the site identifier box, and click Execute.__
+
+__Then scroll down. You you should see some example code in curl format (ignore this) and as a URL. If you scroll down further, you’ll see the actual data return, in JSON format. JSON is a structured data format designed to be both human-readable and machine-readable. It looks like a nested series of lists__
+
+__Let’s also try a V1.0 API. Put this right in the URL box in your browser:__
+
+https://api.neotomadb.org/v1/data/sites?sitename=*devil*
+
+__This should open a new web page in your browser with a returned JSON object. For this search, the JSON object should include 16 or more sites with the name ‘devil’ in them (note the use of asterisks as wildcards), including Devil’s Lake, WI. The opening line success = 1 means that the API ran successfully.__
+
+__Note that it is possible for an API to run successfully but return no data! For example, try:__
+
+api.neotomadb.org/v1/data/sites?sitename=devil
+
+__Here, success = 1, but data=[], i.e. the API successfully reported back to you that no sites in Neotoma have the exact name of ‘devil’.__
+
+__OK, now your turn:__
+__Exercise Question 1 Use the sites API to retrieve site data for sites of interest. The sites API has a few different parameters, so try out options. In your homework exercise, provide at least two sites API calls with a comment line.__
+
 
 ### Accessing and Manipulating Data with `neotoma2`
 
@@ -276,7 +307,10 @@ allSamp <- allSamp %>%
   dplyr::filter(ecologicalgroup %in% c("UPHE", "TRSH")) %>%
   mutate(variablename = replace(variablename, 
                                 stringr::str_detect(variablename, "Pinus.*"), 
-                                "Pinus")) %>% 
+                                "Pinus"),
+         variablename = replace(variablename, 
+                                stringr::str_detect(variablename, "Picea.*"), 
+                                "Picea")) %>% 
   group_by(siteid, sitename,
            sampleid, variablename, units, age,
            agetype, depth, datasetid,
@@ -395,7 +429,7 @@ widetable <- onesite %>%
   dplyr::select(age, variablename, prop) %>% 
   mutate(prop = as.numeric(prop))  %>% 
   filter(variablename %in% c("Pinus", "Betula", "Quercus",
-                             "Tsuga", "Ulmus"))
+                             "Tsuga", "Ulmus", "Picea"))
 
 counts <- tidyr::pivot_wider(widetable,
                              id_cols = age,
@@ -406,11 +440,24 @@ counts <- tidyr::pivot_wider(widetable,
 
 
 
-```{r stratiplot2, message = FALSE}
+```{r stratiplot2, message = FALSE, result=FALSE}
 # Get a particular site, select only taxa identified from pollen (and only trees/shrubs)
 # Transform to proportion values.
-onesite <- allSamp %>% 
-  filter(siteid == 13582) %>% 
+# devils_lake <- get_sites(siteid = 666)
+devils_lake_downloads <- get_downloads(devils_lake)
+
+devils_samples <- samples(devils_lake_downloads)  %>%
+  mutate(variablename = replace(variablename, 
+                                stringr::str_detect(variablename, "Pinus.*"), 
+                                "Pinus")) %>% 
+  group_by(siteid, sitename,
+           sampleid, variablename, units, age,
+           agetype, depth, datasetid,
+           long, lat) %>%
+  summarise(value = sum(value), .groups='keep')
+
+
+onesite <- devils_samples %>% 
   group_by(age) %>%
   mutate(pollencount = sum(value, na.rm = TRUE)) %>%
   group_by(variablename) %>% 
@@ -422,7 +469,7 @@ widetable <- onesite %>%
   dplyr::select(age, variablename, prop) %>% 
   mutate(prop = as.numeric(prop))  %>% 
   filter(variablename %in% c("Pinus", "Betula", "Quercus",
-                             "Tsuga", "Ulmus"))
+                             "Tsuga", "Ulmus", "Picea"))
 
 counts <- tidyr::pivot_wider(widetable,
                              id_cols = age,
@@ -487,14 +534,14 @@ We now have site information across Michigan, with samples, and with taxon names
 
 taxabyage <- allSamp %>%
   filter(variablename %in% c("Pinus", "Betula", "Quercus",
-                             "Tsuga", "Ulmus"),
+                             "Tsuga", "Ulmus", "Picea"),
                              age < 11000) %>%
   group_by(variablename, "age" = round(age * 2, -3) / 2) %>% 
   summarise(n = length(unique(siteid)), .groups = 'keep')
 
 samplesbyage <- allSamp %>%
   filter(variablename %in% c("Pinus", "Betula", "Quercus",
-                             "Tsuga", "Ulmus")) %>%
+                             "Tsuga", "Ulmus", "Picea")) %>%
   group_by("age" = round(age * 2, -3) / 2) %>% 
   summarise(samples = length(unique(siteid)), .groups = 'keep')
 
@@ -525,7 +572,7 @@ The first step is taking our sample data and turning it into a spatial object us
 ```{r makeSamplesSpatial}
 modern <- allSamp %>%
   filter(variablename %in% c("Pinus", "Betula", "Quercus",
-                             "Tsuga", "Ulmus"),
+                             "Tsuga", "Ulmus", "Picea"),
          age < 50)
 
 spatial <- sf::st_as_sf(modern, 
