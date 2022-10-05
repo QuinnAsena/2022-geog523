@@ -18,10 +18,7 @@ output:
 
 ## Introduction
 
-This series of exercises is designed to give you hands-on practice in using APIs and the `neotoma2` R package (Goring et al, 2015), both for practical reasons and for insights into how open-data systems work. `neotoma2`’s primary purpose is to pass data from the Neotoma Paleoecology Database (Neotoma DB) into the R environment. Neotoma relies on Application Programming Interfaces ([APIs](https://en.wikipedia.org/wiki/API)) to communicate with the Neotoma Paleoecology Database, so we’ll begin with an introduction to APIs.
-
-
-This document is intended to act as a primer for the use of the new Neotoma R package, `neotoma2`.  [The `neotoma2` package](https://github.com/NeotomaDB/neotoma2) is available from GitHub and can be installed in R using the `devtools` package by using:
+This document is based on [A Simple Workflow](https://open.neotomadb.org/EPD_binder/simple_workflow.html) and [A Not so Simple Workflow](https://open.neotomadb.org/EPD_binder/complex_workflow.html), and is intended to act as a primer for the use of the new Neotoma R package, `neotoma2`.  [The `neotoma2` package](https://github.com/NeotomaDB/neotoma2). `neotoma2` is available from GitHub and can be installed in R using the `devtools` package by using:
 
 ```r
 devtools::install_github('NeotomaDB/neotoma2')
@@ -36,34 +33,26 @@ In this tutorial you will learn how to:
 * Obtain sample information for the selected datasets
 * Perform basic analysis including the use of climate data from rasters
 
+This series of exercises is designed to give you hands-on practice in using APIs and the `neotoma2` R package, both for practical reasons and for insights into how open-data systems work. `neotoma2`’s primary purpose is to pass data from the Neotoma Paleoecology Database (Neotoma DB) into the R environment. Neotoma relies on Application Programming Interfaces ([APIs](https://en.wikipedia.org/wiki/API)) to communicate with the Neotoma Paleoecology Database, so we’ll begin with an introduction to APIs.
+
+
 ### APIs
 
 The Neotoma Paleoecology Database is a relational database, hosted on servers at [Penn State’s Center for Environmental Informatics](https://sites.psu.edu/environmentalinformatics/). For security reasons, direct access to these servers is quite limited, and available only to a few Neotoma and CEI programmers.
 
-__APIs__ offer public access points into Neotoma that anyone can use. Each API is basically a function: you provide the API with a set of operational parameters, and it returns a set of data or metadata. Each API hence is designed to support one particular task or set of tasks; it offers a narrow window into the larger Neotoma DB. [REST-ful APIs](https://en.wikipedia.org/wiki/Representational_state_transfer) follow a particular set of standards that allow them to be read by web browsers (i.e. within the HTTP protocol) and return data objects, typically in HTML, XML, JSON or other human- & machine-readable formats
+__APIs__ offer public access points into Neotoma that anyone can use. Each API is basically a function: you provide the API with a set of operational parameters, and it returns a set of data or metadata. Each API hence is designed to support one particular task or set of tasks; it offers a narrow window into the larger Neotoma DB. [REST-ful APIs](https://en.wikipedia.org/wiki/Representational_state_transfer) follow a particular set of standards that allow them to be read by web browsers (i.e. within the HTTP protocol) and return data objects, typically in HTML, XML, JSON or other human- & machine-readable formats.
 
-The [__Neotoma APIs__](https://api.neotomadb.org/api-docs/) provide a series of functions for retrieving different kinds of data from Neotoma DB. Data objects are returned in [JSON](https://en.wikipedia.org/wiki/JSON) format. For this exercise, we strongly recommend adding an extension to your browser that formats the JSON output to make it easier to read, such as [JSONView](https://addons.mozilla.org/en-US/firefox/addon/jsonview/).
+The [__Neotoma APIs__](https://api.neotomadb.org/api-docs/) provide a series of functions for retrieving different kinds of data from Neotoma DB. Data objects are returned in [JSON](https://en.wikipedia.org/wiki/JSON) format. For this exercise, we strongly recommend adding an extension to your browser that formats the JSON output to make it easier to read, such as [JSONView](https://addons.mozilla.org/en-US/firefox/addon/jsonview/) for Firefox, and [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en) for Chrome.
 
-__The APIs for Neotoma are in transition right now, with version 1.0 the working version and versions 1.5 and 2.0 at the beta stage. The V1.5 and 2.0 APIs can be found here: https://api.neotomadb.org/api-docs/__
+The APIs for Neotoma can be found here: https://api.neotomadb.org/api-docs/. Look through the lists of different APIs and find the one labled GET /v2.0/data/sites/{siteid}. Then, click on the Try It Out button at right, enter 666 into the site identifier box, and click Execute. Then scroll down. You you should see some example code in curl format (ignore this) and as a URL. If you scroll down further, you’ll see the actual data return, in JSON format. JSON is a structured data format designed to be both human-readable and machine-readable. It looks like a nested series of lists. Let’s also try a V2.0 API. Put this right in the URL box in your browser:
 
-__Look through the lists of different APIs and find the one labled GET /v2.0/data/sites/{siteid}. Then, click on the Try It Out button at right, enter 666 into the site identifier box, and click Execute.__
+https://api.neotomadb.org/v2.0/data/sites?sitename=%devil%
 
-__Then scroll down. You you should see some example code in curl format (ignore this) and as a URL. If you scroll down further, you’ll see the actual data return, in JSON format. JSON is a structured data format designed to be both human-readable and machine-readable. It looks like a nested series of lists__
+This should open a new web page in your browser with a returned JSON object. For this search, the JSON object should include 16 or more sites with the name ‘devil’ in them (note the use of % as wildcards), including Devil’s Lake, WI. The opening line "status" = "success" means that the API ran successfully. Note that it is possible for an API to run successfully but return no data! For example, try:
 
-__Let’s also try a V1.0 API. Put this right in the URL box in your browser:__
+api.neotomadb.org/v2.0/data/sites?sitename=devil
 
-https://api.neotomadb.org/v1/data/sites?sitename=*devil*
-
-__This should open a new web page in your browser with a returned JSON object. For this search, the JSON object should include 16 or more sites with the name ‘devil’ in them (note the use of asterisks as wildcards), including Devil’s Lake, WI. The opening line success = 1 means that the API ran successfully.__
-
-__Note that it is possible for an API to run successfully but return no data! For example, try:__
-
-api.neotomadb.org/v1/data/sites?sitename=devil
-
-__Here, success = 1, but data=[], i.e. the API successfully reported back to you that no sites in Neotoma have the exact name of ‘devil’.__
-
-__OK, now your turn:__
-__Exercise Question 1 Use the sites API to retrieve site data for sites of interest. The sites API has a few different parameters, so try out options. In your homework exercise, provide at least two sites API calls with a comment line.__
+Here, "status" = "success" but data=[], i.e. the API successfully reported back to you that no sites in Neotoma have the exact name of ‘devil’.
 
 
 ### Accessing and Manipulating Data with `neotoma2`
@@ -300,9 +289,9 @@ Lets say we want all samples from which *Pinus* taxa have been reported to be gr
 
 Programmatically, we can harmonize taxon by taxon using matching and transformation. We're using `dplyr` type coding here to `mutate()` the column `variablename` so that any time we detect (`str_detect()`) a `variablename` that starts with `Pinus` (the `.*` represents a wildcard for any character [`.`], zero or more times [`*`]) we `replace()` it with the character string `"Pinus"`. Note that this changes *Pinus* in the `allSamp` object, but if we were to call `samples()` again, the taxonomy would return to its original form.
 
-We're going to filter the ecological groups to include only *UPHE* (upleand/heath) and *TRSH* (trees and shrubs). More information about ecological groups is available from the [Neotoma Online Manual](https://open.neotomadb.org/manual). After converting all *Pinus ...* records to *Pinus* we then sum the counts of the *Pinus records*. 
+We're going to filter the ecological groups to include only *UPHE* (upleand/heath) and *TRSH* (trees and shrubs). More information about ecological groups is available from the [Neotoma Online Manual](https://open.neotomadb.org/manual). After converting all _Pinus.*_ records to *Pinus* we then sum the counts of the *Pinus records*. 
 
-```{r simpleTaxonChange, echo=FALSE, message=FALSE}
+```{r simpleTaxonChange, message=FALSE}
 allSamp <- allSamp %>% 
   dplyr::filter(ecologicalgroup %in% c("UPHE", "TRSH")) %>%
   mutate(variablename = replace(variablename, 
@@ -355,8 +344,7 @@ If we want to have an artifact of our choices, we can use an external table.  Fo
 | Nymphaea  | Aquatic |
 | ... | ... |
 
-We can get the list of original names directly from the `taxa()` call, applied to a `sites` object, and then export it using `write.csv()`. 
-
+We can get the list of original names directly from the `taxa()` call, applied to a `sites` object, and then export it using `write.csv()`. We can also do some exploratory plots of the data:
 
 ##### Code 
 
@@ -439,14 +427,14 @@ counts <- tidyr::pivot_wider(widetable,
 ```
 
 
-
 ```{r stratiplot2, message = FALSE, result=FALSE}
 # Get a particular site, select only taxa identified from pollen (and only trees/shrubs)
 # Transform to proportion values.
-# devils_lake <- get_sites(siteid = 666)
-devils_lake_downloads <- get_downloads(devils_lake)
+devils_samples <- get_sites(siteid = 666) %>%
+  get_downloads() %>% 
+  samples()
 
-devils_samples <- samples(devils_lake_downloads)  %>%
+devils_samples <- devils_samples %>%
   mutate(variablename = replace(variablename, 
                                 stringr::str_detect(variablename, "Pinus.*"), 
                                 "Pinus")) %>% 
@@ -485,7 +473,7 @@ clust <- rioja::chclust(dist(sqrt(counts)),
                         method = "coniss")
 
 plot <- rioja::strat.plot(counts[,-1] * 100, yvar = counts$age,
-                  title = mich_dl[[1]]$sitename,
+                  title = devils_samples$sitename[1],
                   ylabel = "Calibrated Years BP",
                   xlabel = "Pollen (%)",
                   y.rev = TRUE,
@@ -500,38 +488,6 @@ rioja::addClustZone(plot, clust, 4, col = "red")
 We now have site information across Michigan, with samples, and with taxon names. Let's say we are interested in looking at the distributions of the selected taxa across time, their presence/absence:
 
 ```{r summarizeByTime, message = FALSE}
-# plottingTaxa <- taxa(plottingSite) %>%
-#   filter(ecologicalgroup %in% c("TRSH")) %>%
-#   filter(elementtype == "pollen") %>%
-#   arrange(desc(sites)) %>% 
-#   head(n = 20)
-# 
-# taxabyage <- samples(cz_dl) %>% 
-#   filter(variablename %in% plottingTaxa$variablename) %>% 
-#   group_by(variablename, "age" = round(age * 2, -3) / 2) %>% 
-#   summarise(n = length(unique(siteid)), .groups = 'keep')
-# 
-# samplesbyage <- samples(cz_dl) %>% 
-#   filter(variablename %in% plottingTaxa$variablename) %>% 
-#   group_by("age" = round(age * 2, -3) / 2) %>% 
-#   summarise(samples = length(unique(siteid)), .groups = 'keep')
-# 
-# groupbyage <- taxabyage %>%
-#   inner_join(samplesbyage, by = "age") %>% 
-#   mutate(proportion = n / samples)
-# 
-# ggplot(groupbyage, aes(x = age, y = proportion)) +
-#   geom_point() +
-#   geom_smooth(method = 'gam', 
-#               method.args = list(family = 'binomial')) +
-#   facet_wrap(~variablename) +
-#   coord_cartesian(xlim = c(20000, 0), ylim = c(0, 1)) +
-#   scale_x_reverse(breaks = c(10000, 20000)) +
-#   xlab("Proportion of Sites with Taxon") +
-#   theme_bw()
-
-
-
 taxabyage <- allSamp %>%
   filter(variablename %in% c("Pinus", "Betula", "Quercus",
                              "Tsuga", "Ulmus", "Picea"),
