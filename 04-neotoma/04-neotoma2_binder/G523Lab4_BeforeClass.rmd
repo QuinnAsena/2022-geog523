@@ -1,0 +1,18 @@
+---
+title: "G523_Lab4_BeforeClass"
+author: "Jack Williams"
+date: "10/6/2022"
+output: html_document
+---
+
+### Things to Do Before Class
+
+#### Install Packages: Install *neotoma2* and associated packages using:
+devtools::install_github('NeotomaDB/neotoma2')
+library(neotoma2)
+
+#### Read:
+Goring, S., Dawson, A., Simpson, G., Ram, K., Graham, R. W., Grimm, E. C., and Williams, J. W. (2015) neotoma: A Programmatic Interface to the Neotoma Paleoecological Database. Open Quaternary 1:1-17.
+
+Note that the *neotoma* package described here has been superceded by the *neotoma2* package released in February, 2022, but this 2015 paper provides a good general overview.  Many of the functions remain similar in concept between *neotoma* and *neotoma2*; the big change is in the structure of the data objects returned by the functions.  The *neotoma2* data objects tend to be more complex but also more comprehensive.
+

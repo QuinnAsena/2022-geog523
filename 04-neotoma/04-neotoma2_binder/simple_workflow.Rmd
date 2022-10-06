@@ -64,7 +64,7 @@ https://www.google.com/search?q=neotoma&ei=-xE_Y4XHA8GF0PEPi6-p-AU&ved=0ahUKEwjF
 Note that in this demo use of the Google search API, all I did is enter 'neotoma' in the standard Google search window and then Google produced and formatted the above API query with a ?search parameter (and who knows what else is lurking in that massive text string...)
 
 OK, now your turn:  
-**Exercise Question 1** Use the *sites* API to retrieve site data for sites of interest.  The *sites* API has a few different parameters, so try out options.  In your homework exercise, provide at least two *sites* API calls with a comment line.
+**Exercise Question 1** Use the *sites* API to retrieve site data for sites of interest.  The *sites* API has a few different parameters, so try out options.  Try copying and pasting the URLs into the address line of your browser, and then hitting return.  In your homework exercise, provide at least two *sites* API calls (as URLs) with a comment line for each that explains what the API command is doing.
 
 ## Getting Started With `neotoma2`
 
