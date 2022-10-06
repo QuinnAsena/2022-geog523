@@ -127,7 +127,8 @@ plotLeaflet(devil_sites)
 devil_sites <- neotoma2::get_sites(sitename = "%Devil%")
 plotLeaflet(devil_sites)
 ```
-#####
+
+###
 
 **Exercise Question 2** How many sites have the name 'clear' in them?  Show both your code and provide the total count.
 
@@ -176,7 +177,8 @@ neotoma2::plotLeaflet(mich_sites) %>%
                        data = mich$sf,
                        color = "green")
 ```
-#####
+
+###
 **Exercise Question 3** Which state has more sites in Neotoma, Minnesota or Wisconsin?  How many in each state?  Provide both code and answer.
 
 #### Helper Functions for Site Searches {.tabset}
@@ -201,7 +203,7 @@ neotoma2::summary(mich_sites) %>%
                 options = list(scrollX = "100%", dom = 't'))
 ```
 
-#####
+###
 We can see that there are no chronologies associated with the `site` objects. This is because, at present, we have not pulled in the `dataset` information we need. All we know from `get_sites()` are the kinds of datasets we have.
 
 ### Searching for Datasets: {.tabset}
@@ -228,7 +230,7 @@ datasets(mich_datasets) %>%
                 options = list(scrollX = "100%", dom = 't'))
 ```
 
-####
+###
 **Question 4**: How many different kinds of datasets are available at Devil's Lake, WI? Show both code and answer.  Ensure that your code just retrieves datasets for just this single site.
 
 ### Filter Records {.tabset}
@@ -253,6 +255,8 @@ mich_pollen <- mich_datasets %>%
 neotoma2::summary(mich_pollen) %>% DT::datatable(data = .,
                 options = list(scrollX = "100%", dom = 't'))
 ```
+
+###
 
 Note, that we are filtering on two conditions. (You may want to look up the operators being used in the above code: `==`, `&`, and `!` to understand what they accomplish in the code.) We can see now that the data table looks different, and there are fewer total sites.
 
