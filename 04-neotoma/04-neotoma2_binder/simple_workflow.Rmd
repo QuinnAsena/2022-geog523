@@ -112,11 +112,13 @@ We use the general format: `get_sites(sitename="XXXXX")` for searching by name.
 
 PostgreSQL (and the API) uses the percent sign as a wildcard. So `"%Devil%"` would pick up "Devils Lake" for us (and would pick up "Devil's Canopy Cave").  Note that the search query is case insensitive, so `"%devil%"` will work well.
 
+**Exercise Question 2** How many sites have the name 'clear' in them?  Show both your code and provide the total count.
+
 ##### Code
 
 ```{r sitename, eval=FALSE}
 devil_sites <- neotoma2::get_sites(sitename = "%Devil%")
-plotLeaflet(spo_sites)
+plotLeaflet(devil_sites)
 ```
 
 ##### Result
@@ -128,7 +130,6 @@ plotLeaflet(devil_sites)
 
 If we want an individual record we can use the siteid, which is a unique identifier for each site: `r devils_lake <- neotoma2::get_sites(siteid = 666)`.
 
-**Exercise Question 2** How many sites have the name 'clear' in them?  Show both your code and provide the total count.
 
 
 #### Searching by Location: `loc=c()` {.tabset}
@@ -208,6 +209,8 @@ Now that we know how to search for sites, we can start to search for datasets.  
 
 With a `sites` object we can directly call `get_datasets()`, to pull in more metadata about the datasets.  At any time we can use `datasets()` to get more information about any datasets that a `sites` object may contain.  Compare the output of `datasets(mich_sites)` to the output of a similar call using the following:
 
+**Question 4**: How many different kinds of datasets are available at Devil's Lake, WI? Show both code and answer.  Ensure that your code just retrieves datasets for just this single site.
+
 #### Code
 
 ```{r datasetsFromSites, eval=FALSE}
@@ -226,7 +229,6 @@ datasets(mich_datasets) %>%
                 options = list(scrollX = "100%", dom = 't'))
 ```
 
-**Question 4**: How many different kinds of datasets are available at Devil's Lake, WI? Show both code and answer.  Ensure that your code just retrieves datasets for just this single site.
 
 ### Filter Records {.tabset}
 
