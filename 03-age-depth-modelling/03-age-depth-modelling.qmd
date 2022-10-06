@@ -7,7 +7,7 @@ format:
     code-fold: false
     toc: true
     link-external-newwindow: true
-    self-contained: true   
+    self-contained: true
 theme:
   light: flatly
   dark: darkly
@@ -86,17 +86,13 @@ First, we will check out different calibration curves of a single date using the
 
 2. For three examples of radiocarbon age estimates (5000, 10000, 20000 years BP, each with a standard deviation of 100 years),  calibrate each using the IntCal20 Northern Hemisphere curve.
 
-3. For three examples of radiocarbon age estimates (5000, 10000, 20000 years BP, each with a standard deviation of 100 years), calibrate each using the IntCal20 Northern Hemisphere curve.
+3. For three examples of radiocarbon age estimates (5000, 10000, 20000 years BP, each with a standard deviation of 100 years), calibrate each using the IntCal20 Northern Hemisphere curve. [SKIP - A DUPLICATE QUESTION]
 
-4. Calculate the difference between the original 14C age and the median calibrated age estimate.
+4. For each of these age estimates, calculate the difference between the original 14C age and the calibrated age estimate.
 
 5. Describe in general terms the relationship between a radiocarbon age estimate and the true calibrated age estimate, i.e. are calibrated age estimates older or younger than the radiocarbon ages, and does this difference change over time?
 
 Show all work in your R script.  For Q5, write your answer as a comment in the R script.
-
-6. the calibrated age ranges from `summary()`.
-
-How different are the resultant age estimates? As before, show all work and write your answers in the R script.
 
 :::
 
@@ -127,7 +123,7 @@ Here we'll explore and compare the results from some classical models using the 
 
 Note that `clam` will save outputs to the directory clam_runs/DevilsLakeAMS/DevilsLakeAMS.csv, including the age-depth model plots you need for the homework below. (This is a bit clunky!  Newer packages will generate the plots and data that can be stored as objects in R.)
 
-3.  Make a plot for each of the four classical age-depth models above.  One axis should show depth and the other show age; make sure that the axes are labeled.  Give each plot a title to indicate what kind of age-depth model was used.
+3.  Make a plot for each of the four classical age-depth models above.  One axis should show depth and the other show age; make sure that the axes are labeled.  Give each plot a title to indicate what kind of age-depth model was used.  (You don't need to actually print the plots, but your code when run should be able to generate the plots.)
 
 4. Look at the Devils Lake pollen diagram in Neotoma Explorer and pick two notable vegetation events (e.g. end-Pleistocene *Picea* decline). Then, identify the depths of these events in Neotoma Explorer and use your output from clam to build a data matrix that reports the inferred best estimate. Your table will have at least the columns: depth,	min95%,	max95%,	best, accrate.
 
