@@ -1,0 +1,99 @@
+---
+title: "Geog523: Lab 5: Introduction to Matrix Algebra and Exploratory Data Analysis"
+author: "Jack Williams"
+date: "10/6/2020"
+output: html_document
+---
+### Part 1: Introduction
+This lab introduces you to two fundamental and closely related sets of concepts.  Part 2 introduces you to the fundamentals  of matrix algebra (also known as linear algebra).  These concepts and algebraic operations underly most of the multivariate statistical methods that we'll use later in the semester.  For example, Principal Components Analysis (PCA; a future lab) relies on linear algebra to reveal and  summarize the underlying patterns of co-variance among variables n a dataset.  Dissimilarity analyses, is another variant, in which the focus is on relationships among individual observations, rather than the relationships among variables.
+
+Part 3 introduces you to covariance and correlation matrices.  Covariance and correlation matrices are powerful tools for understanding the underlying structure and relationships in your dataset.  They are an excellent way to begin exploratory data analysis (EDA).
+
+This homework employs both pen-and-paper exercises and R, so you'll need to turn in both a copy of your pen-and-paper work and an R script.
+
+### Part 2:  Imbrie Introduction to Linear Algebra
+#### Background
+Here, we'll rely primarily on the matrix algebra worksheet developed by John Imbrie.  John Imbrie is one of my heroes and one the great paleoclimatologists of the  20th century.  He fought in WWII as an infantryman in Italy, where he was wounded.  As a quantitative paleoclimatologist, he established that the Quaternary ice ages were paced by variations in the Earth’s orbit (Imbrie, 1979 *Ice Ages: Solving the Mystery*; Hays et al. 1976 *Science*).  He also pioneered some of the earliest (and still-used) methods for inferring past climates from multivariate paleoecological datasets (Imbrie and Kipp, 1971) and time series statistical methods to establish that various paleoclimatic time series carried regular periodic variations consistent with orbital forcing.
+
+This worksheet is now a bit of a cultural artifact with its own history – it was passed on by John Imbrie to Tom Webb at Brown University, where I first used it.  The original version was shared by mimeograph and later xerox, and contains both handwritten notes by Tom and a few from me. 
+
+I've kept using this worksheet both because I enjoy the echoes of John's voice and because the worksheet is - at its best - a remarkably clear elucidation of matrix notation and key elements of matrix algebra.  I like how the worksheet both introduces concepts and has you work through examples as you go, building up steadily from simple foundations.
+
+Unfortunately, after many generations of mimeographing, xeroxing, and annotation, the original version is hard to read in places.  So, I've provided here both the original version, for its historical value (*Imbrie19XX_MatrixAlgebraWorksheet_Original.pdf*), and a transcribed version (*Imbrie19XX_MatrixWorksheet_Revised_V4.docx*).  The transcription is complete except for one section on rotation.
+
+I've also supplemented Imbrie's worksheet with a chapter on linear algebra by Penny (2000)'s course on Signal Processing.  This is not required reading but is a helpful supplement.  I refer to a couple of sections in Penny in Part III below.
+
+#### Exercises
+1.	Read Sections 1-25 from the Imbrie handout and do exercises 1-30 by hand.  
+
+2.	Create  an  R script that does the same exercises, except where modified below.  
++ Ex. 1:  skip
++ Ex. 3:  Write a command that will create a 5x10 null (zeros) matrix
++ Ex. 4:  skip
++ Ex. 5: calculate K
++ Ex 6:  skip
++ Ex. 7:  Calculate 3C and 3C/2
++ Ex. 18:  use `solve(A)` to calculate inverse of square matrix A.  
++ Ex. 21:  use `det(A)` to calculate determinant of matrix A.  Do this for A,B,C,D
++ Ex. 22:  skip
++ Ex. 23:  use `y<-qr(A)` to calculate rank of matrix A.  rank will be stored in y$rank
++ Ex. 29: skip
+
+### Part III: Exploratory Data Analysis:  Covariance and Correlation Matrices
+#### Background
+Recall that **variance** measures the range of values in a single variable.  A data table with values for a variable variable that are closely similar (e.g. between 1 and 5) will have less variance than a variable with wildly different values (between 1000 and 5000). **Covariance** assesses whether two variables are positively or negatively associated - e.g. does high values in one variable typically correspond to high values in the other?  And **correlation** is the same as covariance, except that now all variables have been standardized to have mean=0 and standard deviation=1.  This is done by subtracting the mean and dividing by the standard deviation.
+
+For multivariate datasets, you can calculate covariance and correlation matrices, which summarize the covariances and correlations among all variables.  Now that you have the fundamentals of matrix algebra, you can see how covariance and correlation matrices are calculated.  
+
+See Penny Chapter 1 Section 1.5.1 Equation 1.27 for the mathematical formulation of covariance.  And see Penny Chapter 2 Section 2.3.1 and Equation 2.1.3 for the matrix calculation of covariance.  Note how simple covariance is, when expressed in matrix notation!
+
+Here's a simple recipe for calculating your own covariance matrix:
+
+1. Begin with a data array nAm with n rows (observations) and m columns (variables).  
+
+2. Calculate the mean of each variable and subtract it from each element in that column.  Your new data array B will have the same size as A but with column means of zero. 
+
+3. Multiply mBn by its transpose and divide by m-1,  i.e.
+Cov(A) = mCm = 1/(n-1) * B * B'.  
+
+The covariance array mCm is a square and symmetric matrix in which each term in the main diagonal c11, c22, ... cnn etc. is the variance of variable 1, variable 2, etc.  All the off-diagonal elements are the covariances between variables.
+
+A correlation matrix is a covariance matrix with one additional step; all columns have been standardized (each element has been divided by the standard deviation of all elements in that column)
+
+Correlation matrices are also square and symmetric, with each element ranging from 1 (perfectly correlated) to 0 (no correlation) to -1 (perfectly inversely correlated).  
+
+Note that because correlation matrices are standardized, and covariance matrices are not, covariance matrices are more sensitive to the magnitude of variation in individual variables.  For example, if variables A and B range from 1000 to 5000, while variables C and D range from 1 to 5, variables A and B will have a higher possible covariance than will C and D.  This is a classic example of comparing apples and oranges.  This is why most intervariable comparisons usually rely on correlation.  On the other hand, covariance matrices are scaled to the units of the original variables and so are more meaningful if you are interested in variance relative to the original measurement units.
+
+#### Exercise 3.A:  
++ Follow the recipe above to calculate the covariance matrix for array A' from Imbrie section 3.  A' should have 3 rows and 2 columns. Its covariance matrix should be 2x2.  You can do and document this exercise either in a R script or by pen and paper.
+
++ Now, run `cov(A')` in R.  Your answer should be the same.
+
++ Run `cor(A)`.  Note that each element of the main diagonal is 1.  Why is this?
+
+#### Exercise 3.B:  Correlation and Covariance for the North American Modern Pollen Database
+Now, we'll employ correlation and covariance as tools for exploring associations among pollen types, using the North American Pollen Database (Whitmore et al. 2005, *QSR*).  The Whitmore et al. database is a compilation of modern pollen samples collected from environments and vegetation types across North America.  It is a standard resource for understanding pollen-vegetation and pollen climate relationships.  
+
+Begin by uploading the data to R:
+
+`whitmore <- read.table ("ModP523.txt")    #read the pollen data`
+
+`names <- read.table ("ModP523names2.txt")    #read the column names`
+
+`colnames(whitmore) <- names[,1]    #add the column names into the pollen data`
+
+`modpollen <- whitmore[, 7:44]   #Construct a data frame with just the pollen variables`
+
+For this exercise, turn in an R script that runs the above commands and also calculates the covariance and correlation matrices.  Then answer the following questions:
+
++ Which five pairs of plant taxa have the strongest positive correlations?
+
++ Which five pairs of plant taxa have the strongest negative correlations?
+
++ Offer 2-3 working hypotheses for ecological mechanisms that might cause these positive and negative correlations.
+
++ Which five pairs of pollen taxa have the strongest positive covariances?
+
++ Note that the top-five lists aren't identical between the correlation and covariance matrics.  Why might this be?  
+
+
