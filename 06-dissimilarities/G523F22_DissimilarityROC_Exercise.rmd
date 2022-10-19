@@ -1,0 +1,31 @@
+---
+title: "Dissimilarity and RoC"
+author: "Jack Williams & Quinn Asena"
+date: "10/20/2022"
+output: html_document
+---
+## Part 1:  Load packages:  
+```{r loadpackages, cache=FALSE, message = FALSE, warning=FALSE, results='hide'}
+  library(readxl)
+  library(analogue)
+  library(vegan) #optional, but the dist and vegdist functions in vegan are powerful
+```
+
+
+## Part 2: Dissimilarities Worksheet (Excel or pen and paper)
+Calculate the dissimilarities in the worksheet provided separately.
+
+### Part 3:  Rate of Change at Devil's Lake.  For this exercise, the steps are written as pseudo-code, describing the steps to be taken and useful functions, but leaving the actual coding to you.  This part of your homework should be turned in as a functioning R-script.
+
+#### 3.1 Upload the pollen data from Devil's Lake, using the xlsx file provided and `readxl::read_excel`.  Be sure to look at the data before and after export to confirm that all data imported correctly. Note that columns A-F are not pollen counts, and note that some cells are empty, indicating that no pollen grains of that type were found.  You may want to replace these empty values with zeros.
+
+#### 3.2 Convert all pollen counts to pollen percentages by summing each row (pollen counts only) and dividing each column by the rowsum.
+
+#### 3.3 Linearly interpolate all pollen percentages from their native sample resolution to a regular 500-year timestep, from 0 to 14,000 years ago, using the `approx` function or other interpolator.
+
+#### 3.4 Calculate the squared-chord dissimilarity between adjacent 500-year timesteps.  There are several ways you might do this:  1) Use `analogue::distance` to calculate the dissimilarities among all pairs of samples, then extract the subset of SCDs that represent dissimilarities between adjacent timesteps.  2) Run a for-loop to iteratively step through the rows and calculate SCDs.
+
+#### 3.5 Plot your SCDs against time and the other axis is the SCDs you've just calculated.  For the time coordinates, use intervals that are halfway between the 500-year timesteps,  You've just analyzed community compositional rates of change at Devil's Lake!  
+
+## Further Exploration
+`R-RatePoll` is now the state-of-the-art R package for calculating rates of change using paleoecological time series.  It uses a more sophisticated approach for interpolating irregularly spaced pollen samples to a uniform time interval, incorporates age model uncertainty, and various other useful features.  Read the two Mottl et al. papers listed in the 'Before Class' activities, install R-RatePoll, and explore!
