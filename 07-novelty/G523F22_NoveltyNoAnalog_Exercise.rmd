@@ -1,0 +1,132 @@
+---
+title: "Modern Analog Technique, Novelty, and No Analogs"
+author: "Jack Williams & Quinn Asena"
+date: "10/27/2022"
+output: html_document
+---
+## Part 1:  Load packages and data:  
+### Packages
+```{r loadpackages, cache=FALSE, message = FALSE, warning=FALSE, results='hide'}
+  library(readxl)
+  library(analogue)
+  library(rioja) #won't actually use this in lab, but a good one
+  library(palaeoSig) #ditto
+```
+
+## Part 2: Modern Analogue Technique:  Introduction to Dissimilarity-Based Inference
+The modern analog technique (MAT) is a standard approach for making quantitative inferences about past vegetation and climate from fossil pollen data – and from many other forms of paleoecological data (Chevalier et al. 2020; Overpeck et al., 1985;  Gavin et al., 2003; Williams and Shuman 2008).  The MAT relies on reasoning by analogy (Jackson and Williams, 2004), in which it is assumed that two compositionally similar pollen assemblages were produced by similar plant communities, growing under  similar environments.  The similarity of pollen assemblages is determined by the calculation of dissimilarity metrics.  
+
+The MAT can also be thought of as a non-parametric statistical technique, that computer scientists call a k-nearest neighbors algorithm. It is a simple form of machine learning.  Each fossil pollen assemblage is matched to 1 or more (k) modern pollen assemblages, then is assigned the ecological and environmental characteristics associated with those modern analogues.  
+
+The MAT is a popular approach for reconstructing past environments and climates, due to its relative simplicity and intuitive appeal. However, like any algorithm, if used unwisely, it can produce spurious results. More generally, when reasoning by analogy, be careful!  Analogies are always incomplete and imperfect, and you must use your critical judgment to determine whether these imperfections are minor or serious.  
+
+To reconstruct past environments using the MAT, we need three data sets:
+
+1. modern species assemblages
+2. modern environmental variables
+3. fossil species assemblages
+
+The MAT follows four basic steps:
+
+1. Calculate dissimilarities between a fossil species assemblage *i* and all modern species assemblages in set *S*.
+2. Discard modern samples with dissimilarities greater than a threshold *Dthreshold*.  
+3. Identify and retain the *k* closest *modern analogs*.  
+4. Average the environmental conditions associated with the modern analogs and assign them to fossil sample *i*.
+
+Note that we are taking a detour into paleoclimatology for two reasons.  First, because paleoclimatic reconstructions are still a primary use for fossil pollen and other micropaleontological data.  Second, because the MAT and the `analogue` package, as a dissimilarity-based approach, also lets us explore the novelty of past communities - perhaps of more interest to paleoecologists than inferred paleoclimates!
+
+## Part 3: Cross-Validation
+Before reconstructing environmental variables from fossil pollen assemblages, we usually assess how MAT performs in the modern species assemblage. This step is usually referred to as calibration or cross-validation.
+
+In cross-validation, a calibration function is trained on one portion of the modern species assemblages (calibration set) and applied to another portion of the modern species assemblages (validation set). These two datasets are thus mutually exclusive and - possibly - independent. To cross-validate MAT, we usually use a technique called k-fold cross-validation. In k-fold cross-validation the modern data set is split into *k* mutually exclusive subsets. For each *k*th subset, the calibration dataset comprises all the samples not in *k*, while the samples in *k* comprise the validation dataset. The simplest form of k-fold cross-validation is the leave-one-out (LOO) technique, in which just a single sample is removed and then all other samples are used to build a prediction for that sample.  This procedure is then repeated for all samples.  The `analogue` package uses leave-one-out cross-validation.
+
+Standard metrics include RMSE and R^2.  Here, we'll use the cross-validation tools built into the `analogue` package.  
+
+Note that the `palaeoSig` package, developed by Richard Telford, has additional functions that can test for significance relative to randomly generated variables with the same spatial structure as the environmental variable of interest.  We won't use this package in this lab, but it's useful for testing whether apparently strong cross-validation results are merely an artifact of spatial autocorrelation (Telford and Birks 2004).
+
+We will use the North American Modern Pollen Dataset (Whitmore et al. 2005) for this cross-validation analysis.  Note that the NAMPD is pre-loaded into the analogue package, but here we'll use a subsetted and local version that has exactly the same list of pollen variables as the Devils Lake dataset that we'll use in a few minutes.
+
+Let's get the data ready:
+```{r prep_data, cache=TRUE, message = FALSE, warning=FALSE,tidy=TRUE}
+# Read in the data
+modpol.import <- read_excel("G523_ModPoll.xlsx", col_names=TRUE)
+modclim.import <- read_excel("G523_ModClim.xlsx", col_names=TRUE)
+
+# extract the modern pollen percentages and convert proportions Modern data: (cols 1-6 store sample ID, latitude, longitude, Albers X/Y coordinates, and elevation)
+modpol.prop <- modpol.import[,7:41]/100
+
+# extract the modern climate variables
+modclim.frame=modclim.import[,7:22]
+# convert from dataframe to matrix and extract a single climate variable: JanTemperature (the first column) (analogue expects a single-climate vector)
+modclim=data.matrix(modclim.frame)
+modjant=modclim[,1]
+```
+
+OK, now, using the modern data above, we'll build a calibration dataset and run cross-validation analyses of the calibration dataset
+```{r cross_val, cache=TRUE, message = FALSE, warning=FALSE,tidy=TRUE}
+#run cross-validation analyses
+modpoll.jant <- analogue::mat(modpol.prop, modjant, method="SQchord")
+print(modpoll.jant)
+#plot data
+opar <- par(mfrow = c(2,2))
+plot(modpoll.jant)
+par(opar)
+```
+To interpret this output, review Simpson (2008), Section 2.1.
+
+**Question 3.1**: In the summary output for JanT, which choice of `k` (number of analogues) produces the highest R2 and lowest RMSEP?
+
+**Questions 3.2**:  Repeat the above analysis for TJul, PJul, GDD5, and MIPT.  (GDD5 is growing degree days and is a measure of growing season length and strength; MIPT is an index of soil moisture availability).  
+
+* Which variable has the best cross-validation statistics?
+
+* Which has the worst?
+
+* Given what you know about the climatic controls on plant distributions (and/or our ability to precisely quantify these variables), is the relative predictive skill for these different climatic variables surprising or unsurprising? Why?
+
+## Part 4:  Devil's Lake:  Novelty and Paleoclimatic Reconstruction
+For this part of the lab, we'll first assess the novelty of the fossil pollen assemblages at Devil's Lake.  We'll then reconstruct past climates at Devil's Lake, using the MAT.  
+
+For this analysis, we will use pre-cleaned versions of the Devil's Lake fossil pollen dataset and modern pollen dataset.  These datasets have been checked to ensure that they have exactly the same lists of pollen taxa.  Additionally, all counts in these tables have been converted to percentages.
+
+Some starter code:
+```{r deviltry, cache=TRUE, message = FALSE, warning=FALSE,tidy=TRUE}
+# Read in the Devil's Lake data
+devildata <- read_excel("G523_Devil.xlsx", col_names=TRUE)
+#Fossil data: (cols 1-8 store site and sample IDs, depth, age, latitude, longitude, elevation, and pollen sum)
+devil.prop <- devildata[, 9:43]/100
+
+#Run MAT in prediction mode, using the calibration dataset developed above and the Devil's lake pollen data
+devil.jant <- predict(modpoll.jant, devil.prop, k=10)
+```
+
+Here's some demonstration code showing the kinds of analyses that can be done and plotted timeseries.  Questions to follow.
+```{r deviltime,cache=TRUE, message = FALSE, warning=FALSE,tidy=TRUE}
+#Construct a time series of the minimum SCDs (novelty)  for Devil’s Lake.
+devil.mindis <- minDC(devil.jant)
+plot(devil.mindis, depths=devildata$AgeMeanCalYrBP, quantiles=FALSE, xlab="Age (yr BP)",ylab="minSCD")
+
+#Construct a time series of the number of modern analogs found per fossil sample, using 0.25 as our no-analog/analog threshold. Describe the pattern. Which samples at Devil’s Lake lack modern analogs?
+devil.cma <- analogue::cma(devil.jant, cutoff=0.25)
+
+plot (devildata$AgeMeanCalYrBP, devil.cma$n.analogs, type = "l", xlim= rev(range(devildata$AgeMeanCalYrBP)), xlab = "Age (yr BP)", ylab = "Number of modern analogs")
+
+#Plot the reconstructed January temperatures at Devil's Lake
+reconPlot(devil.jant, depth=devildata$AgeMeanCalYrBP, display.error="bars", xlab="Age (yr BP)", ylab = "Mean Jan temperature")
+```
+
+Notice how here ecological novelty (minSCD) was calculated primarily as a diagnostic metric, yet it is ecologically interesting in its own right.
+
+**Questions 4.1**
+
+* Check the Devil's Lake novelty curve against the pollen diagram for Devil's Lake.  What combinations of pollen taxa produce these no-analog assemblages?  
+
+* According to Webb(1986), what are two general hypotheses for why we might have these past mixtures of species with no modern analogue?
+
+* Why should one be dubious about the temperature reconstructions at Devil's Lake for the high-novelty assemblages?
+
+* Even for the low-novelty assemblages, name two potentially important sources of uncertainty in MAT-based reconstructions of past climate from fossil pollen data.
+
+* Conversely, based on our knowledge about the geographic climatic distributions of these taxa, why might one argue that these January temperature reconstructions are plausible?
+
+**Question 4.2** To get practice, make reconstructions of GDD5 and mean July precipitation.  Show plots of your work.
