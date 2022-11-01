@@ -1,7 +1,7 @@
 ---
 title: "Geog523: Lab 8: Principal Components Analysis"
-author: "Jack Williams"
-date: "10/25/2020"
+author: "Jack Williams & Quinn Asena"
+date: "11/3/2022"
 output: html_document
 ---
 
@@ -20,5 +20,4 @@ Borcard, D., Gillet, F., Legendre, P., 2011. Numerical Ecology with R. Springer,
 
 Davis, J.C., 1996. Statistics and Data Analysis in Geology, 2nd ed. John Wiley & Sons, New York.
 
-
-
+Minchin, P.R., 1987. An evaluation of the relative robustness of techniques for ecological ordination.  Theories and Models in Vegetation Science, pp 89-107.

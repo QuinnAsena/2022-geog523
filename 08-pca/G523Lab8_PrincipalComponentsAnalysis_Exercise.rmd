@@ -1,29 +1,29 @@
 ---
-title: "Geog523: Lab 8: Principal Components Analysis"
-author: "Jack Williams"
-date: "10/25/2020"
+title: "Geog523: Lab 8: PCA & NMDS"
+author: "Jack Williams & Quinn Asena"
+date: "11/3/2020"
 output: html_document
 ---
 ### Part I: Introduction
-Principal Components Analysis (PCA) is one of a family of multivariate statistical methods, known  as ordination, that rely on eigenvectors and eigenvalues to summarize data, explore data, and reveal underlying structure among variables and  across observations.  PCA is the simplest of these approaches, so is a good place to get an introduction in these methods.
+Principal Components Analysis (PCA) and Non-Metric Multi-Dimensional Scaling (NMDS) are both members of a family of multivariate statistical methods, known  as ordination, that help summarize and collapse high-dimensional data (e.g. a community dataset with dozens to hundreds of taxa) into a few dimensions, and therby reveal underlying structure among variables and across observations.  
 
-Multivariate methods can be divided into approaches that study the relationships among variables (R-mode analysis) or among samples (Q-mode analysis).  Over the last several labs, we have done both:  EDA analysis of correlation and covariance matrices (R-mode) and dissimilarity-based metrics of rates of change and novelty (variants of Q-mode).
+Multivariate methods can be divided into approaches that study the relationships among variables (R-mode analysis) or among samples (Q-mode analysis).  Over the last several labs, we have done both:  EDA analysis of correlation and covariance matrices (R-mode) and dissimilarity-based metrics of rates of change and novelty (Q-mode).
 
-As you have seen in your exploratory analyses, many variables strongly correlate with each other; this is commmon in the ecological and geological sciences.  McKillup & Dyar offer the example of mining geologists who find a close correlation among the concentrations of gold, copper, and zinc in their samples.  In ecology, many species tend to be closely associated with each other, perhaps due to similar environmental and habitat preferences, or perhaps due to species interactions and co-dependencies.  
+As you have seen in your exploratory analyses, many variables strongly correlate with each other; this is commmon in the ecological and Earth sciences.  McKillup & Dyar offer the example of mining geologists who find a close correlation among the concentrations of gold, copper, and zinc in their samples.  In ecology, many species tend to be closely associated with each other, perhaps due to similar environmental and habitat preferences, or perhaps due to species interactions and co-dependencies.  
 
 Hence, from a statistical perspective these measurements are mostly redundant.  Hence, we can often reduce, say, our 20-variable list of taxa (or mining elements, etc.) to a short list of, say, 2-4 *factors* or *principal components* that summarize the major patterns of variation in the data.
 
-A few quick caveats and asides before we dive in:  PCA assumes linearity in the dataset and will be less appropriate if the underlying relationships in the data are highly non-linear.  PCA assumes that all individual variables are jointly normally distributed.  Additionally,  PCA is sensitive to the  underlying scaling in the data.  Hence, one  will get different results for the same dataset if one runs PCA on a variance-covariance matrix versus a  correlation matrix.  Because of these fairly stringent requirements, PCA remains a useful tool, but  has been superceded by other variants (e.g. canonical correspondence analysis, nonmetric multidimensional scaling [NMDS]) that do not make assumptions of linearity in the dataset, etc. 
+PCA is the simplest of these approaches, so is a good place to get an introduction in these methods.  PCA relies on eigenvectors and eigenvalues and is also known as Empirical Orthogonal Function (EOF) analysis.  Note that PCA assumes linearity in the dataset and will be less appropriate if the underlying relationships in the data are highly non-linear.  PCA also assumes that all individual variables are jointly normally distributed.  Additionally,  PCA is sensitive to the  underlying scaling in the data.  Hence, one  will get different results for the same dataset if one runs PCA on a variance-covariance matrix versus a  correlation matrix.  Because of these fairly stringent requirements, PCA remains a useful exploratory tool, but  has been superceded by other variants (e.g. NMDS, canonical correspondence analysis, etc.) that do not make assumptions of linearity in the dataset, etc.  We'll briefly introduce you to NMDS as one kind of approach still widely used today, because it is believed to less suceptible to non-linearities in ecological abundances along environmental gradients (Minchin, 1987).
 
 ### Part 2: Imbrie Worksheet (second half)
 Read Sections 28-31 in the Imbrie worksheet and  complete Exercises 33-37, carrying out all exercises by hand.  This second half of the worksheet builds upon the foundational matrix operations that you learned in lab 5, and introduces you to the foundational concepts of eigenvectors and eigenvalues, which as Imbrie says, are remarkable and powerful.  
 
-You’re welcome  to read on to  the end of the Imbrie worksheet, but it isn’t required.
+Don't worry, this won't be as time-intensive as the first iteration!  You've established most of your intellectual foundation already, and now you're building upon it. You’re welcome to read on to the end of the Imbrie worksheet, but it isn’t required.
 
 ### Part 3: PCA in R: Sample Dataset
 Two functions are commonly used to run principal components analysis:
-+ `rda` in the `vegan` r-package.
 + `princomp`
++ `rda` in the `vegan` r-package.
 
 We'll begin with `princomp` and a practice exercise using the sample dataset from Davis (Table 6.17, p. 518).  In this example, four species of ammonite shells (rows/observations) have been measured for three morphological traits (variables): umbilical diameter, height of whorl, width of whorl. See help for more information about `princomp`.
 
@@ -44,37 +44,27 @@ summary (pc.cr)
 plot (pc.cr)    #plotted as histograms
 plot (pc.cr, type = "lines")    #plotted as lines
 
-#2. The loadings are essentially a NxN 
-#matrix (N variables x N components) that tells you how well each
-#variable correlates to each principal component. This is very 
-#useful, because the components are no longer tied to a physical
-#measurement.  So the loadings table helps you interpret the 
-#components and what they represent.  Each element in the loadings
-#table will vary between -1 and 1
+#2. The loadings are essentially a NxN matrix (N variables x N components) that tells you how well each variable correlates to each principal component. This is very useful, because the components are no longer tied to a physical measurement.  So the loadings table helps you interpret the components and what they represent.  Each element in the loadingstable will vary between -1 and 1
 pc.cr$loadings    #loadings
 
 # Plot the variable loadings on the first two PC axes:
 plot (pc.cr$loadings[, c(1,2)])  
 # Plot the sample loadings on the 1st & 3rd PC axes:
-plot (pc.cr$loadings[, c(1,3)]) 
+plot (pc.cr$loadings[, c(1,3)])
 # (*Note, this quick visualization is a little non-standard; a more standard visualization would be to draw each variable loading as a vector with beginning at the origin, rather than just a point*)
 
-#3. The scores matrix is MxN (M samples x N 
-#loadings) and gives you the coordinates of each 
-#sample on these new axes.  Put another way, 
-#the scores tell you how strongly a given sample
-#corresponds to each of the principal components. 
+#3. The scores matrix is MxN (M samples x N loadings) and gives you the coordinates of each sample on these new axes.  Put another way, the scores tell you how strongly a given sample corresponds to each of the principal components.
 pc.cr$scores    #scores
 
 # Plot the sample scores on the first two PC axes:
 plot (pc.cr$scores[, c(1,2)])  
 # Plot the sample loadings on the 1st & 3rd PC axes:
-plot (pc.cr$scores[, c(1,3)]) 
+plot (pc.cr$scores[, c(1,3)])
 ```
 
-*Questions*: 
+*Questions*:
 
-+ Based on the `summary` function, what proportion of variance was explained by the first principal component (Comp. 1)? 
++ Based on the `summary` function, what proportion of variance was explained by the first principal component (Comp. 1)?
 
 + What proportion of variance was explained by the second principal component?
 
@@ -87,7 +77,7 @@ Note that we measured three variables, yet only two principal components were ne
 ### Part 4: PCA in R: Modern Pollen Data
 In the EDA lab, you downloaded the North American Modern Pollen Dataset (Whitmore et al. 2005) and constructed covariance and correlation matrices.  Now, let's use the same dataset to run principal component analysis.
 
-First, download the data and extract the pollen variables, using the instructions in the EDA lab.  As an outcome, create a new data frame pollen that contains only the pollen variables.  Ensure that the pollen data are in fractional or percentage form prior to analysis.  
+First, download the data and extract the pollen variables, following the scripts built for the EDA lab.  Create a new data frame pollen that contains only the pollen variables.  Ensure that the pollen data are in fractional or percentage form prior to analysis.  
 
 Next, run PCA on the pollen data, with no standardization (i.e. on the variance-covariance relationships).  
 
@@ -97,7 +87,7 @@ Next, run PCA on the standardized pollen data (i.e. on the correlation matrix)
 
 + Show plots of the variance explained by the principal components, for both the covariance and correlation matrices.
 
-+ What are the fractions of variance explained by the first three principal components for the covariance and correlation matrices? 
++ What are the fractions of variance explained by the first three principal components for the covariance and correlation matrices?
 
 + Why might the first eigenvector explain so much more variance in the covariance-variance matrix versus the correlation matrix?
 
@@ -107,3 +97,29 @@ Next, run PCA on the standardized pollen data (i.e. on the correlation matrix)
 
 + Are the lists of variables similar or different between the covariance or correlation matrices?  Why might they be different?
 
+### Part 5: NMDS
+From a user perspective, NMDS is basically the same as PCA:  You start with a high-dimension dataset, and you produce a dataset that has fewer dimensions, against which you can explore the relationships of your original sites and variables.  However, under the hood, NMDS is much more of a Q-mode analysis.  NMDS doesn't rely on eigenvectors at all (and so doesn't make any assumptions of linearity, normality, etc.).  Instead, NMDS is an iterative non-parametric approach, that is based on the dissimarities among sites.  Given a user-prescribed number of dimensions (e.g. 3), NMDS will attempt to find the three orthogonal dimensions that will preserve as best as possible the original pair-wise distances among all sites in the original n-dimensional space. In NMDS-speak, the `stress` is the difference between the original pairwise distances and the low-dimensionality pairwise distances.  NMDS, like all of us, seeks to achieve low stress.
+
+NMDS pros:  can handle non-linear/ordinal/qualitative data.  Can handle non-linear relationships. Can work with any dissimilarity metric.
+
+NMDS cons:  Because NMDS employs an optimization/iterative approach, it's computationally intensive.  For the same reason, there's always the risk that NMDS will be tricked by a local minimum and not find the true global minimum.
+
+You can also run NMDS in the `vegan` package for community ecology, using the function `metaMDS`.  Note that squared-chord distances, beloved by palynologists, isn't available as one of the standard options in `vegan`, so we'll use the Chi-squared dissimilarity metric (`chisq`) instead.
+
+A starter function call for `metaMDS` might look like this:
+`y=vegan::metaMDS (x,k=3,distance="chisq")`
+where `x` is your community data matrix (each row an observation, each column a species) and `y` is the output ordination.  By setting `k=3`, we are specifying that we want the output ordination to have three dimensions.  
+
+Here we want to run NMDS on our modern pollen dataset, but we need to reformat it slightly into the format expected by `vegan` for community datasets.  This is a simple data frame, in which each column represents a taxon and each row represents a site.  For display purposes, we'll want the taxon names associated with each column.
+XX QUINN:  HELP HERE PLEASE...
+
+Now, run NMDS on the untransformed modern pollen dataset, as in Part 4.  Set `k=3`  
+
+Next, plot your results:
+`plot(y)`
+`orditorp(y,display="species",col="red",air=0.01)`
+The red crosses show the position of each taxon in NMDS ordination space, while the open circles show the position of each site in this ordination space.  The `orditorp`  is a helper function for ordination plots, and adds labels based on the species names associated with each column.  
+
+*Questions*:
++ How much variation was explained by the three NMDS axes, and how does this compare to your PCA results?
++ Note how some taxa cluster together in ordination space.  These taxa have similar correlations to the same factors (and, by implication, are correlated to each other).  For the taxa with high loadings in your PCA analyses, where are they plotting in these NMDS ordination plots, and are the results consistent between these two forms of ordination?
