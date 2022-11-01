@@ -1,0 +1,109 @@
+---
+title: "Geog523: Lab 8: Principal Components Analysis"
+author: "Jack Williams"
+date: "10/25/2020"
+output: html_document
+---
+### Part I: Introduction
+Principal Components Analysis (PCA) is one of a family of multivariate statistical methods, known  as ordination, that rely on eigenvectors and eigenvalues to summarize data, explore data, and reveal underlying structure among variables and  across observations.  PCA is the simplest of these approaches, so is a good place to get an introduction in these methods.
+
+Multivariate methods can be divided into approaches that study the relationships among variables (R-mode analysis) or among samples (Q-mode analysis).  Over the last several labs, we have done both:  EDA analysis of correlation and covariance matrices (R-mode) and dissimilarity-based metrics of rates of change and novelty (variants of Q-mode).
+
+As you have seen in your exploratory analyses, many variables strongly correlate with each other; this is commmon in the ecological and geological sciences.  McKillup & Dyar offer the example of mining geologists who find a close correlation among the concentrations of gold, copper, and zinc in their samples.  In ecology, many species tend to be closely associated with each other, perhaps due to similar environmental and habitat preferences, or perhaps due to species interactions and co-dependencies.  
+
+Hence, from a statistical perspective these measurements are mostly redundant.  Hence, we can often reduce, say, our 20-variable list of taxa (or mining elements, etc.) to a short list of, say, 2-4 *factors* or *principal components* that summarize the major patterns of variation in the data.
+
+A few quick caveats and asides before we dive in:  PCA assumes linearity in the dataset and will be less appropriate if the underlying relationships in the data are highly non-linear.  PCA assumes that all individual variables are jointly normally distributed.  Additionally,  PCA is sensitive to the  underlying scaling in the data.  Hence, one  will get different results for the same dataset if one runs PCA on a variance-covariance matrix versus a  correlation matrix.  Because of these fairly stringent requirements, PCA remains a useful tool, but  has been superceded by other variants (e.g. canonical correspondence analysis, nonmetric multidimensional scaling [NMDS]) that do not make assumptions of linearity in the dataset, etc. 
+
+### Part 2: Imbrie Worksheet (second half)
+Read Sections 28-31 in the Imbrie worksheet and  complete Exercises 33-37, carrying out all exercises by hand.  This second half of the worksheet builds upon the foundational matrix operations that you learned in lab 5, and introduces you to the foundational concepts of eigenvectors and eigenvalues, which as Imbrie says, are remarkable and powerful.  
+
+You’re welcome  to read on to  the end of the Imbrie worksheet, but it isn’t required.
+
+### Part 3: PCA in R: Sample Dataset
+Two functions are commonly used to run principal components analysis:
++ `rda` in the `vegan` r-package.
++ `princomp`
+
+We'll begin with `princomp` and a practice exercise using the sample dataset from Davis (Table 6.17, p. 518).  In this example, four species of ammonite shells (rows/observations) have been measured for three morphological traits (variables): umbilical diameter, height of whorl, width of whorl. See help for more information about `princomp`.
+
+We'll use this example to walk you through the `princomp` function and how to interpret PCA results.  
+
+```{r princomp.davis, cache=FALSE, message = FALSE, warning=FALSE, results='hide'}
+# Enter the data
+w <- matrix (c (4, 12, 10, 14, 27, 25, 23, 21, 18, 12, 16, 14), nrow = 4, ncol = 3)
+#	Principal component analysis, using the correlation matrix
+pc.cr <- princomp (w, cor = TRUE)
+
+# The output `pc.cr` is a dataframe containing the following information: a) principal components, or eigenvectors; b) weightings; c) loadings; d) scores. Let's look at some of the pieces:
+
+#1. Summary of the principal components and their variance explained.  
+summary (pc.cr)   
+
+# Plot of variance explained by each principal component. Note that this is variance, not fractional variance explained, and won't sum to 1.
+plot (pc.cr)    #plotted as histograms
+plot (pc.cr, type = "lines")    #plotted as lines
+
+#2. The loadings are essentially a NxN 
+#matrix (N variables x N components) that tells you how well each
+#variable correlates to each principal component. This is very 
+#useful, because the components are no longer tied to a physical
+#measurement.  So the loadings table helps you interpret the 
+#components and what they represent.  Each element in the loadings
+#table will vary between -1 and 1
+pc.cr$loadings    #loadings
+
+# Plot the variable loadings on the first two PC axes:
+plot (pc.cr$loadings[, c(1,2)])  
+# Plot the sample loadings on the 1st & 3rd PC axes:
+plot (pc.cr$loadings[, c(1,3)]) 
+# (*Note, this quick visualization is a little non-standard; a more standard visualization would be to draw each variable loading as a vector with beginning at the origin, rather than just a point*)
+
+#3. The scores matrix is MxN (M samples x N 
+#loadings) and gives you the coordinates of each 
+#sample on these new axes.  Put another way, 
+#the scores tell you how strongly a given sample
+#corresponds to each of the principal components. 
+pc.cr$scores    #scores
+
+# Plot the sample scores on the first two PC axes:
+plot (pc.cr$scores[, c(1,2)])  
+# Plot the sample loadings on the 1st & 3rd PC axes:
+plot (pc.cr$scores[, c(1,3)]) 
+```
+
+*Questions*: 
+
++ Based on the `summary` function, what proportion of variance was explained by the first principal component (Comp. 1)? 
+
++ What proportion of variance was explained by the second principal component?
+
+Note that we measured three variables, yet only two principal components were needed to explain essentially 100% of all variance in our dataset!
+
++ Based on the loadings, which measurement variable(s) correlates most strongly with PC1?  Which variable(s) correlates most strongly with PC2?
+
++ Based on the scores, which two samples were the end-members (largest positive or negative values) for PC1?
+
+### Part 4: PCA in R: Modern Pollen Data
+In the EDA lab, you downloaded the North American Modern Pollen Dataset (Whitmore et al. 2005) and constructed covariance and correlation matrices.  Now, let's use the same dataset to run principal component analysis.
+
+First, download the data and extract the pollen variables, using the instructions in the EDA lab.  As an outcome, create a new data frame pollen that contains only the pollen variables.  Ensure that the pollen data are in fractional or percentage form prior to analysis.  
+
+Next, run PCA on the pollen data, with no standardization (i.e. on the variance-covariance relationships).  
+
+Next, run PCA on the standardized pollen data (i.e. on the correlation matrix)
+
+*Questions*:
+
++ Show plots of the variance explained by the principal components, for both the covariance and correlation matrices.
+
++ What are the fractions of variance explained by the first three principal components for the covariance and correlation matrices? 
+
++ Why might the first eigenvector explain so much more variance in the covariance-variance matrix versus the correlation matrix?
+
++ Using the covariance results, plot the variable loadings relative to the first three principal component axes.  Label or otherwise identify variables that have particularly high loadings for one or more of the principal components.
+
++ Do the same for the correlation results.
+
++ Are the lists of variables similar or different between the covariance or correlation matrices?  Why might they be different?
+

@@ -1,0 +1,24 @@
+---
+title: "Geog523: Lab 8: Principal Components Analysis"
+author: "Jack Williams"
+date: "10/25/2020"
+output: html_document
+---
+
+## Things to Do Before Class
+Review the Imbrie worksheet
+
+Read McKillup & Dyar pp 270-285
+
+### Primary Readings
+Imbrie, J., unpub. Outline of Matrix Algebra.
+
+McKillup, S., Dyar, M.D., 2010. Geostatistics Explained: An Introductory Guide for Earth Scientists. Cambridge University Press.
+
+### Secondary Readings
+Borcard, D., Gillet, F., Legendre, P., 2011. Numerical Ecology with R. Springer, New York.
+
+Davis, J.C., 1996. Statistics and Data Analysis in Geology, 2nd ed. John Wiley & Sons, New York.
+
+
+
