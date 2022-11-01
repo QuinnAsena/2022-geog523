@@ -1,5 +1,5 @@
 ---
-title: "Geog523: Lab 8: Principal Components Analysis"
+title: "Geog523: Lab 8: PCA & NMDS"
 author: "Jack Williams & Quinn Asena"
 date: "11/3/2022"
 output: html_document
