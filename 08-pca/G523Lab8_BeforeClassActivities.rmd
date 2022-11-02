@@ -1,0 +1,23 @@
+---
+title: "Geog523: Lab 8: PCA & NMDS"
+author: "Jack Williams & Quinn Asena"
+date: "11/3/2022"
+output: html_document
+---
+
+## Things to Do Before Class
+Review the Imbrie worksheet
+
+Read McKillup & Dyar pp 270-285
+
+### Primary Readings
+Imbrie, J., unpub. Outline of Matrix Algebra.
+
+McKillup, S., Dyar, M.D., 2010. Geostatistics Explained: An Introductory Guide for Earth Scientists. Cambridge University Press.
+
+### Secondary Readings
+Borcard, D., Gillet, F., Legendre, P., 2011. Numerical Ecology with R. Springer, New York.
+
+Davis, J.C., 1996. Statistics and Data Analysis in Geology, 2nd ed. John Wiley & Sons, New York.
+
+Minchin, P.R., 1987. An evaluation of the relative robustness of techniques for ecological ordination.  Theories and Models in Vegetation Science, pp 89-107.
