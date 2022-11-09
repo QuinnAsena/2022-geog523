@@ -1,0 +1,16 @@
+---
+title: "Geog523: Lab 9: General Additive Models (GAMs)"
+author: "Jack Williams & Quinn Asena"
+date: "11/10/2022"
+output: html_document
+---
+
+## Things to Do Before Class
+Read Simpson (2018)
+
+### Primary Readings
+Simpson, G.L., 2018. [Modelling palaeoecological time series using generalised additive models](https://www.frontiersin.org/articles/10.3389/fevo.2018.00149/full). Frontiers in Ecology and Evolution 6.
+
+### Primary Readings
+Mottl, O., Flantua, S.G.A., Bhatta, K.P., Felde, V.A., Giesecke, T., Goring, S., Grimm, E.C., Haberle, S., Hooghiemstra, H., Ivory, S., Kuneš, P., Wolters, S., Seddon, A.W.R., Williams, J.W., 2021. [Global acceleration in rates of vegetation change over the last 18,000 years](https://www.science.org/doi/10.1126/science.abg1685). Science 321, 860-864.
+*This paper uses GAMs as part of its overall statistical package and detection of significant rates-of-change.  A good example of the current state of the field.*
