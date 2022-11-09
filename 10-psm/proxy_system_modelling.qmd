@@ -1,0 +1,81 @@
+---
+title: "Lab 9: Proxy system modelling"
+author:
+  name: "Quinn Asena and Jack Williams"
+date: today
+bibliography: refs.bib
+format:
+  html:
+    code-fold: false
+    link-external-newwindow: true
+theme:
+  light: flatly
+  dark: darkly
+---
+
+# Before the Lab
+
+Read:
+
+- @evans2013a sections:
+
+- @blaauw2010d
+
+
+# Introduction
+
+Historically, palaeoecology has been a descriptive discipline, just being able to reconstruct past environments from remaining traces such as fossil pollen was an ecological advancement. Since then laboratory and statistical methods have rapidly advanced with more accurate dating techniques, Bayesian age-depth modelling, and statistical analyses.
+
+
+
+
+
+Palaeoecology and palaeoclimatology are linked disciplines but sometimes have the opposite aims. Palaeoclimatologists may be interested in using proxy data (e.g., isotopes or species abundances) to reconstruct environmental variables such as temperature and precipitation. Palaeoecologists sometimes use 
+
+
+# How do we interpret data?
+
+Carefully, but also careful of too much scepticism!
+
+```{r}
+library(tidyverse)
+uri <- 'https://www.ncei.noaa.gov/pub/data/paleo/icecore/antarctica/wais2021co2.txt'
+ice_core <- read_tsv(uri,
+                     na = c('', 'NA', 'NaN'),
+                     comment = '#',
+                     col_types = 'dddddc') %>%
+  rename(depth = depth_m, # renames some variables
+         age = age_calBP,
+         co2_raw = CO2_blank_corrected,
+         co2 = CO2_blank_gravity_corrected,
+         std_err = CO2_se_1sigma,
+         notes = notes) %>%
+  mutate(neg_age = -age, # negative of age for getting time in right direction
+         wts = 1/std_err, # we have a std. error for each observation
+         wts = wts / mean(wts, na.rm = TRUE)) # convert to weights for gam()
+
+ice_core %>%
+  ggplot(aes(x = neg_age, y = co2)) +
+  geom_line() +
+  labs(x = 'Calibrated years BP',
+       y = expression(CO[2] ~ (ppm)))
+
+
+```
+
+# Homework
+
+:::{.callout-important}
+1. Find the supplimentary information from @blaauw2010d, download and unzip it. It is a short R script file containing two functions.
+
+2. Run the entire script. The two functions are called `RandomEnv()` and `RandomProx()` (you will see them appear in your global environment after running the script)
+
+  i) The functions have default arguments and automatically generate plots.
+  
+3. Run the functions in your console by using the function and the default arguments (`RandomEnv()`, `RandomProx()`)
+
+  i) You will see the default parameters in the script, i.e., `nprox = 15`. Try meddle with them to generate different output, e.g., `RandomEnv(nprox = 10)`.
+
+:::
+
+# References
