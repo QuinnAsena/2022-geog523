@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Quinn Asena and Jack Williams">
+<meta name="dcterms.date" content="2022-11-09">
+
+<title>Lab 10: Proxy system modelling</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="proxy_system_modelling_files/libs/clipboard/clipboard.min.js"></script>
+<script src="proxy_system_modelling_files/libs/quarto-html/quarto.js"></script>
+<script src="proxy_system_modelling_files/libs/quarto-html/popper.min.js"></script>
+<script src="proxy_system_modelling_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="proxy_system_modelling_files/libs/quarto-html/anchor.min.js"></script>
+<link href="proxy_system_modelling_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="proxy_system_modelling_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="proxy_system_modelling_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="proxy_system_modelling_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="proxy_system_modelling_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="proxy_system_modelling_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="proxy_system_modelling_files/libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 10: Proxy system modelling</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Quinn Asena and Jack Williams </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 9, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="before-the-lab" class="level1">
+<h1>Before the Lab</h1>
+<p>In the lab we will be discussing two contrasting (but not opposing) concepts: Proxy System Modelling <span class="citation" data-cites="evans2013">(<a href="#ref-evans2013" role="doc-biblioref">Evans et al. 2013</a>)</span> and ‘random’ pattern generation <span class="citation" data-cites="blaauw2010a">(<a href="#ref-blaauw2010a" role="doc-biblioref">Blaauw, Bennett, and Christen 2010</a>)</span>.</p>
+<p><strong>Read:</strong></p>
+<ul>
+<li><p><span class="citation" data-cites="evans2013">Evans et al. (<a href="#ref-evans2013" role="doc-biblioref">2013</a>)</span> sections:</p></li>
+<li><p><span class="citation" data-cites="blaauw2010a">Blaauw, Bennett, and Christen (<a href="#ref-blaauw2010a" role="doc-biblioref">2010</a>)</span></p></li>
+</ul>
+<p><strong>Discussion points to consider:</strong></p>
+<ul>
+<li><p>What is a proxy system model</p>
+<ul>
+<li>What are the pros and cons of the approach</li>
+</ul></li>
+<li><p>What is the main concept from <span class="citation" data-cites="blaauw2010a">Blaauw, Bennett, and Christen (<a href="#ref-blaauw2010a" role="doc-biblioref">2010</a>)</span>?</p></li>
+<li><p>How do the two concepts relate to each other?</p></li>
+</ul>
+<p>We will have a informal round-table discussion so come with some notes, questions and/or further discussion points.</p>
+</section>
+<section id="goals" class="level1">
+<h1>Goals</h1>
+<ul>
+<li><p>Understand proxy system modelling, and challenges around differentiating pattern from proces.</p></li>
+<li><p>Learn enough markdown to complete the homework</p></li>
+</ul>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Historically, palaeoecology has been a mostly descriptive discipline, being able to reconstruct past environments from traces such as fossil pollen was an ecological advancement. Since, laboratory and statistical methods have rapidly advanced with more accurate dating techniques, Bayesian age-depth modelling, and statistical analyses allowing us to make more inferences about, for example, the timing and causes of ecological events. However, determining the synchroneity of events across time and space remains a major challenge to palaeo-science <span class="citation" data-cites="parnell2008">(<a href="#ref-parnell2008" role="doc-biblioref">Parnell et al. 2008</a>)</span>.</p>
+<p>Now, palaeoecology is also concerned with the present and the future, not solely describing the past but using the past to inform the future <span class="citation" data-cites="jackson2007">(<a href="#ref-jackson2007" role="doc-biblioref">Jackson 2007</a>)</span>. Change in ecosystems may require data with a temporal extent (relative to the pressures they may be experiencing) that extends beyond sources such as monitoring data or written records. As such, palaeoecological methods can be used to increase understanding of how ecosystems and environments respond to changing climates, disturbances and anthropogenic pressures beyond data collected about current or recent historic conditions <span class="citation" data-cites="kosnik2016">(<a href="#ref-kosnik2016" role="doc-biblioref">Kosnik and Kowalewski 2016</a>)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://royalsocietypublishing.org/cms/asset/3fa60131-834f-4658-9faa-7af81742940a/rsbl20150951f01.jpg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption"><span class="citation" data-cites="kosnik2016">Kosnik and Kowalewski (<a href="#ref-kosnik2016" role="doc-biblioref">2016</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<p>If palaeo-data are to be used to make inferences about the causes of contemporary ecosystem change, or predictions of future ecosystem states, it is crucial to quantify uncertainties about the data and test ecological theories. It is challenging to empirically test theories at the ecosystem level (e.g., the spacial extent captured by pollen in a lake sediment core), and over the time-scales required, often multiple generations of species. Thus various modelling approaches can be used to test hypotheses, theories, quantify uncertainty, and many other applications <span class="citation" data-cites="perry2016">(<a href="#ref-perry2016" role="doc-biblioref">Perry et al. 2016</a>)</span>.</p>
+</section>
+<section id="homework" class="level1">
+<h1>Homework</h1>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Part 1: Explore the model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Find the supplimentary information from <span class="citation" data-cites="blaauw2010a">Blaauw, Bennett, and Christen (<a href="#ref-blaauw2010a" role="doc-biblioref">2010</a>)</span>, download and unzip it. It is a short R script file containing two functions</p></li>
+<li><p>Open and run the entire script. The two functions are called <code>RandomEnv()</code> and <code>RandomProx()</code> (you will see them appear in your global environment after running the script)</p>
+<ol type="i">
+<li>The functions have default arguments and automatically generate plots.</li>
+</ol></li>
+<li><p>Run the functions in your console with the default arguments (<code>RandomEnv()</code>, <code>RandomProx()</code>) several times each to see how the output changes</p>
+<ol type="i">
+<li>You will see the default parameters in the script, i.e., <code>nprox = 15</code>. Try meddle with them to generate different output, e.g., <code>RandomEnv(nprox = 10)</code>.</li>
+</ol></li>
+</ol>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Part 2: A little R Markdown
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>In RStudio go ‘file -&gt; New File -&gt; R Markdown’</p>
+<ol type="i">
+<li>Fill in the title with your name (leave other settings default)</li>
+</ol></li>
+</ol>
+<p>This will open a template R Markdown file. You can run it right away with the ‘knit’ button to see what the output looks like.</p>
+<ol start="2" type="1">
+<li><p>Make sure the ‘Random.R’ file from <span class="citation" data-cites="blaauw2010a">Blaauw, Bennett, and Christen (<a href="#ref-blaauw2010a" role="doc-biblioref">2010</a>)</span> is in the same directory as your markdown file.</p></li>
+<li><p>You will see three code chunks in the template. In the first code chunk, replace the contents with <code>source("Random.R")</code>.</p>
+<ol type="i">
+<li>Run the code chunk with the little green ‘play’ button to make sure there is no error.</li>
+</ol></li>
+<li><p>Replace the contents of the following two code chunks with:</p>
+<ol type="i">
+<li><p>In <em>both</em> code chunks insert <code>set.seed()</code> choose a number to put inside the perentheses</p></li>
+<li><p>insert the functions <code>RandomEnv()</code> and <code>RandomProx()</code> (one in each of the two code chunks below <code>set.seed()</code>)</p></li>
+</ol></li>
+<li><p>Replace the two headings (the text follong the <code>##</code>) with your own headings and remove the template text</p></li>
+<li><p>Create a final heading using <code>## heading name</code> and comment on how you would visually interpret both plots above. Consider how you would interpret them as if they were empirical records vs how you know they were generated. Usually we would include statistical analyses but visual inspection is sufficient for today’s goals.</p></li>
+<li><p>Discuss the challenges of: (1) interpreting proxy records; (2) separating pattern vs process; and (3) determining causeal relationships between driver and response.</p></li>
+</ol>
+<p>Steps 6 and 7 can be in less than 500 words but we won’t word count. <span class="citation" data-cites="perry2016">Perry et al. (<a href="#ref-perry2016" role="doc-biblioref">2016</a>)</span> is a very useful discussion of different uses of modelling, including null models and pattern orientated modelling.</p>
+</div>
+</div>
+</section>
+<section id="references" class="level1 unnumbered">
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-blaauw2010a" class="csl-entry" role="doc-biblioentry">
+Blaauw, Maarten, K. D. Bennett, and J. Andrés Christen. 2010. <span>“Random <span>Walk Simulations</span> of <span>Fossil Proxy Data</span>.”</span> <em>The Holocene</em> 20 (4): 645–49. <a href="https://doi.org/10.1177/0959683609355180">https://doi.org/10.1177/0959683609355180</a>.
+</div>
+<div id="ref-evans2013" class="csl-entry" role="doc-biblioentry">
+Evans, M. N., S. E. Tolwinski-Ward, D. M. Thompson, and K. J. Anchukaitis. 2013. <span>“Applications of <span>Proxy System Modeling</span> in <span>High Resolution Paleoclimatology</span>.”</span> <em>Quaternary Science Reviews</em> 76 (September): 16–28. <a href="https://doi.org/10.1016/j.quascirev.2013.05.024">https://doi.org/10.1016/j.quascirev.2013.05.024</a>.
+</div>
+<div id="ref-jackson2007" class="csl-entry" role="doc-biblioentry">
+Jackson, Stephen T. 2007. <span>“Looking <span>Forward</span> from the <span>Past</span>: <span>History</span>, <span>Ecology</span>, and <span>Conservation</span>.”</span> <em>Frontiers in Ecology and the Environment</em> 5 (9): 455–55. <a href="https://doi.org/10.1890/1540-9295(2007)5[455:LFFTPH]2.0.CO;2">https://doi.org/10.1890/1540-9295(2007)5[455:LFFTPH]2.0.CO;2</a>.
+</div>
+<div id="ref-kosnik2016" class="csl-entry" role="doc-biblioentry">
+Kosnik, Matthew A., and Micha\l Kowalewski. 2016. <span>“Understanding <span>Modern Extinctions</span> in <span>Marine Ecosystems</span>: <span>The Role</span> of <span>Palaeoecological Data</span>.”</span> <em>Biology Letters</em> 12 (4). <a href="https://doi.org/10.1098/rsbl.2015.0951">https://doi.org/10.1098/rsbl.2015.0951</a>.
+</div>
+<div id="ref-parnell2008" class="csl-entry" role="doc-biblioentry">
+Parnell, A. C., J. Haslett, J. R. M. Allen, C. E. Buck, and B. Huntley. 2008. <span>“A <span>Flexible Approach</span> to <span>Assessing Synchroneity</span> of <span>Past Events Using Bayesian Reconstructions</span> of <span>Sedimentation History</span>.”</span> <em>Quaternary Science Reviews</em> 27 (19): 1872–85. <a href="https://doi.org/10.1016/j.quascirev.2008.07.009">https://doi.org/10.1016/j.quascirev.2008.07.009</a>.
+</div>
+<div id="ref-perry2016" class="csl-entry" role="doc-biblioentry">
+Perry, George L. W., John Wainwright, Thomas R. Etherington, and Janet M. Wilmshurst. 2016. <span>“Experimental <span>Simulation</span>: <span>Using Generative Modeling</span> and <span>Palaeoecological Data</span> to <span>Understand Human-Environment Interactions</span>.”</span> <em>Frontiers in Ecology and Evolution</em> 4. <a href="https://doi.org/10.3389/fevo.2016.00109">https://doi.org/10.3389/fevo.2016.00109</a>.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
