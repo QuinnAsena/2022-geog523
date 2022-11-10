@@ -1,0 +1,34 @@
+---
+title: "Geog523: Lab 09: GAMs"
+author: "Jack Williams & Quinn Asena"
+date: "11/10/2022"
+output: html_document
+---
+
+### Part 1: Introduction
+And now for something completely different!  Or, at least a little different.  The last few classes have been very focused on multivariate statistics, with  dissimilarity-based approaches used to summarize differences among samples and quantify ecological novelty,  eigenvector-based approaches as a way to extract underlying patterns of correlation and covariance among both variables and samples, and NMDS a bit of a non-parametric hybrid.  
+
+Now, we will turn to a different problem. In short, *given a paleoecological time series of a single variable, with many observations over time, are any of the observed trends significantly different from the null hypothesis of no change*?  This seems like a simple question, yet it turns out to be quite hard for classical statistics to answer, for at least two big reasons.  First, most environmental time series are temporally autocorrelated, which means that the state of the system at timestep *t* is likely to at least partially depend on its state at timestep *t-1*.  Hence, one can calculate a standard metric like correlation (i.e. the correlation of the variable to time), but testing whether that correlation is significant is harder, because standard tests for statistical significance assume that all samples are independent observations.  
+
+Time-series methods like ARMA and ARIMA are designed to adjust for temporal autocorrelation, but these run into the second challenge:  they assume a constant time interval between samples, yet most paleoenvironmental samples are unevenly sampled in time.  
+
+One solution is to resample the original irregularly spaced time series data to an even time interval, e.g. by using a LOESS smoother, and then perform statistical tests on the now evenly-spaced data.  But the LOESS smoother itself contains various parameter choices that don't have clear rationales and can substantively affect options.
+
+Enter general additive models (GAMs).  GAMs are highly flexible and have several advantages.  Their use of smooth basis functions allow for smoothed curves that are locally fitted to the data.  They have a parameter that can be manually or automatically set to determine the smoothness (or, wiggliness) of the fitted time series.  Confidence intervals can be calculated, as can the significance of the slopes.
+
+### Part 2: GAM Demo:  Simpson (2018) & Small Water
+For this exercise, follow the model code offered in the Supplementary Info for Simpson(2018).  Just run the examples for the Small Water site; you don't need to run the Braya-So data.
+
+Note that you'll need to download the Small Water data from the [Simpson (2018) journal supplement](https://github.com/gavinsimpson/frontiers-palaeo-additive-modelling).
+
++ Question:  Reproduce the analyses from Section 3.1 in Supp Info.  Your R script should be able to produce the same summaries and output figures as in Section 3.1
+
+### Part 3:  GAM with a fossil pollen record
++ Download a fossil pollen record of your choice from Neotoma.  Could be Devil's Lake, could be something new.  You can either download via the neotoma2 R-package or via the Explorer download interface with your downloaded CSV file then imported into R.
++ Convert your count data to percentages using a standard pollen sum.
++ Pick an interesting pollen variable and try fitting it using GAM.  Experiment with different smoothing options.
+*Question*:  Plot your data as both raw datapoints and with a fitted GAM.  
+*Question*:  How did you decide what smoothness to choose?  What other fitting or parameter decisions did you make along the way?
+*Question*:  Which trends if any are identified as significant in your GAM analyses?
+
+[Note:  Because pollen data are either counts or percentages that are bounded by zero, technically they shouldn't be treated as having normal error terms.  Ignore this issue for the purpose of this exercise.]
