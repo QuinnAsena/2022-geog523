@@ -1,7 +1,7 @@
 ---
 title: "Geog523: Lab 8: PCA & NMDS"
 author: "Jack Williams & Quinn Asena"
-date: "11/3/2020"
+date: "11/3/2022"
 output: html_document
 ---
 ### Part I: Introduction
@@ -100,9 +100,9 @@ Next, run PCA on the standardized pollen data (i.e. on the correlation matrix)
 ### Part 5: NMDS
 From a user perspective, NMDS is basically the same as PCA:  You start with a high-dimension dataset, and you produce a dataset that has fewer dimensions, against which you can explore the relationships of your original sites and variables.  However, under the hood, NMDS is much more of a Q-mode analysis.  NMDS doesn't rely on eigenvectors at all (and so doesn't make any assumptions of linearity, normality, etc.).  Instead, NMDS is an iterative non-parametric approach, that is based on the dissimarities among sites.  Given a user-prescribed number of dimensions (e.g. 3), NMDS will attempt to find the three orthogonal dimensions that will preserve as best as possible the original pair-wise distances among all sites in the original n-dimensional space. In NMDS-speak, the `stress` is the difference between the original pairwise distances and the low-dimensionality pairwise distances.  NMDS, like all of us, seeks to achieve low stress.
 
-NMDS pros:  can handle non-linear/ordinal/qualitative data.  Can handle non-linear relationships. Can work with any dissimilarity metric.
+**NMDS pros**:  can handle non-linear/ordinal/qualitative data.  Can handle non-linear relationships. Can work with any dissimilarity metric.
 
-NMDS cons:  Because NMDS employs an optimization/iterative approach, it's computationally intensive.  For the same reason, there's always the risk that NMDS will be tricked by a local minimum and not find the true global minimum.
+**NMDS cons**:  Because NMDS employs an optimization/iterative approach, it's computationally intensive.  For the same reason, there's always the risk that NMDS will be tricked by a local minimum and not find the true global minimum.
 
 You can also run NMDS in the `vegan` package for community ecology, using the function `metaMDS`.  Note that squared-chord distances, beloved by palynologists, isn't available as one of the standard options in `vegan`, so we'll use the Chi-squared dissimilarity metric (`chisq`) instead.
 
@@ -111,15 +111,45 @@ A starter function call for `metaMDS` might look like this:
 where `x` is your community data matrix (each row an observation, each column a species) and `y` is the output ordination.  By setting `k=3`, we are specifying that we want the output ordination to have three dimensions.  
 
 Here we want to run NMDS on our modern pollen dataset, but we need to reformat it slightly into the format expected by `vegan` for community datasets.  This is a simple data frame, in which each column represents a taxon and each row represents a site.  For display purposes, we'll want the taxon names associated with each column.
-XX QUINN:  HELP HERE PLEASE...
 
-Now, run NMDS on the untransformed modern pollen dataset, as in Part 4.  Set `k=3`  
+```{r prep.nmds.modpoll, cache=FALSE, message = FALSE, warning=FALSE, results='hide'}
+# Sample code for formatting modern pollen dataset to prep it for vegan/nmds
+library(tidyverse) # For dplyr
+library(readxl) #For readxl
+library(vegan) # for metaMDS function
+# Read in the data (note code assumes that ModPoll.xls is in your working directory)
+modpol <- read_excel("G523_ModPoll.xlsx", col_names=TRUE)
+# Check out the variables
+colnames(modpol)
+# Check out the head
+head(modpol)
+# Select columns using dplyr
+modpol_spp <- modpol %>% 
+  select(Abies:Ulmus)
+# Convert to matrix (can be combined with previous step)
+modpol_spp_mat <- as.matrix(modpol_spp)
+# Convert all modern data to relative proportions (Multiplying by 100 to convert fractional data to percentages)
+modpol_spp_prop_mat <- 100*(modpol_spp_mat / rowSums(modpol_spp_mat))
+# Check head and rowSums (to make sure all the pollen percentages sum to 100)
+head(modpol_spp_prop_mat)
+rowSums(modpol_spp_prop_mat)
+```
 
-Next, plot your results:
+Now, run NMDS on the untransformed modern pollen dataset, as in Part 4.  Set `k=3` 
+Also, set `autotransform = FALSE` because `metaMDS` by default will attempt to transform input variables and this isn't always a great idea.  See [Legendre & Birks (2012)](https://doi.org/10.1007/978-94-007-2745-8_8) (a massive chapter) for details.
+
+Next, plot your results (replacing `y` with your output variable produced by `metaMDS`):
+
 `plot(y)`
 `orditorp(y,display="species",col="red",air=0.01)`
 The red crosses show the position of each taxon in NMDS ordination space, while the open circles show the position of each site in this ordination space.  The `orditorp`  is a helper function for ordination plots, and adds labels based on the species names associated with each column.  
 
 *Questions*:
-+ How much variation was explained by the three NMDS axes, and how does this compare to your PCA results?
-+ Note how some taxa cluster together in ordination space.  These taxa have similar correlations to the same factors (and, by implication, are correlated to each other).  For the taxa with high loadings in your PCA analyses, where are they plotting in these NMDS ordination plots, and are the results consistent between these two forms of ordination?
+
+*How much variation was explained by the three NMDS axes, and how does this compare to your PCA results?
+
+*Note how one axis differentiates Sphagnum from Nyssa and Celtis.  Using the Pollen Atlas PDFs (Williams et al. 2016), Where do these taxa live in North America today?  Based on this, what ecological or climatic gradient is likely being captured here?
+
+*The second axis differentiates Chenopodiaceae and Cyperaceae from other taxa.  Again, using the Pollen Atlas, where do these taxa live today?  What ecological or climatic gradient is likely being captured here?
+
+(Note that we are using the Modern Pollen dataset as is and haven't attempted any data cleaning/checking. Some of these patterns might change after we search for outliers, etc.)
