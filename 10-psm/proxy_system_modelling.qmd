@@ -19,15 +19,13 @@ In the lab we will be discussing two contrasting (but not opposing) concepts: Pr
 
 **Read:**
 
-- @evans2013 sections:
+- @evans2013
 
 - @blaauw2010a
 
 **Discussion points to consider:**
 
-- What is a proxy system model?
-
-  - What are the pros and cons of the approach?
+- what do you think of the proxy system model approach
 
 - What is the main concept from @blaauw2010a?
 
@@ -45,13 +43,15 @@ We will have a informal round-table discussion so come with some notes, question
 
 # Background
 
-Historically, palaeoecology has been a mostly descriptive discipline, being able to reconstruct past environments from traces such as fossil pollen was an ecological advancement. Since, laboratory and statistical methods have rapidly advanced with more accurate dating techniques, Bayesian age-depth modelling, and statistical analyses allowing us to make more inferences about, for example, the timing and causes of ecological events. However, determining the synchroneity of events across time and space remains a major challenge to palaeo-science [@parnell2008].
+Historically, palaeoecology has been a mostly descriptive discipline, being able to reconstruct past environments from traces such as fossil pollen was an ecological advancement alone. Since, laboratory and statistical methods have rapidly advanced with more accurate dating techniques, Bayesian age-depth modelling, and statistical analyses, allowing us to make more inferences about, for example, the timing and causes of ecological events. However, determining the synchroneity of events across time and space remains a major challenge to palaeo-science [@parnell2008].
 
-Now, palaeoecology is also concerned with the present and the future, not solely describing the past but using the past to inform the future [@jackson2007]. Change in ecosystems may require data with a temporal extent (relative to the pressures they may be experiencing) that extends beyond sources such as monitoring data or written records. As such, palaeoecological methods can be used to increase understanding of how ecosystems and environments respond to changing climates, disturbances and anthropogenic pressures beyond data collected about current or recent historic conditions [@kosnik2016]. 
+Now, palaeoecology is also concerned with the present and the future, not solely describing the past but using the past to inform the future [@jackson2007]. Understanding change in ecosystems may require data with a temporal extent (relative to the pressures they may be experiencing) that extends beyond sources such as monitoring data or written records. As such, palaeoecological methods can be used to increase understanding of how ecosystems and environments respond to changing climates, disturbances and anthropogenic pressures beyond data collected about current or recent historic conditions [@kosnik2016]. 
 
-![@kosnik2016](https://royalsocietypublishing.org/cms/asset/3fa60131-834f-4658-9faa-7af81742940a/rsbl20150951f01.jpg)
+![@kosnik2016: "The characteristics and temporal coverage for different data types in the context of human cultural development. Record types are scored as dominantly of that category (black), some of that category (grey), or typically not of that category (white). The y-axis is log-transformed even though this visually exaggerates the temporal extent of instrumental and experimental records..." see ref for details.](https://royalsocietypublishing.org/cms/asset/3fa60131-834f-4658-9faa-7af81742940a/rsbl20150951f01.jpg)
 
 If palaeo-data are to be used to make inferences about the causes of contemporary ecosystem change, or predictions of future ecosystem states, it is crucial to quantify uncertainties about the data and test ecological theories. It is challenging to empirically test theories at the ecosystem level (e.g., the spacial extent captured by pollen in a lake sediment core), and over the time-scales required, often multiple generations of species. Thus various modelling approaches can be used to test hypotheses, theories, quantify uncertainty, and many other applications [@perry2016].
+
+Modelling approaches range from the very precise (e.g., including as many processes and measurements as possible) to the very general. The utility of a model depends on the question 'is it fit for purpose?'. We are going to implement a very general model devleloped by @blaauw2010a designed to demonstrate a simple but important question for palaeoecologists. Can we differentiate 'random' patterns from causal processes?
 
 
 # Homework
