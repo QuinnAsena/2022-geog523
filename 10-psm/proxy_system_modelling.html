@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Quinn Asena and Jack Williams">
-<meta name="dcterms.date" content="2022-11-09">
+<meta name="dcterms.date" content="2022-11-12">
 
 <title>Lab 10: Proxy system modelling</title>
 <style>
@@ -80,7 +80,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 9, 2022</p>
+      <p class="date">November 12, 2022</p>
     </div>
   </div>
     
@@ -99,10 +99,7 @@ div.csl-indent {
 </ul>
 <p><strong>Discussion points to consider:</strong></p>
 <ul>
-<li><p>What is a proxy system model</p>
-<ul>
-<li>What are the pros and cons of the approach</li>
-</ul></li>
+<li><p>what do you think of the proxy system model approach</p></li>
 <li><p>What is the main concept from <span class="citation" data-cites="blaauw2010a">Blaauw, Bennett, and Christen (<a href="#ref-blaauw2010a" role="doc-biblioref">2010</a>)</span>?</p></li>
 <li><p>How do the two concepts relate to each other?</p></li>
 </ul>
@@ -115,17 +112,18 @@ div.csl-indent {
 <li><p>Learn enough markdown to complete the homework</p></li>
 </ul>
 </section>
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<p>Historically, palaeoecology has been a mostly descriptive discipline, being able to reconstruct past environments from traces such as fossil pollen was an ecological advancement. Since, laboratory and statistical methods have rapidly advanced with more accurate dating techniques, Bayesian age-depth modelling, and statistical analyses allowing us to make more inferences about, for example, the timing and causes of ecological events. However, determining the synchroneity of events across time and space remains a major challenge to palaeo-science <span class="citation" data-cites="parnell2008">(<a href="#ref-parnell2008" role="doc-biblioref">Parnell et al. 2008</a>)</span>.</p>
-<p>Now, palaeoecology is also concerned with the present and the future, not solely describing the past but using the past to inform the future <span class="citation" data-cites="jackson2007">(<a href="#ref-jackson2007" role="doc-biblioref">Jackson 2007</a>)</span>. Change in ecosystems may require data with a temporal extent (relative to the pressures they may be experiencing) that extends beyond sources such as monitoring data or written records. As such, palaeoecological methods can be used to increase understanding of how ecosystems and environments respond to changing climates, disturbances and anthropogenic pressures beyond data collected about current or recent historic conditions <span class="citation" data-cites="kosnik2016">(<a href="#ref-kosnik2016" role="doc-biblioref">Kosnik and Kowalewski 2016</a>)</span>.</p>
+<section id="background" class="level1">
+<h1>Background</h1>
+<p>Historically, palaeoecology has been a mostly descriptive discipline, being able to reconstruct past environments from traces such as fossil pollen was an ecological advancement alone. Since, laboratory and statistical methods have rapidly advanced with more accurate dating techniques, Bayesian age-depth modelling, and statistical analyses, allowing us to make more inferences about, for example, the timing and causes of ecological events. However, determining the synchroneity of events across time and space remains a major challenge to palaeo-science <span class="citation" data-cites="parnell2008">(<a href="#ref-parnell2008" role="doc-biblioref">Parnell et al. 2008</a>)</span>.</p>
+<p>Now, palaeoecology is also concerned with the present and the future, not solely describing the past but using the past to inform the future <span class="citation" data-cites="jackson2007">(<a href="#ref-jackson2007" role="doc-biblioref">Jackson 2007</a>)</span>. Understanding change in ecosystems may require data with a temporal extent (relative to the pressures they may be experiencing) that extends beyond sources such as monitoring data or written records. As such, palaeoecological methods can be used to increase understanding of how ecosystems and environments respond to changing climates, disturbances and anthropogenic pressures beyond data collected about current or recent historic conditions <span class="citation" data-cites="kosnik2016">(<a href="#ref-kosnik2016" role="doc-biblioref">Kosnik and Kowalewski 2016</a>)</span>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://royalsocietypublishing.org/cms/asset/3fa60131-834f-4658-9faa-7af81742940a/rsbl20150951f01.jpg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption"><span class="citation" data-cites="kosnik2016">Kosnik and Kowalewski (<a href="#ref-kosnik2016" role="doc-biblioref">2016</a>)</span></figcaption><p></p>
+<p></p><figcaption class="figure-caption"><span class="citation" data-cites="kosnik2016">Kosnik and Kowalewski (<a href="#ref-kosnik2016" role="doc-biblioref">2016</a>)</span>: “The characteristics and temporal coverage for different data types in the context of human cultural development. Record types are scored as dominantly of that category (black), some of that category (grey), or typically not of that category (white). The y-axis is log-transformed even though this visually exaggerates the temporal extent of instrumental and experimental records…” see ref for details.</figcaption><p></p>
 </figure>
 </div>
 <p>If palaeo-data are to be used to make inferences about the causes of contemporary ecosystem change, or predictions of future ecosystem states, it is crucial to quantify uncertainties about the data and test ecological theories. It is challenging to empirically test theories at the ecosystem level (e.g., the spacial extent captured by pollen in a lake sediment core), and over the time-scales required, often multiple generations of species. Thus various modelling approaches can be used to test hypotheses, theories, quantify uncertainty, and many other applications <span class="citation" data-cites="perry2016">(<a href="#ref-perry2016" role="doc-biblioref">Perry et al. 2016</a>)</span>.</p>
+<p>Modelling approaches range from the very precise (e.g., including as many processes and measurements as possible) to the very general. The utility of a model depends on the question ‘is it fit for purpose?’. We are going to implement a very general model devleloped by <span class="citation" data-cites="blaauw2010a">Blaauw, Bennett, and Christen (<a href="#ref-blaauw2010a" role="doc-biblioref">2010</a>)</span> designed to demonstrate a simple but important question for palaeoecologists. Can we differentiate ‘random’ patterns from causal processes?</p>
 </section>
 <section id="homework" class="level1">
 <h1>Homework</h1>
@@ -140,14 +138,14 @@ Part 1: Explore the model
 </div>
 <div class="callout-body-container callout-body">
 <ol type="1">
-<li><p>Find the supplimentary information from <span class="citation" data-cites="blaauw2010a">Blaauw, Bennett, and Christen (<a href="#ref-blaauw2010a" role="doc-biblioref">2010</a>)</span>, download and unzip it. It is a short R script file containing two functions</p></li>
+<li><p>Find the supplimentary information from <span class="citation" data-cites="blaauw2010a">Blaauw, Bennett, and Christen (<a href="#ref-blaauw2010a" role="doc-biblioref">2010</a>)</span>, download and unzip it. It is an R script file containing two functions</p></li>
 <li><p>Open and run the entire script. The two functions are called <code>RandomEnv()</code> and <code>RandomProx()</code> (you will see them appear in your global environment after running the script)</p>
 <ol type="i">
 <li>The functions have default arguments and automatically generate plots.</li>
 </ol></li>
 <li><p>Run the functions in your console with the default arguments (<code>RandomEnv()</code>, <code>RandomProx()</code>) several times each to see how the output changes</p>
 <ol type="i">
-<li>You will see the default parameters in the script, i.e., <code>nprox = 15</code>. Try meddle with them to generate different output, e.g., <code>RandomEnv(nprox = 10)</code>.</li>
+<li>You will see the default parameters in the script, i.e., <code>nprox = 15</code>. Try meddle with them to generate different output. You don’t need to edit the script, only run the function with a user-defined argument <em>e.g.,</em> <code>RandomEnv(nprox = 10)</code>.</li>
 </ol></li>
 </ol>
 </div>
@@ -184,7 +182,7 @@ Part 2: A little R Markdown
 <li><p>Create a final heading using <code>## heading name</code> and comment on how you would visually interpret both plots above. Consider how you would interpret them as if they were empirical records vs how you know they were generated. Usually we would include statistical analyses but visual inspection is sufficient for today’s goals.</p></li>
 <li><p>Discuss the challenges of: (1) interpreting proxy records; (2) separating pattern vs process; and (3) determining causeal relationships between driver and response.</p></li>
 </ol>
-<p>Steps 6 and 7 can be in less than 500 words but we won’t word count. <span class="citation" data-cites="perry2016">Perry et al. (<a href="#ref-perry2016" role="doc-biblioref">2016</a>)</span> is a very useful discussion of different uses of modelling, including null models and pattern orientated modelling.</p>
+<p>Steps 6 and 7 can be in less than 500 words but we won’t word count. <span class="citation" data-cites="perry2016">Perry et al. (<a href="#ref-perry2016" role="doc-biblioref">2016</a>)</span> is a very useful discussion of different uses of modelling, including null models and pattern orientated modelling. Make sure your R Markdown script knits (it will generate an HTML file) and submit both your <code>.Rmd</code> and <code>.html</code> files to canvas.</p>
 </div>
 </div>
 </section>
