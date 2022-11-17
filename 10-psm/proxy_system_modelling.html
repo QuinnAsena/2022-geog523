@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.0.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Quinn Asena and Jack Williams">
-<meta name="dcterms.date" content="2022-11-14">
+<meta name="dcterms.date" content="2022-11-17">
 
 <title>Lab 10: Proxy system modelling</title>
 <style>
@@ -80,7 +80,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 14, 2022</p>
+      <p class="date">November 17, 2022</p>
     </div>
   </div>
     
@@ -91,7 +91,7 @@ div.csl-indent {
 
 <section id="before-the-lab" class="level1">
 <h1>Before the Lab</h1>
-<p>In the lab we will be discussing two contrasting (but not opposing) concepts: Proxy System Modelling <span class="citation" data-cites="evans2013">(<a href="#ref-evans2013" role="doc-biblioref">Evans et al. 2013</a>)</span> and ‘random’ pattern generation <span class="citation" data-cites="blaauw2010a">(<a href="#ref-blaauw2010a" role="doc-biblioref">Blaauw, Bennett, and Christen 2010</a>)</span>.</p>
+<p>In the lab we will be discussing two related (but distinct) concepts: Proxy System Modelling <span class="citation" data-cites="evans2013">(<a href="#ref-evans2013" role="doc-biblioref">Evans et al. 2013</a>)</span> and ‘random’ pattern generation <span class="citation" data-cites="blaauw2010a">(<a href="#ref-blaauw2010a" role="doc-biblioref">Blaauw, Bennett, and Christen 2010</a>)</span>.</p>
 <p><strong>Read:</strong></p>
 <ul>
 <li><p><span class="citation" data-cites="evans2013">Evans et al. (<a href="#ref-evans2013" role="doc-biblioref">2013</a>)</span></p></li>
@@ -99,9 +99,9 @@ div.csl-indent {
 </ul>
 <p><strong>Discussion points to consider:</strong></p>
 <ul>
-<li><p>what do you think of the proxy system model approach</p></li>
+<li><p>What do you think of the proxy system model approach?</p></li>
 <li><p>What is the main concept from <span class="citation" data-cites="blaauw2010a">Blaauw, Bennett, and Christen (<a href="#ref-blaauw2010a" role="doc-biblioref">2010</a>)</span>?</p></li>
-<li><p>How do the two concepts relate to each other?</p></li>
+<li><p>How do these two concepts relate to each other?</p></li>
 </ul>
 <p>We will have a informal round-table discussion so come with some notes, questions and/or further discussion points.</p>
 </section>
@@ -109,13 +109,13 @@ div.csl-indent {
 <h1>Goals</h1>
 <ul>
 <li><p>Understand proxy system modelling, and challenges around differentiating pattern from proces.</p></li>
-<li><p>Learn enough markdown to complete the homework</p></li>
+<li><p>Build your own ‘random’ time series! (And, sharpen your R/Rmarkdown skills along the way)</p></li>
 </ul>
 </section>
 <section id="background" class="level1">
 <h1>Background</h1>
-<p>Historically, palaeoecology has been a mostly descriptive discipline, being able to reconstruct past environments from traces such as fossil pollen was an ecological advancement alone. Since, laboratory and statistical methods have rapidly advanced with more accurate dating techniques, Bayesian age-depth modelling, and statistical analyses, allowing us to make more inferences about, for example, the timing and causes of ecological events. However, determining the synchroneity of events across time and space remains a major challenge to palaeo-science <span class="citation" data-cites="parnell2008">(<a href="#ref-parnell2008" role="doc-biblioref">Parnell et al. 2008</a>)</span>.</p>
-<p>Now, palaeoecology is also concerned with the present and the future, not solely describing the past but using the past to inform the future <span class="citation" data-cites="jackson2007">(<a href="#ref-jackson2007" role="doc-biblioref">Jackson 2007</a>)</span>. Understanding change in ecosystems may require data with a temporal extent (relative to the pressures they may be experiencing) that extends beyond sources such as monitoring data or written records. As such, palaeoecological methods can be used to increase understanding of how ecosystems and environments respond to changing climates, disturbances and anthropogenic pressures beyond data collected about current or recent historic conditions <span class="citation" data-cites="kosnik2016">(<a href="#ref-kosnik2016" role="doc-biblioref">Kosnik and Kowalewski 2016</a>)</span>.</p>
+<p>Historically, palaeoecology was at first a mostly descriptive and qualitative discipline, which was non-trivial: being able to reconstruct past environments from indirect proxies such as fossil pollen was a major scientific advancement! Since, laboratory and statistical methods have rapidly advanced with more accurate dating techniques, Bayesian age-depth modelling, and statistical analyses, allowing us to make more inferences about, for example, the timing and causes of ecological events. However, determining the synchroneity of events across time and space remains a major challenge to palaeo-science <span class="citation" data-cites="parnell2008">(<a href="#ref-parnell2008" role="doc-biblioref">Parnell et al. 2008</a>)</span>.</p>
+<p>Now, palaeoecology is also concerned with better understanding the underlying processes, and using the past to inform the future <span class="citation" data-cites="jackson2007">(<a href="#ref-jackson2007" role="doc-biblioref">Jackson 2007</a>)</span>. Understanding change in ecosystems may require data with a temporal extent (relative to the pressures they may be experiencing) that extends beyond sources such as instrumental monitoring data or written records. As such, palaeoecological methods can be used to increase understanding of how ecosystems and environments respond to changing climates, disturbances and anthropogenic pressures beyond data collected about current or recent historic conditions <span class="citation" data-cites="kosnik2016">(<a href="#ref-kosnik2016" role="doc-biblioref">Kosnik and Kowalewski 2016</a>)</span>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://royalsocietypublishing.org/cms/asset/3fa60131-834f-4658-9faa-7af81742940a/rsbl20150951f01.jpg" class="img-fluid figure-img"></p>
@@ -123,7 +123,8 @@ div.csl-indent {
 </figure>
 </div>
 <p>If palaeo-data are to be used to make inferences about the causes of contemporary ecosystem change, or predictions of future ecosystem states, it is crucial to quantify uncertainties about the data and test ecological theories. It is challenging to empirically test theories at the ecosystem level (e.g., the spacial extent captured by pollen in a lake sediment core), and over the time-scales required, often multiple generations of species. Thus various modelling approaches can be used to test hypotheses, theories, quantify uncertainty, and many other applications <span class="citation" data-cites="perry2016">(<a href="#ref-perry2016" role="doc-biblioref">Perry et al. 2016</a>)</span>.</p>
-<p>Modelling approaches range from the very precise (e.g., including as many processes and measurements as possible) to the very general. The utility of a model depends on the question ‘is it fit for purpose?’. We are going to implement a very general model devleloped by <span class="citation" data-cites="blaauw2010a">Blaauw, Bennett, and Christen (<a href="#ref-blaauw2010a" role="doc-biblioref">2010</a>)</span> designed to demonstrate a simple but important question for palaeoecologists. Can we differentiate ‘random’ patterns from causal processes?</p>
+<p>This general need has led to the development of proxy system models <span class="citation" data-cites="evans2013">(<a href="#ref-evans2013" role="doc-biblioref">Evans et al. 2013</a>)</span>, which try to represent the processes that relate the response of a proxy (or sensor) to the environmental or ecological signal of interest. T</p>
+<p>Modelling approaches range from the very precise (e.g., including as many processes and measurements as possible) to the very general. Some models are more deterministic, while others rely more on stochastic processes. The utility of any model depends on the question ‘Is it useful for its purpose?’. In this lab, we will implement a very general (and simple) model developed by <span class="citation" data-cites="blaauw2010a">Blaauw, Bennett, and Christen (<a href="#ref-blaauw2010a" role="doc-biblioref">2010</a>)</span> designed to demonstrate a simple but important question for palaeoecologists: Can we differentiate ‘random’ patterns from causal processes?</p>
 </section>
 <section id="homework" class="level1">
 <h1>Homework</h1>
@@ -179,10 +180,26 @@ Part 2: A little R Markdown
 <li><p>insert the functions <code>RandomEnv()</code> and <code>RandomProx()</code> (one in each of the two code chunks below <code>set.seed()</code>)</p></li>
 </ol></li>
 <li><p>Replace the two headings (the text follong the <code>##</code>) with your own headings and remove the template text</p></li>
-<li><p>Create a final heading using <code>## heading name</code> and comment on how you would visually interpret both plots above. Consider how you would interpret them as if they were empirical records vs how you know they were generated. Usually we would include statistical analyses but visual inspection is sufficient for today’s goals.</p></li>
-<li><p>Discuss the challenges of: (1) interpreting proxy records; (2) separating pattern vs process; and (3) determining causeal relationships between driver and response.</p></li>
+<li><p>Create a final heading using <code>## heading name</code> and comment on how you would visually interpret both plots above.</p></li>
 </ol>
-<p>Steps 6 and 7 can be in less than 500 words but we won’t word count. <span class="citation" data-cites="perry2016">Perry et al. (<a href="#ref-perry2016" role="doc-biblioref">2016</a>)</span> is a very useful discussion of different uses of modelling, including null models and pattern orientated modelling. Make sure your R Markdown script knits (it will generate an HTML file) and submit both your <code>.Rmd</code> and <code>.html</code> files to canvas.</p>
+<p>(Usually we would include statistical analyses but visual inspection is sufficient for today’s goals.)</p>
+</div>
+</div>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Part 3: Reflection
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p>Consider how you would interpret the time series that you’ve generated as if they were empirical records vs how you know they were generated.</p></li>
+<li><p>Without writing actual code, describe how you might try to build upon statistical simulations like these to answer questions and test hypotheses, e.g.&nbsp;(1) distingiush random variations versus ecological events caused by a climatic driver; (2) test for interactions among species; and (3) assess whether an ecological event seen across multiple sites is due to chance or indicates a true event observed at multiple locations. What additional variables or datasets would you incorporate? Would you work with real-world or simulated (pseudo-proxy data)? As usual in science, there is no single right answer and lots of ways of tackling an interesting question.</p></li>
+</ol>
+<p>These last two questions can be in less than 500 words but we won’t word count. <span class="citation" data-cites="perry2016">Perry et al. (<a href="#ref-perry2016" role="doc-biblioref">2016</a>)</span> is a very useful discussion of different uses of modelling, including null models and pattern-oriented modelling. You can include your answers in your R Markdown file. Make sure your R Markdown script knits (it will generate an HTML file) and submit both your <code>.Rmd</code> and <code>.html</code> files to canvas.</p>
 </div>
 </div>
 </section>

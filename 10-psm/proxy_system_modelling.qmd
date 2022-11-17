@@ -31,7 +31,7 @@ In the lab we will be discussing two related (but distinct) concepts: Proxy Syst
 
 - How do these two concepts relate to each other?
 
-We will have a informal round-table discussion so come with some notes, questions and/or further discussion points.
+We will have a informal round-table discussion, so come with some notes, questions, and/or further discussion points.
 
 
 # Goals
